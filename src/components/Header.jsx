@@ -22,8 +22,14 @@ export default function Header({ currentStatus }) {
       <header
         id="site-nav"
         role="banner"
-        className="sticky top-0 z-50 nav-backdrop border-b border-[#292C32]/80 transition-all duration-300"
+        className="sticky top-0 z-50 relative nav-backdrop transition-all duration-300"
       >
+        {/* Sinoog 2027 Metallic Gold Line — Top */}
+        <div
+          className="header-gold-line header-gold-line-top absolute top-0 left-0 right-0 h-[2px] pointer-events-none z-20"
+          aria-hidden="true"
+        />
+
         <div className="container-custom flex items-center justify-between h-18 py-3.5">
           {/* Brand Wordmark with authentic ARD logo */}
           <Link
@@ -93,6 +99,12 @@ export default function Header({ currentStatus }) {
           </div>
 
         </div>
+
+        {/* Sinoog 2027 Metallic Gold Line — Bottom */}
+        <div
+          className="header-gold-line header-gold-line-bottom absolute bottom-0 left-0 right-0 h-[2px] pointer-events-none z-20"
+          aria-hidden="true"
+        />
       </header>
     </>
   );

@@ -360,12 +360,24 @@ a {
   box-shadow: 0 0 0 3px rgba(214, 173, 99, 0.18);
 }
 
-/* ─── Sticky Header ──────────────────────────────────────────────── */
+/* ─── Sticky Header & Sinoog 2027 Gold Accent Lines ──────────────── */
 .nav-backdrop {
-  background: rgba(16, 17, 20, 0.85);
+  background: rgba(16, 17, 20, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(41, 44, 50, 0.7);
+}
+
+.header-gold-line {
+  background: linear-gradient(90deg, #b38128 0%, #e5b95c 18%, #fff4ce 50%, #e5b95c 82%, #b38128 100%);
+  box-shadow: 0 0 8px rgba(212, 167, 84, 0.45), 0 0 2px rgba(255, 244, 206, 0.7);
+}
+
+.header-gold-line-top {
+  box-shadow: 0 1px 6px rgba(212, 167, 84, 0.45);
+}
+
+.header-gold-line-bottom {
+  box-shadow: 0 1px 8px rgba(212, 167, 84, 0.5), 0 0 2px rgba(255, 244, 206, 0.7);
 }
 
 /* ─── Timeline ───────────────────────────────────────────────────── */
