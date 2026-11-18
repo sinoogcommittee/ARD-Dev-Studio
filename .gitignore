@@ -1,3 +1,7 @@
+# ============================================================================
+# Git Ignore Configuration: ARD Dev Studio
+# ============================================================================
+
 # Dependencies
 node_modules/
 .pnp
@@ -11,18 +15,27 @@ dist-ssr/
 .env
 .env.*
 !.env.example
+*.local
 
 # Supabase local CLI artifacts & temporary state
 .supabase/
+supabase/.temp/
 
-# Logs
+# Logs & debugging
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+*.log
 
-# Editor and OS
+# Vite & build cache
+.vite/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+.eslintcache
+
+# Editor and OS system files
 .DS_Store
 Thumbs.db
 .vscode/*
