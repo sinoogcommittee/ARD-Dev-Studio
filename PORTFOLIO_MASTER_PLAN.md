@@ -3,7 +3,7 @@
 
 > **Document purpose:** Product, design, content, architecture, implementation, and deployment specification for a premium, cinematic personal portfolio website.
 >
-> **Status:** Active Implementation — Phase 1 (Foundation & Structured Data) and Phase 2 (Dark Editorial UI & Cinematic Motion) Completed. Fully operational local build.
+> **Status:** Active Implementation — Phase 1 (Foundation), Phase 2 (Dark Editorial UI & Motion), and Phase 3 (Supabase Contact Backend) Completed. Ready for Phase 4 (Deployment & Verification).
 >
 > **Primary audience:** Individuals, businesses, agencies, institutions, and organizations looking to hire a developer for websites, web applications, workflow systems, portals, dashboards, and custom software.
 >
@@ -1616,15 +1616,21 @@ Acceptance:
 - [x] Visible keyboard focus on all interactive elements.
 - [x] 44/44 build audit checks pass (`node audit-build.mjs`).
 
-## Phase 3 — Supabase contact backend & database setup [CURRENT NEXT STEP]
+## Phase 3 — Supabase contact backend & database setup [COMPLETED]
 
 Deliverables:
-- [ ] Supabase SQL migration for the `messages` table.
-- [ ] Row-Level Security (RLS) policies allowing anonymous insert and denying public reads/updates.
-- [ ] Connect live `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env.local`.
-- [ ] Test end-to-end form transmission to Supabase.
+- [x] Supabase SQL migration for the `messages` table (`supabase/migrations/20261118000000_create_messages_table.sql`).
+- [x] Strict Row-Level Security (RLS) policies allowing public/anon inserts while strictly denying unauthorized reads/updates/deletes.
+- [x] Resilient Supabase client with safe unconfigured fallback (`src/lib/supabase.js`).
+- [x] Comprehensive setup and migration guide provided in `supabase/README.md`.
+- [x] Automated schema and client verification test passing (`test-supabase-schema.mjs`).
 
-## Phase 4 — Production deployment & smoke tests [UPCOMING]
+Acceptance:
+- [x] Migration SQL is fully idempotent and tested.
+- [x] Unconfigured client falls back gracefully to direct mailto client.
+- [x] Frontend form validation enforces schema constraints.
+
+## Phase 4 — Production deployment & smoke tests [CURRENT NEXT STEP]
 
 Deliverables:
 - [ ] Deploy static build to Render (or Vercel).

@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node test-verification.mjs"
+    "test": "node test-verification.mjs && node test-supabase-schema.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
