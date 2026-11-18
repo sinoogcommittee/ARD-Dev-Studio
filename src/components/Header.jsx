@@ -31,15 +31,19 @@ export default function Header() {
         className="sticky top-0 z-50 nav-backdrop border-b border-[#292C32]/80 transition-all duration-300"
       >
         <div className="container-custom flex items-center justify-between h-18 py-3.5">
-          {/* Brand Wordmark with gold accent */}
+          {/* Brand Wordmark with authentic ARD logo */}
           <a
             href="#main-content"
             onClick={(e) => handleNav(e, '#main-content')}
             aria-label="Anthony Riel C. Diango — Back to top"
             className="group flex items-center gap-3 transition-transform duration-200 hover:scale-[1.02]"
           >
-            <div className="w-9 h-9 rounded bg-[#17191E] border border-[#292C32] group-hover:border-[#D6AD63] flex items-center justify-center text-[#D6AD63] font-mono text-sm font-bold shadow-sm transition-colors">
-              RD
+            <div className="w-10 h-10 rounded-lg overflow-hidden bg-[#17191E] border border-[#D6AD63]/40 group-hover:border-[#D6AD63] group-hover:shadow-[0_0_16px_rgba(214,173,99,0.35)] transition-all flex items-center justify-center shrink-0">
+              <img
+                src="/images/logo.jpg"
+                alt="Anthony Riel Diango ARD Monogram Logo"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
             </div>
             <div className="flex flex-col">
               <span className="font-display font-bold text-base tracking-tight text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors leading-tight">

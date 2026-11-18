@@ -13,18 +13,25 @@
 ```text
 Portfolio/
 ├── .env.example              # VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY placeholders
-├── index.html                # Dark theme root HTML with fonts and meta tags
-├── package.json              # Scripts: dev, build, preview, test
+├── .gitignore                # Hardened against credentials, build outputs, and local state
+├── render.yaml               # Render Infrastructure as Code Blueprint for static SPA
+├── index.html                # Dark theme root HTML with fonts, brand icon, and OpenGraph tags
+├── package.json              # Scripts: dev, build, preview, test, test:live-supabase
 ├── tailwind.config.js        # Color and typography token mappings
 ├── audit-build.mjs           # Automated 44-point production bundle audit
 ├── test-verification.mjs     # 1:1 data integrity test suite against CONTENT.md
+├── test-supabase-schema.mjs  # Migration syntax & RLS test suite
+├── public/
+│   └── images/
+│       ├── logo.jpg          # Official 3D metallic ARD monogram emblem (favicon, header, footer)
+│       └── logodesign.jpg    # Official gold architectural blueprint seal (hero card, OpenGraph)
 └── src/
     ├── App.jsx               # Root component orchestrating page landmarks
     ├── index.css             # Design tokens, motion keyframes, and utility classes
     ├── main.jsx              # Application entry point
     ├── components/
-    │   ├── Header.jsx        # Sticky glass navigation with live availability & mobile drawer
-    │   ├── Hero.jsx          # Cinematic hero with particle canvas & magnetic CTAs
+    │   ├── Header.jsx        # Sticky glass navigation with brand emblem & mobile drawer
+    │   ├── Hero.jsx          # Cinematic hero with particle canvas, magnetic CTAs & 3D emblem card
     │   ├── ParticleCanvas.jsx# Interactive HTML5 ambient particle canvas
     │   ├── Counter.jsx       # Eased number counter for production metrics
     │   ├── ProjectGallery.jsx# Filterable, searchable gallery of all 16 deployments
@@ -32,7 +39,7 @@ Portfolio/
     │   ├── ProjectModal.jsx  # Dark glass architectural inspection dialog
     │   ├── AboutSection.jsx  # Technical skills grid, timeline, and accredited credentials
     │   ├── ContactSection.jsx# Direct channels (Email, Phone, FB) & Supabase fallback form
-    │   ├── Footer.jsx        # Semantic footer with navigation, location, and copyright
+    │   ├── Footer.jsx        # Semantic footer with brand badge, navigation, and copyright
     │   └── categoryMeta.js   # Domain accent colors, labels, and badges
     ├── data/
     │   ├── projects.js       # All 16 live deployments verified 1:1 with CONTENT.md
@@ -52,7 +59,8 @@ Portfolio/
 | **Phase 1: Foundation & Data** | **Completed** | Vite + React + Tailwind scaffolded; 16 projects and profile centralized in `src/data/`; safe Supabase helper created; 1:1 verification test passing. |
 | **Phase 2: Core Dark UI & Motion** | **Completed** | Full dark editorial theme implemented (`#101114`, `#D6AD63`); 5 cinematic motion modules active (3D tilt, particle canvas, counters, magnetic CTAs, modal); responsive mobile drawer; zero build errors. |
 | **Phase 3: Supabase Backend** | **Completed & Verified Live** | SQL migration created; live database `https://ndwwoxsgcegdqiyoipvj.supabase.co` connected; live insert & RLS verified via `npm run test:live-supabase`. |
-| **Phase 4: Deployment & DNS** | **In Progress** | `render.yaml` Blueprint configured with static build, SPA rewrite rules, security headers, and hardened `.gitignore`; ready to connect on Render. |
+| **Branding & Assets Integration** | **Completed** | Official ARD monogram and blueprint emblems integrated into Favicon, OpenGraph meta, Header, Hero 3D showcase, and Footer. |
+| **Phase 4: Render Blueprint & Config** | **Configured** | `render.yaml` Blueprint configured with static build, SPA rewrite rules (`/*` -> `/index.html`), caching headers, and security headers; hardened `.gitignore`. |
 
 ## Contact Form & Backend Resilience
 
@@ -61,8 +69,9 @@ Portfolio/
   - When configured: submits directly to Supabase `messages` table with validation.
   - When unconfigured: automatically operates in graceful fallback mode, preparing a direct `mailto:` draft with all user inputs so inquiries are never lost.
 
-## Next Steps
+## Next Steps (Launch & Hosting)
 
-1. **Supabase Schema Deployment**: Create and run the SQL migration script for the `messages` table with RLS enabled (allowing anonymous insert, restricting read/update/delete).
-2. **Environment Variable Configuration**: Add real Supabase keys to `.env.local` to enable live database writes.
-3. **Deployment Setup**: Add `render.yaml` or `vercel.json` SPA routing rewrites.
+1. **Repository Push**: Push changes to GitHub/Git remote.
+2. **Render Web Service Connection**: Connect repository to Render using `render.yaml` Blueprint (Singapore region, static site).
+3. **Environment Secrets on Render**: Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in Render dashboard environment settings for live production writes.
+4. **Production Smoke Testing & Lighthouse**: Test live Render URL for 60fps animations, mobile responsiveness, contact submissions, and Core Web Vitals.

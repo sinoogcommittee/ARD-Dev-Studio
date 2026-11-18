@@ -21,9 +21,13 @@ export default function Footer() {
           
           {/* Identity & Location */}
           <div className="md:col-span-5 space-y-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded bg-[#17191E] border border-[#D6AD63]/40 flex items-center justify-center text-[#D6AD63] font-mono text-xs font-bold">
-                RD
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-lg overflow-hidden bg-[#17191E] border border-[#D6AD63]/40 flex items-center justify-center shadow-[0_0_12px_rgba(214,173,99,0.2)] shrink-0">
+                <img
+                  src="/images/logo.jpg"
+                  alt="Anthony Riel Diango ARD Logo"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <span className="font-display font-bold text-lg text-[#F2F0EB]">
                 {profile.identity.name}
