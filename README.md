@@ -45,6 +45,11 @@ The site is built with a **project-first dark editorial aesthetic** (`#101114` c
 - **Mobile-First Responsive Ergonomics**:
   - **Full-Screen 3D Art Landing**: On mobile and tablet portrait devices, the 3D brand seal commands the initial viewport height.
   - **Floating Glass Navigation Dock** (`MobileFloatingNav.jsx`): Replaces traditional hamburger menus with an ergonomic bottom dock featuring active scroll intersection tracking.
+- **Installable Progressive Web App (PWA)**:
+  - Supports 1-tap installation as a mobile app on Android, iOS, and desktop browsers.
+  - Official App Name: **ARD Dev Studio** with authentic circular app icon (`ARDDevStudioCircleLogo.png`).
+  - Pre-caches core assets via `sw.js` for instant repeat loads and resilient offline performance.
+  - Native install prompt banner and iOS Safari "Add to Home Screen" visual guide (`InstallAppPrompt.jsx`).
 - **Built-in Studio Admin Portal** (`AdminPortal.jsx`):
   - In-app authenticated console (accessible via `#admin`, footer link, or `Ctrl+Shift+A`).
   - Read, filter, triage, reply to, and delete visitor inquiries submitted through the contact form.

@@ -6,6 +6,7 @@ import AboutSection from './components/AboutSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import MobileFloatingNav from './components/MobileFloatingNav';
+import InstallAppPrompt from './components/InstallAppPrompt';
 import { useSiteSettings } from './hooks/useSiteSettings';
 
 const AdminPortal = lazy(() => import('./components/AdminPortal'));
@@ -59,6 +60,9 @@ export default function App() {
 
       {/* Floating Bottom Navigation for Mobile & Tablet Portrait */}
       <MobileFloatingNav onOpenAdmin={() => setAdminOpen(true)} />
+
+      {/* PWA App Install Banner for Mobile & Desktop */}
+      <InstallAppPrompt />
 
       {adminOpen && (
         <Suspense fallback={null}>

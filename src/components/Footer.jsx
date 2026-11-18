@@ -1,7 +1,9 @@
 import { profile } from '../data/profile';
+import { usePWAInstall } from '../hooks/usePWAInstall';
 
 export default function Footer({ currentStatus, onOpenAdmin }) {
   const currentYear = new Date().getFullYear();
+  const { canInstall, isInstalled, installApp } = usePWAInstall();
 
   const handleScroll = (e, href) => {
     e.preventDefault();
@@ -134,6 +136,22 @@ export default function Footer({ currentStatus, onOpenAdmin }) {
                 {currentStatus || profile.identity.availability}
               </span>
             </div>
+
+            {canInstall && !isInstalled && (
+              <button
+                type="button"
+                onClick={installApp}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#17191E] border border-[#D6AD63]/50 text-[11px] text-[#D6AD63] hover:bg-[#D6AD63]/10 hover:border-[#D6AD63] transition-colors"
+                title="Install ARD Dev Studio application on your device"
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Install App</span>
+              </button>
+            )}
 
             <button
               type="button"

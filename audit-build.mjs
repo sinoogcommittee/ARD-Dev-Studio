@@ -21,6 +21,23 @@ assert('Meta viewport',                 html.includes('name="viewport"'));
 assert('Meta description',              html.includes('name="description"'));
 assert('Page title includes name',      html.includes('Anthony Riel C. Diango'));
 assert('Dark class or scheme in html',  html.includes('dark') || html.includes('color-scheme'));
+assert('PWA manifest linked',           html.includes('rel="manifest"') && html.includes('/manifest.json'));
+assert('Apple touch icon linked',       html.includes('rel="apple-touch-icon"'));
+assert('Application name meta',         html.includes('name="application-name"') && html.includes('ARD Dev Studio'));
+assert('Mobile web app capable meta',   html.includes('name="mobile-web-app-capable"'));
+
+// ── PWA & App Manifest ──────────────────────────────────────────────
+const manifestExists = fs.existsSync('dist/manifest.json');
+assert('PWA manifest exists in dist',   manifestExists);
+if (manifestExists) {
+  const manifest = JSON.parse(fs.readFileSync('dist/manifest.json', 'utf-8'));
+  assert('Manifest app name ARD Dev Studio', manifest.name === 'ARD Dev Studio');
+  assert('Manifest short_name ARD Dev Studio', manifest.short_name === 'ARD Dev Studio');
+  assert('Manifest display standalone', manifest.display === 'standalone');
+  assert('Manifest includes Circle Logo', manifest.icons.some(i => i.src.includes('ARDDevStudioCircleLogo.png')));
+}
+assert('Service worker exists in dist', fs.existsSync('dist/sw.js'));
+assert('PWA icons exist in dist',       fs.existsSync('dist/images/icon-192.png') && fs.existsSync('dist/images/icon-512.png'));
 
 // ── JS bundle — accessibility & semantic landmarks ───────────────────
 assert('Skip link present',             js.includes('skip-link'));
