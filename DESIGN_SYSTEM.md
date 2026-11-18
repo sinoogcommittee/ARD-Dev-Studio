@@ -1,29 +1,66 @@
 # Design System
 
-## Creative direction
+## Creative Direction
 
-Build a confident, editorial project gallery with a strong visual point of view. The work should feel like a curated collection of shipped digital products, not a generic resume template or dashboard. Let project presentation dominate the page; use the developer's Bohol location and practical engineering background as personal context.
+**Direction:** Premium Dark Editorial / Cinematic Technology Portfolio.
 
-## Visual principles
+The design establishes a high-contrast, polished, and deliberate visual point of view: a curated collection of shipped digital products built by an experienced Computer Engineer from Bohol, Philippines. It rejects generic resume templates and vibecoded cliches in favor of deep surfaces, crisp hairlines, warm-gold highlights, and purposeful 60fps motion.
 
-- Use a restrained, high-contrast palette with a warm paper-like base, deep ink text, and one vivid accent. Reserve the accent for calls to action, active filters, and selected details.
-- Pair a distinctive display face for large headlines with a highly readable sans-serif for body text and interface labels. Load fonts efficiently and provide system fallbacks.
-- Use generous whitespace, clear type hierarchy, crisp dividers, and varied but consistent project-card compositions.
-- Prefer real project screenshots or supplied assets when available. Until then, create intentional typographic/project-category treatments; do not use unrelated stock imagery or fake product screenshots.
-- Use a consistent spacing scale, rounded corners sparingly, and restrained shadows. Avoid visual clutter and decorative effects that compete with project titles.
+## Color Tokens & Palette
 
-## Motion and interaction
+| Token | Value | Role |
+|---|---|---|
+| `background` | `#101114` | Deep charcoal page background |
+| `surface` | `#17191E` | Card & panel background |
+| `surface-elevated` | `#1E2127` | Dialogs, elevated tags, and modal backdrop |
+| `border-subtle` | `#292C32` | Hairline card borders & section dividers |
+| `accent-gold` | `#D6AD63` | Primary warm-gold brand accent, active filters, CTAs |
+| `accent-gold-hover`| `#E5BE75` | Hover state for interactive gold elements |
+| `accent-gold-glow` | `rgba(214, 173, 99, 0.18)` | Ambient radial glow & cursor spotlight |
+| `text-primary` | `#F2F0EB` | High-contrast main headings & titles |
+| `text-secondary` | `#A1A1AA` | Highly readable body copy & descriptions |
+| `text-muted` | `#71717A` | Metadata labels & subtle timestamps |
 
-- Make the first viewport feel alive with a deliberate entrance sequence and subtle ambient movement.
-- Use short, consistent transitions for hover, filter, navigation, and section reveals. Keep project content readable during movement.
-- Use IntersectionObserver or CSS for scroll reveals; animate only transform and opacity where practical.
-- Give project cards responsive hover/focus affordances and a clear live-site action. Touch users must receive equivalent functionality.
-- Avoid scroll hijacking, excessive parallax, perpetual motion, and animation that delays access to content.
-- Under `prefers-reduced-motion: reduce`, remove nonessential movement and reveal delays.
+### Domain-Specific Luminous Accents
+- **Healthcare & Business Operations**: Emerald Teal (`#34d399`, `rgba(52, 211, 153, 0.15)` glow)
+- **Civic, Government & Tourism**: Cyan / Sky Blue (`#38bdf8`, `rgba(56, 189, 248, 0.15)` glow)
+- **Events, Registration & Scoring**: Electric Violet (`#c084fc`, `rgba(192, 132, 252, 0.15)` glow)
+- **Education & Institutional Systems**: Warm Amber (`#fbbf24`, `rgba(251, 191, 36, 0.15)` glow)
 
-## Layout and accessibility
+## Typography System
 
-- Mobile-first, fluid layout; project cards adapt cleanly from one column to a multi-column gallery.
-- Keep navigation and contact actions visible and easy to reach on small screens.
-- Use semantic landmarks, a logical heading order, visible keyboard focus, descriptive link text, and sufficient contrast.
-- Do not rely on color, hover, or motion alone to communicate state.
+- **Display & Headings**: `Space Grotesk` (weights 500, 600, 700) — distinctive geometric editorial headers.
+- **Body & Controls**: `Inter` (weights 300, 400, 500, 600) — clean, highly legible interface typography.
+- **Technical & Metadata**: `JetBrains Mono` (weights 400, 500, 600) — uppercase tags, metric counters, and URLs.
+- **Fallbacks**: System-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace.
+
+## Implemented Motion & Cinematic Architecture
+
+The portfolio implements 5 dedicated motion modules that guide user attention without compromising accessibility or performance:
+
+1. **Interactive HTML5 Particle Canvas (`ParticleCanvas.jsx`)**:
+   - Amber/gold nodes drift gently across the hero background and form faint filament connections when close.
+   - Gently responds to cursor proximity and automatically pauses when off-screen or when reduced-motion is requested.
+
+2. **3D Perspective Mouse Tilt & Cursor Spotlight (`useMouseTilt.js`)**:
+   - Cards calculate cursor distance from center and subtly tilt in 3D perspective (`perspective(1000px) rotateX(...) rotateY(...) translateZ(6px)`).
+   - Dynamic radial spotlight beam follows cursor position across the card surface.
+
+3. **Smooth Animated Number Counters (`Counter.jsx`)**:
+   - Production metrics (`16+` apps, `10+` years ops, `4` domains) smoothly count up using ease-out cubic interpolation upon entering the viewport via `IntersectionObserver`.
+
+4. **Magnetic Elastic CTA Buttons (`useMagnetic.js`)**:
+   - Primary action buttons softly gravitate toward the user's cursor on hover and spring back smoothly on leave.
+
+5. **Cinematic Project Inspection Drawer / Modal (`ProjectModal.jsx`)**:
+   - Clicking any project card opens a dark glass inspection dialog displaying full architecture scope, verified technology tags, host telemetry, and direct launch actions. Supports ESC key dismissal and body scroll locking.
+
+6. **Scroll Reveal Choreography (`useScrollReveal.jsx`)**:
+   - Sections and cards fade and translate smoothly into view using hardware-accelerated `transform` and `opacity`.
+
+## Accessibility & Reduced-Motion Guarantees
+
+- **`prefers-reduced-motion: reduce`**: A dedicated global media query overrides all animations and transitions (`0.01ms`), disables canvas particle animation, disables 3D tilt, and immediately displays final counter numbers.
+- **Visible Keyboard Focus**: Universal 2px gold outline (`:focus-visible`) on all interactive buttons, cards, and links.
+- **Contrast**: Text contrast meets WCAG AA (minimum 4.5:1 for body, 3:1 for large headings against `#101114`).
+- **Semantic HTML**: Proper landmarks (`<header role="banner">`, `<main id="main-content">`, `<footer role="contentinfo">`, `<nav aria-label="...">`).

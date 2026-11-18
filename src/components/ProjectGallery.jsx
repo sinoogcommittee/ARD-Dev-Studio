@@ -1,11 +1,13 @@
 import { useState, useMemo } from 'react';
 import { projects, PROJECT_CATEGORIES } from '../data/projects';
 import ProjectCard from './ProjectCard';
+import ProjectModal from './ProjectModal';
 import { RevealDiv } from '../hooks/useScrollReveal';
 
 export default function ProjectGallery() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedProject, setSelectedProject] = useState(null);
 
   // Sorted list: featured cross-domain projects first, then remainder
   const sortedProjects = useMemo(() => {
@@ -52,7 +54,7 @@ export default function ProjectGallery() {
           </h2>
           <p className="text-base sm:text-lg text-[#A1A1AA] leading-relaxed">
             All 16 production applications deployed live on the web, spanning healthcare,
-            civic governance, sports tabulation, and educational platforms.
+            civic governance, sports tabulation, and educational platforms. Click any card to inspect architecture.
           </p>
         </RevealDiv>
 
@@ -141,7 +143,7 @@ export default function ProjectGallery() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project, index) => (
             <RevealDiv key={project.id} delay={Math.min(index * 45, 300)}>
-              <ProjectCard project={project} />
+              <ProjectCard project={project} onSelect={setSelectedProject} />
             </RevealDiv>
           ))}
         </div>
@@ -167,6 +169,14 @@ export default function ProjectGallery() {
           </div>
         )}
       </div>
+
+      {/* ─── Cinematic Project Inspection Modal ───────────────────────── */}
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </section>
   );
 }

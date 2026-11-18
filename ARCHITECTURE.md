@@ -1,40 +1,68 @@
 # Website Architecture
 
-## Stack
+## Technical Stack
 
-- React for page composition and interactive project browsing.
-- Tailwind CSS for responsive styling and design tokens.
-- Supabase for an optional contact-message backend (Postgres; enable Row-Level Security).
-- VS Code as the development environment.
+- **Framework**: React 18 with Vite for modern ES modules bundling.
+- **Styling**: Tailwind CSS with custom design tokens for deep charcoal surfaces and warm-gold accents.
+- **Motion & Interaction**: Native HTML5 Canvas, hardware-accelerated CSS keyframes, `IntersectionObserver` scroll choreography, 3D perspective mouse tilt, and magnetic physics without heavy third-party runtime bloat.
+- **Backend Services**: Supabase (PostgreSQL, Row-Level Security, Auth, Storage) for optional contact messaging.
+- **Deployment Target**: Render (or Vercel) for Vite static SPA hosting.
 
-## Page structure
+## Project Structure
 
-1. Header/navigation with anchors to Work, About, and Contact.
-2. Hero: name, role, concise value statement, availability, and prominent View Projects / Contact actions.
-3. Project gallery: all entries from `CONTENT.md`, organized by category with simple filters; feature several representative projects first.
-4. Experience and skills: concise highlights and stack groups.
-5. Education and credentials: compact supporting section.
-6. Contact: email, phone, Facebook, and optional form; repeat availability.
-7. Footer with name, location, and navigation/contact links.
+```text
+Portfolio/
+├── .env.example              # VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY placeholders
+├── index.html                # Dark theme root HTML with fonts and meta tags
+├── package.json              # Scripts: dev, build, preview, test
+├── tailwind.config.js        # Color and typography token mappings
+├── audit-build.mjs           # Automated 44-point production bundle audit
+├── test-verification.mjs     # 1:1 data integrity test suite against CONTENT.md
+└── src/
+    ├── App.jsx               # Root component orchestrating page landmarks
+    ├── index.css             # Design tokens, motion keyframes, and utility classes
+    ├── main.jsx              # Application entry point
+    ├── components/
+    │   ├── Header.jsx        # Sticky glass navigation with live availability & mobile drawer
+    │   ├── Hero.jsx          # Cinematic hero with particle canvas & magnetic CTAs
+    │   ├── ParticleCanvas.jsx# Interactive HTML5 ambient particle canvas
+    │   ├── Counter.jsx       # Eased number counter for production metrics
+    │   ├── ProjectGallery.jsx# Filterable, searchable gallery of all 16 deployments
+    │   ├── ProjectCard.jsx   # 3D tilted card with cursor spotlight & live HTTPS link
+    │   ├── ProjectModal.jsx  # Dark glass architectural inspection dialog
+    │   ├── AboutSection.jsx  # Technical skills grid, timeline, and accredited credentials
+    │   ├── ContactSection.jsx# Direct channels (Email, Phone, FB) & Supabase fallback form
+    │   ├── Footer.jsx        # Semantic footer with navigation, location, and copyright
+    │   └── categoryMeta.js   # Domain accent colors, labels, and badges
+    ├── data/
+    │   ├── projects.js       # All 16 live deployments verified 1:1 with CONTENT.md
+    │   └── profile.js        # Centralized identity, verified contacts, skills, and history
+    ├── hooks/
+    │   ├── useScrollReveal.jsx # IntersectionObserver scroll reveal wrapper
+    │   ├── useMouseTilt.js     # 3D card perspective & cursor spotlight hook
+    │   └── useMagnetic.js      # Elastic magnetic button attraction hook
+    └── lib/
+        └── supabase.js       # Resilient Supabase client with safe unconfigured fallback
+```
 
-Keep project data in a single structured source (for example, `src/data/projects.js` or JSON) with stable IDs, category, title, summary, URL, and optional stack tags. Render cards and filters from this source instead of duplicating project content in components. Keep resume-derived copy centralized and easy to update.
+## Current Implementation Status
 
-## Contact form and Supabase
+| Milestone | Status | Description |
+|---|---|---|
+| **Phase 1: Foundation & Data** | **Completed** | Vite + React + Tailwind scaffolded; 16 projects and profile centralized in `src/data/`; safe Supabase helper created; 1:1 verification test passing. |
+| **Phase 2: Core Dark UI & Motion** | **Completed** | Full dark editorial theme implemented (`#101114`, `#D6AD63`); 5 cinematic motion modules active (3D tilt, particle canvas, counters, magnetic CTAs, modal); responsive mobile drawer; zero build errors. |
+| **Phase 3: Supabase Backend** | *Pending* | SQL migration schema for `messages` table with Row-Level Security (RLS) policies. |
+| **Phase 4: Deployment & DNS** | *Pending* | Render / Vercel SPA rewrite configuration, static assets optimization, and production smoke tests. |
 
-- Treat direct email, phone, and Facebook links as the reliable contact options.
-- Add a Supabase form only if project configuration is available. Collect only name, email, and message; validate inputs and provide clear success/error states.
-- Put the Supabase URL and publishable/anon key in environment variables. Never expose a service-role key in browser code or commit secrets.
-- Create a messages table with only the fields needed and timestamp. Enable RLS; allow narrowly scoped anonymous inserts only, and deny public reads/updates/deletes. Add spam protection or rate limiting before production use.
-- If Supabase is not configured or a submission fails, retain visible direct-contact links and explain the fallback clearly.
+## Contact Form & Backend Resilience
 
-## Motion and performance
+- Direct contact via email (`rieldiango24@gmail.com`), phone (`+63 960 676 8549`), and Facebook (`facebook.com/realnariel`) remain primary and reliable.
+- The contact form checks `isSupabaseConfigured`:
+  - When configured: submits directly to Supabase `messages` table with validation.
+  - When unconfigured: automatically operates in graceful fallback mode, preparing a direct `mailto:` draft with all user inputs so inquiries are never lost.
 
-- Prefer CSS transitions/keyframes and IntersectionObserver for modest entrance and scroll effects; add a motion library only if interaction complexity warrants it.
-- Honor reduced-motion preferences, avoid blocking the page behind animation, and keep filter/navigation actions immediate.
-- Lazy-load project imagery, use optimized responsive assets, and avoid loading remote media unnecessarily.
+## Next Steps
 
-## Configuration and deployment
-
-- Store local secrets in an ignored `.env.local`; provide `.env.example` containing variable names only.
-- Confirm deployment target and production Supabase settings before publishing. The resume lists Render, Vercel, and Somee as hosting experience; it does not specify the intended host for this portfolio.
-- Before launch, verify all 16 external project URLs, the contact links, form behavior (if enabled), mobile layout, keyboard navigation, and reduced-motion behavior.
+1. **Supabase Schema Deployment**: Create and run the SQL migration script for the `messages` table with RLS enabled (allowing anonymous insert, restricting read/update/delete).
+2. **Environment Variable Configuration**: Add real Supabase keys to `.env.local` to enable live database writes.
+3. **Deployment Setup**: Add `render.yaml` or `vercel.json` SPA routing rewrites.

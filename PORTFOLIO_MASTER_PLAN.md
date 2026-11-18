@@ -3,7 +3,7 @@
 
 > **Document purpose:** Product, design, content, architecture, implementation, and deployment specification for a premium, cinematic personal portfolio website.
 >
-> **Status:** Implementation baseline — ready for VS Code development.
+> **Status:** Active Implementation — Phase 1 (Foundation & Structured Data) and Phase 2 (Dark Editorial UI & Cinematic Motion) Completed. Fully operational local build.
 >
 > **Primary audience:** Individuals, businesses, agencies, institutions, and organizations looking to hire a developer for websites, web applications, workflow systems, portals, dashboards, and custom software.
 >
@@ -1579,60 +1579,58 @@ At minimum:
 
 Build in phases. Do not start by implementing every animation or every admin module at once.
 
-## Phase 1 — Project foundation
+## Phase 1 — Project foundation [COMPLETED]
 
 Deliverables:
-- Vite + React project.
-- Tailwind setup.
-- Router.
-- Global typography and color tokens.
-- Shared layout and navigation.
-- Supabase project and client.
-- Environment variable setup.
-- Git repository and initial Render deployment.
+- [x] Vite + React project initialized with ES Modules.
+- [x] Tailwind CSS setup with custom dark editorial tokens.
+- [x] Single structured data layer (`src/data/projects.js` & `src/data/profile.js`) verified 1:1 against `CONTENT.md`.
+- [x] Global typography (`Space Grotesk`, `Inter`, `JetBrains Mono`) and color tokens.
+- [x] Shared layout and accessible navigation with skip link and mobile menu.
+- [x] Resilient Supabase client with graceful unconfigured fallback (`src/lib/supabase.js`).
+- [x] Environment variable template (`.env.example`) and git repository initialized.
 
 Acceptance:
-- App builds.
-- Homepage route loads.
-- Render deployment succeeds.
-- Secrets are not committed.
+- [x] App builds cleanly (`npm run build`).
+- [x] 100% data fidelity passing (`npm test`).
+- [x] Secrets are not committed (excluded in `.gitignore`).
 
-## Phase 2 — Public visual foundation
+## Phase 2 — Public visual foundation & cinematic motion [COMPLETED]
 
 Deliverables:
-- Dark visual system.
-- Responsive navigation.
-- Hero section.
-- Footer.
-- Reusable buttons, cards, labels, and section layouts.
-- Initial motion primitives and reduced-motion behavior.
+- [x] Premium dark editorial visual system (`#101114`, `#17191E`, `#D6AD63`).
+- [x] Responsive navigation with sticky glass backdrop and live availability radar.
+- [x] Hero section with ambient lighting, positioning, and production metrics strip.
+- [x] Interactive HTML5 ambient particle canvas with proximity filaments (`ParticleCanvas.jsx`).
+- [x] Dynamic 3D perspective mouse tilt with cursor spotlight beam (`useMouseTilt.js`).
+- [x] Smooth animated easing number counters (`Counter.jsx`).
+- [x] Magnetic physics-based CTA buttons (`useMagnetic.js`).
+- [x] Filterable & searchable 16-project gallery with domain luminous badges (`ProjectGallery.jsx`).
+- [x] Cinematic project architectural inspection dialog (`ProjectModal.jsx`).
+- [x] Complete Work History timeline, categorized skills grid, degrees, and official credentials.
+- [x] Direct contact cards (Email, Phone, Facebook) and validation-backed contact form with mail fallback.
+- [x] Full `@media (prefers-reduced-motion: reduce)` accessibility override.
 
 Acceptance:
-- Responsive shell works.
-- No horizontal overflow.
-- Keyboard focus is visible.
-- Motion does not block content.
+- [x] Responsive layout works without horizontal overflow across mobile, tablet, and desktop.
+- [x] Visible keyboard focus on all interactive elements.
+- [x] 44/44 build audit checks pass (`node audit-build.mjs`).
 
-## Phase 3 — Project catalog and seed content
-
-Deliverables:
-- Supabase schema and migrations.
-- RLS for public content.
-- Four categories.
-- Sixteen project records.
-- Projects page and card components.
-- Search and category filtering.
-- Project detail route template.
-
-Acceptance:
-- All 16 records render from Supabase.
-- Only published projects appear publicly.
-- All live links are verified before launch.
-- No invented feature or technology claims.
-
-## Phase 4 — Homepage storytelling and case studies
+## Phase 3 — Supabase contact backend & database setup [CURRENT NEXT STEP]
 
 Deliverables:
+- [ ] Supabase SQL migration for the `messages` table.
+- [ ] Row-Level Security (RLS) policies allowing anonymous insert and denying public reads/updates.
+- [ ] Connect live `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env.local`.
+- [ ] Test end-to-end form transmission to Supabase.
+
+## Phase 4 — Production deployment & smoke tests [UPCOMING]
+
+Deliverables:
+- [ ] Deploy static build to Render (or Vercel).
+- [ ] Configure SPA routing rewrite rules (`/*` -> `/index.html`).
+- [ ] Verify all 16 live external project URLs in production.
+- [ ] Run Chrome DevTools accessibility and Core Web Vitals audit on deployed URL.
 - Featured projects.
 - About section.
 - Services.

@@ -1,7 +1,12 @@
 import { profile } from '../data/profile';
-import { projects } from '../data/projects';
+import ParticleCanvas from './ParticleCanvas';
+import Counter from './Counter';
+import { useMagnetic } from '../hooks/useMagnetic';
 
 export default function Hero() {
+  const { ref: btnPrimaryRef, style: btnPrimaryStyle } = useMagnetic(0.25);
+  const { ref: btnOutlineRef, style: btnOutlineStyle } = useMagnetic(0.2);
+
   const handleScroll = (e, href) => {
     e.preventDefault();
     const target = document.querySelector(href);
@@ -16,6 +21,9 @@ export default function Hero() {
       aria-label="Introduction"
       className="relative min-h-[92vh] flex items-center justify-center overflow-hidden border-b border-[#292C32] bg-[#101114] py-20 lg:py-28"
     >
+      {/* ─── Interactive Background Particle Canvas ─────────────────── */}
+      <ParticleCanvas />
+
       {/* ─── Cinematic Ambient Lighting & Background Elements ───────── */}
       <div
         aria-hidden="true"
@@ -33,7 +41,7 @@ export default function Hero() {
       {/* Grid Mesh Overlay with subtle fade mask */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 opacity-[0.14] pointer-events-none"
+        className="absolute inset-0 opacity-[0.12] pointer-events-none"
         style={{
           backgroundImage:
             'linear-gradient(to right, #292C32 1px, transparent 1px), linear-gradient(to bottom, #292C32 1px, transparent 1px)',
@@ -82,56 +90,60 @@ export default function Hero() {
             </p>
           </div>
 
-          {/* Primary Action Buttons */}
+          {/* Primary Action Buttons with Magnetic Physics */}
           <div className="anim-fade-up anim-delay-4 flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-14">
-            <a
-              href="#work"
-              onClick={(e) => handleScroll(e, '#work')}
-              className="btn-gold-primary group text-sm sm:text-base font-semibold px-6 py-3.5"
-            >
-              <span>Explore 16 Deployments</span>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="transition-transform group-hover:translate-y-0.5"
+            <div ref={btnPrimaryRef} style={btnPrimaryStyle}>
+              <a
+                href="#work"
+                onClick={(e) => handleScroll(e, '#work')}
+                className="btn-gold-primary group text-sm sm:text-base font-semibold px-6 py-3.5"
               >
-                <path d="M7 13l5 5 5-5M12 6v12" />
-              </svg>
-            </a>
+                <span>Explore 16 Deployments</span>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="transition-transform group-hover:translate-y-0.5"
+                >
+                  <path d="M7 13l5 5 5-5M12 6v12" />
+                </svg>
+              </a>
+            </div>
 
-            <a
-              href="#contact"
-              onClick={(e) => handleScroll(e, '#contact')}
-              className="btn-dark-outline text-sm sm:text-base px-6 py-3.5"
-            >
-              <span>Discuss a Project</span>
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <div ref={btnOutlineRef} style={btnOutlineStyle}>
+              <a
+                href="#contact"
+                onClick={(e) => handleScroll(e, '#contact')}
+                className="btn-dark-outline text-sm sm:text-base px-6 py-3.5"
               >
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
+                <span>Discuss a Project</span>
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
           </div>
 
-          {/* ─── Production Metrics Strip ───────────────────────────── */}
+          {/* ─── Production Metrics Strip with Animated Counters ──────── */}
           <div className="anim-fade-up anim-delay-5 pt-8 border-t border-[#292C32]/80 grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
             <div className="flex flex-col">
               <span className="font-mono text-2xl sm:text-3xl font-bold text-[#F2F0EB]">
-                16<span className="text-[#D6AD63]">+</span>
+                <Counter end={16} suffix="+" />
               </span>
               <span className="font-mono text-xs uppercase text-[#A1A1AA] tracking-wider mt-1">
                 Live Deployed Apps
@@ -140,7 +152,7 @@ export default function Hero() {
 
             <div className="flex flex-col">
               <span className="font-mono text-2xl sm:text-3xl font-bold text-[#F2F0EB]">
-                10<span className="text-[#D6AD63]">+</span>
+                <Counter end={10} suffix="+" />
               </span>
               <span className="font-mono text-xs uppercase text-[#A1A1AA] tracking-wider mt-1">
                 Years IT &amp; Database Ops
@@ -149,7 +161,7 @@ export default function Hero() {
 
             <div className="flex flex-col">
               <span className="font-mono text-2xl sm:text-3xl font-bold text-[#F2F0EB]">
-                4
+                <Counter end={4} />
               </span>
               <span className="font-mono text-xs uppercase text-[#A1A1AA] tracking-wider mt-1">
                 Core Domains

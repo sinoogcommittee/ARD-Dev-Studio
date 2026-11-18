@@ -1,25 +1,45 @@
 import { getCategoryMeta } from './categoryMeta';
+import { useMouseTilt } from '../hooks/useMouseTilt';
 
 /**
  * Premium Dark Editorial Project Card.
- * Features intentional typographic branding, category luminous indicator,
- * technology stack chips, and prominent live deployment access.
+ * Integrated with dynamic 3D perspective tilt, cursor spotlight tracking,
+ * and quick-inspection drawer trigger.
  */
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, onSelect }) {
   const meta = getCategoryMeta(project.category);
+  const { ref, tiltStyle, spotlightPos } = useMouseTilt(6);
+
+  const handleCardClick = (e) => {
+    // If the click is inside a link or button, let that action happen naturally
+    if (e.target.closest('a')) return;
+    if (onSelect) {
+      onSelect(project);
+    }
+  };
 
   return (
     <article
-      className="card-dark group flex flex-col justify-between p-6 sm:p-7 relative transition-all duration-300"
-      aria-label={`${project.title} — ${meta.shortLabel}`}
-      style={{
-        '--card-accent': meta.accentColor,
-      }}
+      ref={ref}
+      style={tiltStyle}
+      onClick={handleCardClick}
+      className="card-dark group flex flex-col justify-between p-6 sm:p-7 relative cursor-pointer select-none"
+      aria-label={`${project.title} — ${meta.shortLabel}. Click to inspect architecture details.`}
     >
-      {/* Ambient background monogram glow */}
+      {/* Dynamic Cursor Spotlight Beam */}
       <div
         aria-hidden="true"
-        className="absolute -right-2 -bottom-4 font-display font-extrabold text-8xl text-white/[0.02] group-hover:text-white/[0.05] group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
+        className="absolute inset-0 pointer-events-none transition-opacity duration-200"
+        style={{
+          opacity: spotlightPos.opacity,
+          background: `radial-gradient(circle 220px at ${spotlightPos.x}% ${spotlightPos.y}%, ${meta.glowColor}, transparent 70%)`,
+        }}
+      />
+
+      {/* Ambient background monogram watermark */}
+      <div
+        aria-hidden="true"
+        className="absolute -right-2 -bottom-4 font-display font-extrabold text-8xl text-white/[0.02] group-hover:text-white/[0.06] group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
       >
         {project.title.charAt(0)}
       </div>
@@ -34,7 +54,7 @@ export default function ProjectCard({ project }) {
       />
 
       {/* Header: Category Badge & Featured Flag */}
-      <div className="flex items-center justify-between gap-3 mb-4">
+      <div className="flex items-center justify-between gap-3 mb-4 relative z-10">
         <span
           className={`font-mono text-[11px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider ${meta.badgeClass}`}
         >
@@ -52,7 +72,7 @@ export default function ProjectCard({ project }) {
       </div>
 
       {/* Project Title & Description */}
-      <div className="flex-1 mb-6">
+      <div className="flex-1 mb-6 relative z-10">
         <h3 className="font-display text-xl font-bold text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors leading-snug mb-2.5">
           {project.title}
         </h3>
@@ -63,7 +83,7 @@ export default function ProjectCard({ project }) {
       </div>
 
       {/* Technology Stack Tags */}
-      <div className="mb-6 flex flex-wrap gap-1.5">
+      <div className="mb-6 flex flex-wrap gap-1.5 relative z-10">
         {project.stack.map((tag) => (
           <span key={tag} className="tech-chip">
             {tag}
@@ -72,13 +92,13 @@ export default function ProjectCard({ project }) {
       </div>
 
       {/* Footer / Live Deployment Call to Action */}
-      <div className="pt-4 border-t border-[#292C32]/70 flex items-center justify-between">
+      <div className="pt-4 border-t border-[#292C32]/70 flex items-center justify-between relative z-10">
         <a
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Open ${project.title} live deployment (opens in new tab)`}
-          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#D6AD63] hover:text-[#E5BE75] group/link transition-colors"
+          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#D6AD63] hover:text-[#E5BE75] group/link transition-colors py-1"
         >
           <span>Launch Live Site</span>
           <svg
@@ -97,9 +117,15 @@ export default function ProjectCard({ project }) {
           </svg>
         </a>
 
-        <span className="font-mono text-[10px] text-[#71717A] tracking-wider truncate max-w-[140px] opacity-70">
-          {new URL(project.liveUrl).hostname}
-        </span>
+        <button
+          type="button"
+          onClick={() => onSelect && onSelect(project)}
+          className="font-mono text-[11px] text-[#A1A1AA] hover:text-[#F2F0EB] transition-colors flex items-center gap-1 focus:outline-none"
+          aria-label={`View architecture details for ${project.title}`}
+        >
+          <span>Inspect</span>
+          <span>→</span>
+        </button>
       </div>
     </article>
   );
