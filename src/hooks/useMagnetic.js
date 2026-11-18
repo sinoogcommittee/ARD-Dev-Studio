@@ -1,49 +1,41 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { useMotionValue, useSpring } from 'motion/react';
+import { useReducedMotion } from './useReducedMotion';
 
-/**
- * Hook for subtle magnetic button physics.
- * Pulls button slightly toward the cursor on hover.
- */
-export function useMagnetic(pull = 0.28) {
+/** Desktop-only magnetic attraction with spring return and a 40px capture zone. */
+export function useMagnetic(pull = 0.16) {
   const ref = useRef(null);
-  const [style, setStyle] = useState({});
+  const reduced = useReducedMotion();
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const x = useSpring(rawX, { stiffness: 280, damping: 22, mass: 0.45 });
+  const y = useSpring(rawY, { stiffness: 280, damping: 22, mass: 0.45 });
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
-
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     const element = ref.current;
-    if (!element) return;
+    if (reduced || !finePointer || !element) return undefined;
 
-    const handleMouseMove = (e) => {
+    const handleMove = (event) => {
       const rect = element.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const deltaX = (e.clientX - centerX) * pull;
-      const deltaY = (e.clientY - centerY) * pull;
-
-      setStyle({
-        transform: `translate3d(${deltaX.toFixed(1)}px, ${deltaY.toFixed(1)}px, 0)`,
-        transition: 'transform 100ms ease-out',
-      });
+      const dx = event.clientX - (rect.left + rect.width / 2);
+      const dy = event.clientY - (rect.top + rect.height / 2);
+      const reach = Math.max(rect.width, rect.height) / 2 + 40;
+      const distance = Math.hypot(dx, dy);
+      if (distance > reach) return;
+      const falloff = 1 - Math.min(1, Math.max(0, (distance - Math.min(rect.width, rect.height) / 2) / 40));
+      rawX.set(dx * pull * falloff);
+      rawY.set(dy * pull * falloff);
     };
+    const reset = () => { rawX.set(0); rawY.set(0); };
 
-    const handleMouseLeave = () => {
-      setStyle({
-        transform: 'translate3d(0, 0, 0)',
-        transition: 'transform 350ms cubic-bezier(0.16, 1, 0.3, 1)',
-      });
-    };
-
-    element.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mouseleave', handleMouseLeave);
-
+    element.addEventListener('pointermove', handleMove, { passive: true });
+    element.addEventListener('pointerleave', reset);
     return () => {
-      element.removeEventListener('mousemove', handleMouseMove);
-      element.removeEventListener('mouseleave', handleMouseLeave);
+      element.removeEventListener('pointermove', handleMove);
+      element.removeEventListener('pointerleave', reset);
     };
-  }, [pull]);
+  }, [pull, rawX, rawY, reduced]);
 
-  return { ref, style };
+  return { ref, style: { x: reduced ? 0 : x, y: reduced ? 0 : y } };
 }

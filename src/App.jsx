@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProjectGallery from './components/ProjectGallery';
 import AboutSection from './components/AboutSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
-import AdminPortal from './components/AdminPortal';
 import MobileFloatingNav from './components/MobileFloatingNav';
 import { useSiteSettings } from './hooks/useSiteSettings';
+
+const AdminPortal = lazy(() => import('./components/AdminPortal'));
 
 export default function App() {
   const { currentStatus, updateStatus } = useSiteSettings();
@@ -59,12 +60,16 @@ export default function App() {
       {/* Floating Bottom Navigation for Mobile & Tablet Portrait */}
       <MobileFloatingNav onOpenAdmin={() => setAdminOpen(true)} />
 
-      <AdminPortal
-        isOpen={adminOpen}
-        onClose={handleCloseAdmin}
-        currentStatus={currentStatus}
-        onStatusUpdated={updateStatus}
-      />
+      {adminOpen && (
+        <Suspense fallback={null}>
+          <AdminPortal
+            isOpen={adminOpen}
+            onClose={handleCloseAdmin}
+            currentStatus={currentStatus}
+            onStatusUpdated={updateStatus}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

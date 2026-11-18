@@ -1,248 +1,152 @@
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { profile } from '../data/profile';
-import ParticleCanvas from './ParticleCanvas';
 import Counter from './Counter';
+import HeroBlueprintCanvas from './motion/HeroBlueprintCanvas';
+import HeroCenterpiece from './motion/HeroCenterpiece';
 import { useMagnetic } from '../hooks/useMagnetic';
-import { useMouseTilt } from '../hooks/useMouseTilt';
+import { useReducedMotion } from '../hooks/useReducedMotion';
+import { useScrambleText } from '../hooks/useScrambleText';
 
-export default function Hero({ currentStatus }) {
-  const { ref: btnPrimaryRef, style: btnPrimaryStyle } = useMagnetic(0.25);
-  const { ref: btnOutlineRef, style: btnOutlineStyle } = useMagnetic(0.2);
-  const { ref: emblemRef, tiltStyle: emblemTiltStyle, spotlightPos: emblemSpotlight } = useMouseTilt(7);
+const SYSTEM_DOMAINS = [
+  'Civic Portals',
+  'Athletic Scoring Engines',
+  'School MIS',
+  'Clinic Management',
+  'Event Hubs',
+];
+const SPECIALTIES = [
+  'Production Systems',
+  'Civic & LGU Portals',
+  'Live Scoring Engines',
+  'School & Clinic Apps',
+];
+const EYEBROW = 'ANTHONY RIEL C. DIANGO · FULL-STACK WEB DEVELOPER';
+const GsapHeroParallax = lazy(() => import('./motion/GsapHeroParallax'));
 
-  const handleScroll = (e, href) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+export default function Hero() {
+  const heroRef = useRef(null);
+  const centerpieceRef = useRef(null);
+  const [specialtyIndex, setSpecialtyIndex] = useState(0);
+  const reduced = useReducedMotion();
+  const eyebrow = useScrambleText(EYEBROW);
+  const { ref: primaryRef, style: primaryStyle } = useMagnetic(0.12);
+  const { ref: secondaryRef, style: secondaryStyle } = useMagnetic(0.12);
+  const [enableDesktopParallax, setEnableDesktopParallax] = useState(false);
+
+  useEffect(() => {
+    if (reduced) {
+      setSpecialtyIndex(0);
+      return undefined;
     }
+    const timer = window.setInterval(() => {
+      setSpecialtyIndex((current) => (current + 1) % SPECIALTIES.length);
+    }, 3000);
+    return () => window.clearInterval(timer);
+  }, [reduced]);
+
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const update = () => setEnableDesktopParallax(!reduced && desktop.matches);
+    update();
+    desktop.addEventListener?.('change', update);
+    return () => desktop.removeEventListener?.('change', update);
+  }, [reduced]);
+
+  const scrollTo = (href) => (event) => {
+    event.preventDefault();
+    const behavior = reduced ? 'auto' : 'smooth';
+    document.querySelector(href)?.scrollIntoView({ behavior, block: 'start' });
   };
 
   return (
     <section
       id="main-content"
+      ref={heroRef}
       aria-label="Introduction"
-      className="relative min-h-[92vh] flex items-center justify-center overflow-hidden border-b border-[#292C32] bg-[#101114] py-0 lg:py-24"
+      className="hero-shell relative flex items-center overflow-hidden border-b border-[#292C32] bg-[#101114]"
     >
-      {/* ─── Interactive Background Particle Canvas ─────────────────── */}
-      <ParticleCanvas />
+      <HeroBlueprintCanvas />
+      {enableDesktopParallax && (
+        <Suspense fallback={null}>
+          <GsapHeroParallax heroRef={heroRef} centerpieceRef={centerpieceRef} />
+        </Suspense>
+      )}
 
-      {/* ─── Cinematic Ambient Lighting & Background Elements ───────── */}
-      <div
-        aria-hidden="true"
-        className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-[#D6AD63]/10 rounded-full blur-[140px] pointer-events-none"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute -top-10 right-10 w-[350px] h-[350px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute bottom-0 left-10 w-[400px] h-[300px] bg-emerald-500/5 rounded-full blur-[130px] pointer-events-none"
-      />
+      <div className="container-custom hero-layout-container relative z-10 w-full">
+        <div className="hero-layout-grid">
+          <div ref={centerpieceRef} className="hero-art-column">
+            <HeroCenterpiece />
+          </div>
 
-      {/* Grid Mesh Overlay with subtle fade mask */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-[0.12] pointer-events-none"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, #292C32 1px, transparent 1px), linear-gradient(to bottom, #292C32 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 80%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 80%)',
-        }}
-      />
+          <div className="hero-copy">
+            <div className="hero-eyebrow" aria-label={EYEBROW}>
+              <span className="hero-eyebrow-line" />
+              <span className="hero-eyebrow-text" aria-hidden="true">{eyebrow}</span>
+            </div>
 
-      {/* ─── Hero Content ───────────────────────────────────────────── */}
-      <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          {/* Left Column: Headline, Bio & CTAs (Follows art on mobile/tablet, left column on desktop) */}
-          <div className="lg:col-span-7 text-center lg:text-left order-2 lg:order-1 pt-8 pb-28 lg:py-0">
-            
-            {/* Main Display Title */}
-            <h1 className="anim-fade-up anim-delay-1 font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F2F0EB] leading-[1.1] mb-6">
-              Architecting &amp; Deploying{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D6AD63] via-[#F3DEAB] to-[#D6AD63]">
-                Production Systems
+            <h1 className="hero-title font-display font-bold tracking-tight text-[#F2F0EB]">
+              <span className="hero-title-line"><span>Architecting &amp; Deploying</span></span>
+              <span className="hero-title-line specialty-mask">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={SPECIALTIES[specialtyIndex]}
+                    className="hero-title-accent"
+                    initial={reduced ? false : { y: '110%', rotateX: -65, opacity: 0 }}
+                    animate={{ y: '0%', rotateX: 0, opacity: 1 }}
+                    exit={reduced ? undefined : { y: '-110%', rotateX: 65, opacity: 0 }}
+                    transition={{ duration: reduced ? 0 : 0.58, ease: [0.16, 1, 0.3, 1] }}
+                    aria-live="off"
+                  >
+                    {SPECIALTIES[specialtyIndex]}
+                  </motion.span>
+                </AnimatePresence>
               </span>
             </h1>
 
-            {/* Role & Positioning Statement */}
-            <div className="anim-fade-up anim-delay-2 flex flex-col gap-3 max-w-2xl mb-8 mx-auto lg:mx-0">
-              <div className="flex items-center gap-3 justify-center lg:justify-start">
-                <span className="font-mono text-sm uppercase tracking-wider text-[#D6AD63] font-semibold">
-                  ARD Dev Studio
-                </span>
-                <span className="text-[#292C32]">•</span>
-                <span className="text-sm text-[#A1A1AA]">
-                  Anthony Riel C. Diango
-                </span>
-              </div>
-              <p className="text-base sm:text-lg text-[#A1A1AA] leading-relaxed">
-                {profile.identity.summary}
-              </p>
-            </div>
+            <p className="hero-description">
+              {profile.identity.summary}
+            </p>
 
-            {/* Primary Action Buttons with Magnetic Physics */}
-            <div className="anim-fade-up anim-delay-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-12">
-              <div ref={btnPrimaryRef} style={btnPrimaryStyle}>
-                <a
-                  href="#work"
-                  onClick={(e) => handleScroll(e, '#work')}
-                  className="btn-gold-primary group text-sm sm:text-base font-semibold px-6 py-3.5"
-                >
-                  <span>Explore 16 Deployments</span>
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="transition-transform group-hover:translate-y-0.5"
-                  >
+            <div className="hero-actions">
+              <motion.div ref={primaryRef} style={primaryStyle} className="magnetic-wrap">
+                <a href="#work" aria-label="Explore 16 Deployments" onClick={scrollTo('#work')} className="btn-gold-primary hero-cta border-beam">
+                  <span className="hero-cta-label-full">Explore 16 Deployments</span>
+                  <span className="hero-cta-label-compact" aria-hidden="true">Explore Work</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M7 13l5 5 5-5M12 6v12" />
                   </svg>
                 </a>
-              </div>
-
-              <div ref={btnOutlineRef} style={btnOutlineStyle}>
-                <a
-                  href="#contact"
-                  onClick={(e) => handleScroll(e, '#contact')}
-                  className="btn-dark-outline text-sm sm:text-base px-6 py-3.5"
-                >
-                  <span>Discuss a Project</span>
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                    <polyline points="12 5 19 12 12 19"></polyline>
+              </motion.div>
+              <motion.div ref={secondaryRef} style={secondaryStyle} className="magnetic-wrap">
+                <a href="#contact" aria-label="Discuss a Project" onClick={scrollTo('#contact')} className="btn-dark-outline hero-cta border-beam">
+                  <span className="hero-cta-label-full">Discuss a Project</span>
+                  <span className="hero-cta-label-compact" aria-hidden="true">Discuss Project</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                   </svg>
                 </a>
-              </div>
+              </motion.div>
             </div>
 
-            {/* Production Metrics Strip with Animated Counters */}
-            <div className="anim-fade-up anim-delay-4 pt-6 border-t border-[#292C32]/80 grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
-              <div className="flex flex-col">
-                <span className="font-mono text-2xl sm:text-3xl font-bold text-[#F2F0EB]">
-                  <Counter end={16} suffix="+" />
-                </span>
-                <span className="font-mono text-xs uppercase text-[#A1A1AA] tracking-wider mt-1">
-                  Live Deployed Apps
-                </span>
-              </div>
-
-              <div className="flex flex-col">
-                <span className="font-mono text-2xl sm:text-3xl font-bold text-[#F2F0EB]">
-                  <Counter end={10} suffix="+" />
-                </span>
-                <span className="font-mono text-xs uppercase text-[#A1A1AA] tracking-wider mt-1">
-                  Years IT &amp; Database Ops
-                </span>
-              </div>
-
-              <div className="flex flex-col">
-                <span className="font-mono text-2xl sm:text-3xl font-bold text-[#F2F0EB]">
-                  <Counter end={4} />
-                </span>
-                <span className="font-mono text-xs uppercase text-[#A1A1AA] tracking-wider mt-1">
-                  Core Domains
-                </span>
-              </div>
-
-              <div className="flex flex-col">
-                <span className="font-mono text-sm sm:text-base font-semibold text-[#F2F0EB] truncate">
-                  Bohol, Philippines
-                </span>
-                <span className="font-mono text-xs uppercase text-[#A1A1AA] tracking-wider mt-1">
-                  Guinacot, Guindulman
-                </span>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Right Column: 3D Holographic Brand Emblem Card (First full-screen view on mobile/tablet portrait, right column on desktop) */}
-          <div className="lg:col-span-5 flex flex-col justify-center items-center lg:items-end order-1 lg:order-2 h-[calc(100svh-4.5rem)] min-h-[460px] max-h-[100svh] pb-24 pt-4 lg:py-0 lg:min-h-0 lg:h-auto anim-fade-up anim-delay-1">
-            <div
-              ref={emblemRef}
-              style={emblemTiltStyle}
-              className="relative w-full max-w-[320px] xs:max-w-[350px] sm:max-w-md rounded-2xl bg-[#17191E]/90 border border-[#292C32] p-4 sm:p-6 shadow-2xl backdrop-blur-xl group hover:border-[#D6AD63]/60 transition-colors"
-            >
-              {/* Cursor Spotlight on Emblem */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 rounded-2xl pointer-events-none transition-opacity duration-200"
-                style={{
-                  opacity: emblemSpotlight.opacity,
-                  background: `radial-gradient(circle 260px at ${emblemSpotlight.x}% ${emblemSpotlight.y}%, rgba(214, 173, 99, 0.18), transparent 70%)`,
-                }}
-              />
-
-              {/* Blueprint Corner Registration Crosshairs */}
-              <div className="absolute top-2.5 left-2.5 font-mono text-xs text-[#D6AD63]/50 select-none">+</div>
-              <div className="absolute top-2.5 right-2.5 font-mono text-xs text-[#D6AD63]/50 select-none">+</div>
-              <div className="absolute bottom-2.5 left-2.5 font-mono text-xs text-[#D6AD63]/50 select-none">+</div>
-              <div className="absolute bottom-2.5 right-2.5 font-mono text-xs text-[#D6AD63]/50 select-none">+</div>
-
-              {/* Telemetry Header */}
-              <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[#292C32]/70 text-[11px] font-mono">
-                <span className="text-[#D6AD63] flex items-center gap-1.5 font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D6AD63] animate-pulse" />
-                  ARD DEV STUDIO // SEAL
-                </span>
-                <span className="text-[#71717A]">SYS_REV // 2026</span>
-              </div>
-
-              {/* Insignia Image Container */}
-              <div className="relative rounded-xl overflow-hidden border border-[#292C32]/80 bg-[#101114] aspect-[16/10] flex items-center justify-center group-hover:shadow-[0_0_30px_rgba(214,173,99,0.2)] transition-shadow">
-                <img
-                  src="/images/logodesign.jpg"
-                  alt="ARD Dev Studio 3D Gold Insignia Blueprint"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                
-                {/* Subtle glass reflection gradient */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent pointer-events-none"
-                />
-              </div>
-
-              {/* Telemetry Footer */}
-              <div className="pt-4 mt-4 border-t border-[#292C32]/70 flex items-center justify-between text-[11px] font-mono text-[#A1A1AA]">
-                <div>
-                  <span className="text-[#71717A] block text-[9px] uppercase">Studio &amp; Engineering</span>
-                  <span className="text-[#F2F0EB] font-semibold">ARD Dev Studio</span>
-                </div>
-                <div className="text-right">
-                  <span className="text-[#71717A] block text-[9px] uppercase">Lead Engineer</span>
-                  <span className="text-[#D6AD63]">Anthony Riel Diango</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Scroll Indicator Cue (mobile & tablet portrait only) */}
-            <div className="lg:hidden mt-3 sm:mt-5 flex flex-col items-center gap-1 text-[10px] font-mono text-[#D6AD63] animate-bounce select-none">
-              <span className="tracking-wider uppercase text-[9px] font-semibold">Scroll to Explore</span>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
+            <div className="hero-metrics" aria-label="Professional highlights">
+              <div className="metric-item"><strong><Counter end={16} suffix="+" /></strong><span>Live Deployed Apps</span></div>
+              <div className="metric-item"><strong><Counter end={10} suffix="+" /></strong><span>Years in IT</span></div>
+              <div className="metric-item"><strong><Counter end={4} /></strong><span>Core Domains</span></div>
+              <div className="metric-item metric-location"><strong>Bohol, Philippines</strong><span>Guinacot, Guindulman</span></div>
             </div>
           </div>
+        </div>
 
+        <div className="domain-marquee" aria-label="Project domains">
+          <span className="marquee-label">SYSTEMS ACROSS</span>
+          <div className="marquee-window">
+            <div className="marquee-track">
+              {[...SYSTEM_DOMAINS, ...SYSTEM_DOMAINS].map((domain, index) => (
+                <span className="marquee-item" key={`${domain}-${index}`}><i aria-hidden="true" />{domain}</span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

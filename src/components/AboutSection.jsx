@@ -73,8 +73,7 @@ export default function AboutSection() {
             Engineering Foundation &amp; Technical Capabilities
           </h2>
           <p className="text-base sm:text-lg text-[#A1A1AA] leading-relaxed">
-            Over a decade of combined hands-on experience in software development,
-            database architecture, mission-critical public portals, and technical instruction.
+            {profile.identity.developerSummary}
           </p>
         </RevealDiv>
 

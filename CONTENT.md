@@ -12,7 +12,8 @@ Use this file as the factual source for the website. Resume facts are user-provi
 - Facebook: https://facebook.com/realnariel
 - Availability: Project-based, freelance, part-time, or full-time remote roles
 - Resume claim: 16+ live deployed web apps; 10+ years in IT systems and database operations
-- Profile summary: Computer Engineer and full-stack developer with experience in software engineering, web development, database systems administration, IT infrastructure, and technical instruction. Builds and deploys production web applications for individuals, agencies, and businesses.
+- Profile summary: Web applications and IT solutions designed to solve real-world needs for organizations and communities.
+- Developer profile: Computer Engineer and full-stack developer with experience in software engineering, web development, database systems administration, IT infrastructure, and technical instruction. Builds and deploys production web applications for individuals, agencies, and businesses.
 
 ## Projects
 

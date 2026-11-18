@@ -1,3 +1,4 @@
+import { motion } from 'motion/react';
 import { getCategoryMeta } from './categoryMeta';
 import { useMouseTilt } from '../hooks/useMouseTilt';
 
@@ -8,7 +9,7 @@ import { useMouseTilt } from '../hooks/useMouseTilt';
  */
 export default function ProjectCard({ project, onSelect }) {
   const meta = getCategoryMeta(project.category);
-  const { ref, tiltStyle, spotlightPos } = useMouseTilt(6);
+  const { tiltStyle, spotlightPos, pointerHandlers } = useMouseTilt(6);
 
   const handleCardClick = (e) => {
     // If the click is inside a link or button, let that action happen naturally
@@ -19,20 +20,23 @@ export default function ProjectCard({ project, onSelect }) {
   };
 
   return (
-    <article
-      ref={ref}
+    <motion.article
       style={tiltStyle}
+      {...pointerHandlers}
       onClick={handleCardClick}
       className="card-dark group flex flex-col justify-between p-6 sm:p-7 relative cursor-pointer select-none"
       aria-label={`${project.title} — ${meta.shortLabel}. Click to inspect architecture details.`}
     >
       {/* Dynamic Cursor Spotlight Beam */}
-      <div
+      <motion.div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none transition-opacity duration-200"
         style={{
           opacity: spotlightPos.opacity,
-          background: `radial-gradient(circle 220px at ${spotlightPos.x}% ${spotlightPos.y}%, ${meta.glowColor}, transparent 70%)`,
+          '--spot-x': spotlightPos.x,
+          '--spot-y': spotlightPos.y,
+          '--spot-color': meta.glowColor,
+          background: 'radial-gradient(circle 220px at var(--spot-x) var(--spot-y), var(--spot-color), transparent 70%)',
         }}
       />
 
@@ -127,6 +131,6 @@ export default function ProjectCard({ project, onSelect }) {
           <span>→</span>
         </button>
       </div>
-    </article>
+    </motion.article>
   );
 }

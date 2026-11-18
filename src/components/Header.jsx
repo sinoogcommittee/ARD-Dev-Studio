@@ -12,7 +12,8 @@ export default function Header({ currentStatus }) {
     e.preventDefault();
     const target = document.querySelector(href);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      target.scrollIntoView({ behavior, block: 'start' });
     }
   };
 
@@ -78,7 +79,7 @@ export default function Header({ currentStatus }) {
               <a
                 href="#contact"
                 onClick={(e) => handleNav(e, '#contact')}
-                className="btn-gold-primary text-xs py-2 px-4 h-9 font-semibold"
+                className="btn-gold-primary border-beam text-xs py-2 px-4 h-9 font-semibold"
               >
                 Start a Conversation
               </a>

@@ -49,11 +49,11 @@ const NAV_ITEMS = [
 ];
 
 export default function MobileFloatingNav({ onOpenAdmin }) {
-  const [activeSection, setActiveSection] = useState('main-content');
+  const [activeSection, setActiveSection] = useState('work');
 
   // Track active section via IntersectionObserver
   useEffect(() => {
-    const sectionIds = ['main-content', 'work', 'about', 'experience', 'contact'];
+    const sectionIds = ['work', 'about', 'experience', 'contact'];
     const observers = [];
 
     sectionIds.forEach((id) => {
@@ -80,7 +80,8 @@ export default function MobileFloatingNav({ onOpenAdmin }) {
     e.preventDefault();
     const target = document.querySelector(href);
     if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+      target.scrollIntoView({ behavior, block: 'start' });
     }
   };
 
@@ -92,7 +93,11 @@ export default function MobileFloatingNav({ onOpenAdmin }) {
         bottom: 'calc(12px + env(safe-area-inset-bottom, 0px))',
       }}
     >
-      <div className="pointer-events-auto flex items-center justify-between gap-1 p-1.5 w-full max-w-sm sm:max-w-md rounded-full bg-[#14161B]/95 backdrop-blur-2xl border border-[#292C32] shadow-[0_12px_40px_rgba(0,0,0,0.85),0_0_24px_rgba(214,173,99,0.12)]">
+      <div
+        className="mobile-dock pointer-events-auto flex items-center justify-between gap-1 p-1.5 w-full max-w-sm sm:max-w-md rounded-full bg-[#14161B]/95 backdrop-blur-2xl border border-[#292C32] shadow-[0_12px_40px_rgba(0,0,0,0.85),0_0_24px_rgba(214,173,99,0.12)]"
+        style={{ '--active-index': Math.max(0, NAV_ITEMS.findIndex(({ id }) => id === activeSection)) }}
+      >
+        <span className="mobile-dock-indicator" aria-hidden="true" />
         
         {NAV_ITEMS.map(({ id, href, label, icon }) => {
           const isActive = activeSection === id;
@@ -101,12 +106,8 @@ export default function MobileFloatingNav({ onOpenAdmin }) {
               key={id}
               href={href}
               onClick={(e) => handleNav(e, href)}
-              aria-current={isActive ? 'page' : undefined}
-              className={`flex flex-col items-center justify-center flex-1 py-1.5 px-2 rounded-full transition-all duration-200 select-none ${
-                isActive
-                  ? 'bg-[#D6AD63]/20 text-[#D6AD63] font-bold shadow-[0_0_12px_rgba(214,173,99,0.25)]'
-                  : 'text-[#A1A1AA] hover:text-[#F2F0EB] hover:bg-white/[0.04]'
-              }`}
+              aria-current={isActive ? 'location' : undefined}
+              className={`mobile-dock-item relative z-10 flex flex-col items-center justify-center flex-1 py-1.5 px-2 rounded-full transition-colors duration-200 select-none ${isActive ? 'text-[#D6AD63] font-bold' : 'text-[#A1A1AA] hover:text-[#F2F0EB]'}`}
             >
               <span className="transition-transform duration-200">{icon}</span>
               <span className="text-[10px] font-mono tracking-tight mt-0.5 leading-none">
@@ -121,7 +122,7 @@ export default function MobileFloatingNav({ onOpenAdmin }) {
           type="button"
           onClick={onOpenAdmin}
           aria-label="Open Studio Portal"
-          className="flex flex-col items-center justify-center flex-1 py-1.5 px-2 rounded-full text-[#71717A] hover:text-[#D6AD63] hover:bg-white/[0.04] transition-all duration-200 select-none"
+              className="mobile-dock-item relative z-10 flex flex-col items-center justify-center flex-1 py-1.5 px-2 rounded-full text-[#71717A] hover:text-[#D6AD63] transition-[color,background-color,transform] duration-200 select-none"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>

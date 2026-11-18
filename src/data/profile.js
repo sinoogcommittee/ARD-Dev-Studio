@@ -15,7 +15,8 @@ export const profile = {
     location: 'Guinacot, Guindulman, Bohol, Philippines',
     availability: 'Project-based, freelance, part-time, or full-time remote roles',
     resumeClaim: '16+ live deployed web apps; 10+ years in IT systems and database operations',
-    summary: 'Computer Engineer and full-stack developer with experience in software engineering, web development, database systems administration, IT infrastructure, and technical instruction. Builds and deploys production web applications for individuals, agencies, and businesses.'
+    summary: 'Web applications and IT solutions designed to solve real-world needs for organizations and communities.',
+    developerSummary: 'Computer Engineer and full-stack developer with experience in software engineering, web development, database systems administration, IT infrastructure, and technical instruction. Builds and deploys production web applications for individuals, agencies, and businesses.'
   },
 
   contact: {

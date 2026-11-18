@@ -1,60 +1,63 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useMotionValue, useSpring, useTransform } from 'motion/react';
+import { useReducedMotion } from './useReducedMotion';
 
-/**
- * Hook for 3D card perspective tilt and cursor spotlight tracking.
- * Automatically disabled if user has prefers-reduced-motion set.
- */
-export function useMouseTilt(maxTilt = 8) {
-  const ref = useRef(null);
-  const [tiltStyle, setTiltStyle] = useState({});
-  const [spotlightPos, setSpotlightPos] = useState({ x: 50, y: 50, opacity: 0 });
+/** Spring-based pointer tilt and spotlight, with no sensor permission prompts. */
+export function useMouseTilt(maxTilt = 7, { deviceOrientation = false } = {}) {
+  const reduced = useReducedMotion();
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const rotateX = useSpring(rawX, { stiffness: 190, damping: 24, mass: 0.7 });
+  const rotateY = useSpring(rawY, { stiffness: 190, damping: 24, mass: 0.7 });
+  const pointerX = useMotionValue(50);
+  const pointerY = useMotionValue(50);
+  const rawOpacity = useMotionValue(0);
+  const opacity = useSpring(rawOpacity, { stiffness: 240, damping: 28 });
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
+    if (reduced || !deviceOrientation || !window.matchMedia('(pointer: coarse)').matches) return undefined;
+    if (!('DeviceOrientationEvent' in window)) return undefined;
 
-    const element = ref.current;
-    if (!element) return;
-
-    const handleMouseMove = (e) => {
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const percentX = (x / rect.width) * 100;
-      const percentY = (y / rect.height) * 100;
-
-      const tiltX = ((y - rect.height / 2) / (rect.height / 2)) * -maxTilt;
-      const tiltY = ((x - rect.width / 2) / (rect.width / 2)) * maxTilt;
-
-      setTiltStyle({
-        transform: `perspective(1000px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateZ(6px)`,
-        transition: 'transform 80ms ease-out',
-      });
-
-      setSpotlightPos({
-        x: percentX.toFixed(1),
-        y: percentY.toFixed(1),
-        opacity: 1,
-      });
+    const onOrientation = (event) => {
+      if (event.beta == null || event.gamma == null) return;
+      const clamp = (value) => Math.max(-maxTilt, Math.min(maxTilt, value));
+      rawX.set(clamp((event.beta - 45) * 0.12));
+      rawY.set(clamp(event.gamma * 0.16));
     };
+    window.addEventListener('deviceorientation', onOrientation, { passive: true });
+    return () => window.removeEventListener('deviceorientation', onOrientation);
+  }, [deviceOrientation, maxTilt, rawX, rawY, reduced]);
 
-    const handleMouseLeave = () => {
-      setTiltStyle({
-        transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)',
-        transition: 'transform 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-      });
-      setSpotlightPos((prev) => ({ ...prev, opacity: 0 }));
-    };
+  const tiltStyle = {
+    rotateX: reduced ? 0 : rotateX,
+    rotateY: reduced ? 0 : rotateY,
+    transformPerspective: 900,
+    '--spot-x': useTransform(pointerX, (value) => `${value}%`),
+    '--spot-y': useTransform(pointerY, (value) => `${value}%`),
+    '--spot-opacity': reduced ? 0 : opacity,
+  };
 
-    element.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mouseleave', handleMouseLeave);
+  const onPointerMove = (event) => {
+    if (reduced || event.pointerType === 'touch') return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+    rawX.set((0.5 - y) * maxTilt);
+    rawY.set((x - 0.5) * maxTilt);
+    pointerX.set(x * 100);
+    pointerY.set(y * 100);
+    rawOpacity.set(1);
+  };
 
-    return () => {
-      element.removeEventListener('mousemove', handleMouseMove);
-      element.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [maxTilt]);
+  const onPointerLeave = () => {
+    rawX.set(0);
+    rawY.set(0);
+    rawOpacity.set(0);
+  };
 
-  return { ref, tiltStyle, spotlightPos };
+  return {
+    tiltStyle,
+    spotlightPos: { x: pointerX, y: pointerY, opacity },
+    pointerHandlers: { onPointerMove, onPointerLeave },
+  };
 }

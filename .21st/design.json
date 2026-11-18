@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "project": {
+    "name": "ard-dev-studio",
+    "productType": null,
+    "stack": [
+      "react",
+      "tailwind-v3",
+      "vite"
+    ]
+  },
+  "sources": {
+    "tokens": [
+      "src/index.css"
+    ],
+    "components": [],
+    "assets": [
+      "public/images"
+    ],
+    "instructions": [
+      "AGENTS.md"
+    ]
+  },
+  "design": {
+    "colorMode": "dark",
+    "colors": {
+      "--border-subtle": {
+        "value": "#292C32",
+        "source": "src/index.css"
+      },
+      "--border-focus": {
+        "value": "#D6AD63",
+        "source": "src/index.css"
+      },
+      "--accent-gold": {
+        "value": "#D6AD63",
+        "source": "src/index.css"
+      },
+      "--accent-gold-hover": {
+        "value": "#E5BE75",
+        "source": "src/index.css"
+      },
+      "--accent-gold-glow": {
+        "value": "rgba(214, 173, 99, 0.18)",
+        "source": "src/index.css"
+      },
+      "--text-primary": {
+        "value": "#F2F0EB",
+        "source": "src/index.css"
+      },
+      "--text-secondary": {
+        "value": "#A1A1AA",
+        "source": "src/index.css"
+      },
+      "--text-muted": {
+        "value": "#71717A",
+        "source": "src/index.css"
+      }
+    },
+    "typography": {
+      "--font-display": {
+        "value": "'Space Grotesk', system-ui, -apple-system, sans-serif",
+        "source": "src/index.css"
+      },
+      "--font-body": {
+        "value": "'Inter', system-ui, -apple-system, sans-serif",
+        "source": "src/index.css"
+      },
+      "--font-mono": {
+        "value": "'JetBrains Mono', monospace",
+        "source": "src/index.css"
+      }
+    },
+    "spacing": {},
+    "radius": {},
+    "shadows": {},
+    "motion": {
+      "--ease-cinematic": {
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "source": "src/index.css"
+      }
+    },
+    "density": "unknown"
+  },
+  "components": {
+    "installed": [],
+    "preferredPrimitives": [],
+    "patterns": []
+  },
+  "constraints": {
+    "must": [],
+    "avoid": []
+  },
+  "decisions": [
+    "Keep the ARD seal compact above hero copy on mobile and tablet so the headline and project/contact actions lead the first viewport.",
+    "Use warm-gold technical motion as a restrained layer; keep all content available under reduced motion and avoid unverified live-status indicators."
+  ],
+  "evidence": [
+    {
+      "fact": "design.colorMode:light",
+      "source": "src/index.css"
+    },
+    {
+      "fact": "design.tokens",
+      "source": "src/index.css"
+    },
+    {
+      "fact": "project.instructions",
+      "source": "AGENTS.md"
+    },
+    {
+      "fact": "project.stack:react",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:tailwind-v3",
+      "source": "package.json"
+    },
+    {
+      "fact": "project.stack:vite",
+      "source": "package.json"
+    }
+  ],
+  "generatedAt": "2026-11-18T07:18:37.828Z"
+}
