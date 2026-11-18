@@ -21,7 +21,7 @@ export default function Hero({ currentStatus }) {
     <section
       id="main-content"
       aria-label="Introduction"
-      className="relative min-h-[92vh] flex items-center justify-center overflow-hidden border-b border-[#292C32] bg-[#101114] py-16 lg:py-24"
+      className="relative min-h-[92vh] flex items-center justify-center overflow-hidden border-b border-[#292C32] bg-[#101114] py-0 lg:py-24"
     >
       {/* ─── Interactive Background Particle Canvas ─────────────────── */}
       <ParticleCanvas />
@@ -58,7 +58,7 @@ export default function Hero({ currentStatus }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Headline, Bio & CTAs (Follows art on mobile/tablet, left column on desktop) */}
-          <div className="lg:col-span-7 text-center lg:text-left order-2 lg:order-1 pt-4 pb-16 lg:py-0">
+          <div className="lg:col-span-7 text-center lg:text-left order-2 lg:order-1 pt-8 pb-28 lg:py-0">
             
             {/* Main Display Title */}
             <h1 className="anim-fade-up anim-delay-1 font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F2F0EB] leading-[1.1] mb-6">
@@ -175,11 +175,11 @@ export default function Hero({ currentStatus }) {
           </div>
 
           {/* Right Column: 3D Holographic Brand Emblem Card (First full-screen view on mobile/tablet portrait, right column on desktop) */}
-          <div className="lg:col-span-5 flex flex-col justify-center items-center lg:items-end order-1 lg:order-2 min-h-[calc(100svh-4.5rem)] lg:min-h-0 py-6 lg:py-0 anim-fade-up anim-delay-1">
+          <div className="lg:col-span-5 flex flex-col justify-center items-center lg:items-end order-1 lg:order-2 h-[calc(100svh-4.5rem)] min-h-[460px] max-h-[100svh] pb-24 pt-4 lg:py-0 lg:min-h-0 lg:h-auto anim-fade-up anim-delay-1">
             <div
               ref={emblemRef}
               style={emblemTiltStyle}
-              className="relative w-full max-w-sm sm:max-w-md rounded-2xl bg-[#17191E]/90 border border-[#292C32] p-5 sm:p-6 shadow-2xl backdrop-blur-xl group hover:border-[#D6AD63]/60 transition-colors"
+              className="relative w-full max-w-[320px] xs:max-w-[350px] sm:max-w-md rounded-2xl bg-[#17191E]/90 border border-[#292C32] p-4 sm:p-6 shadow-2xl backdrop-blur-xl group hover:border-[#D6AD63]/60 transition-colors"
             >
               {/* Cursor Spotlight on Emblem */}
               <div
@@ -235,9 +235,9 @@ export default function Hero({ currentStatus }) {
             </div>
 
             {/* Scroll Indicator Cue (mobile & tablet portrait only) */}
-            <div className="lg:hidden mt-8 flex flex-col items-center gap-1.5 text-xs font-mono text-[#D6AD63] animate-bounce select-none">
-              <span className="tracking-wider uppercase text-[10px] font-semibold">Scroll to Explore</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <div className="lg:hidden mt-3 sm:mt-5 flex flex-col items-center gap-1 text-[10px] font-mono text-[#D6AD63] animate-bounce select-none">
+              <span className="tracking-wider uppercase text-[9px] font-semibold">Scroll to Explore</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
