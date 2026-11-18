@@ -4,8 +4,14 @@ import { projects } from '../data/projects';
 import { profile } from '../data/profile';
 import { RevealDiv } from '../hooks/useScrollReveal';
 
-// 3 featured projects for preview
-const FEATURED = projects.filter((p) => p.featured).slice(0, 3);
+// 4 featured projects representing all 4 core domains for preview
+const FEATURED_IDS = [
+  'dentaprime-clinic-portal',
+  'ekumbati-district-portal',
+  'sinoog-2027-event-hub',
+  'smart-ftnhs-management',
+];
+const FEATURED = FEATURED_IDS.map((id) => projects.find((p) => p.id === id)).filter(Boolean);
 
 // Top 8 skills for the About preview
 const TOP_SKILLS = [
@@ -61,7 +67,7 @@ export default function HomePage({ currentStatus }) {
             </div>
           </RevealDiv>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {FEATURED.map((project, i) => (
               <RevealDiv key={project.id} style={{ transitionDelay: `${i * 80}ms` }}>
                 <a

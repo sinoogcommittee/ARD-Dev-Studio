@@ -1,5 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import MobileFloatingNav from './components/MobileFloatingNav';
@@ -15,6 +15,12 @@ const AdminPortal = lazy(() => import('./components/AdminPortal'));
 function AppShell() {
   const { currentStatus, updateStatus } = useSiteSettings();
   const [adminOpen, setAdminOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname]);
 
   useEffect(() => {
     // Open portal via URL hash (#admin)

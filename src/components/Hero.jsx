@@ -62,7 +62,7 @@ export default function Hero() {
 
   return (
     <section
-      id="main-content"
+      id="hero"
       ref={heroRef}
       aria-label="Introduction"
       className="hero-shell relative flex items-center overflow-hidden border-b border-[#292C32] bg-[#101114]"
