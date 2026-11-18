@@ -1,8 +1,8 @@
-# Portfolio Website Brief
+# Portfolio & Business Website Brief: ARD Dev Studio
 
 ## Goal
 
-Create a visually memorable, high-performance personal portfolio for **Anthony Riel C. Diango** that presents his **16 live software projects** as the main attraction. The site establishes his credibility as a Computer Engineer and Full-Stack Developer with over a decade of IT systems and database operations experience, driving prospective clients and employers to open live projects or contact him directly.
+Create a visually memorable, high-performance portfolio and business platform for **ARD Dev Studio**, founded and led by **Anthony Riel C. Diango**. The site presents his **16 live software projects** as the primary proof of capability, establishing his credibility as a Computer Engineer and Full-Stack Developer with over a decade of IT systems and database operations experience, driving prospective clients and employers to open live projects or contact him directly.
 
 ## Audience and Desired Action
 

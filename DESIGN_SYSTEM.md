@@ -1,10 +1,10 @@
-# Design System
+# Design System: ARD Dev Studio
 
 ## Creative Direction
 
-**Direction:** Premium Dark Editorial / Cinematic Technology Portfolio.
+**Direction:** Premium Dark Editorial / Cinematic Technology Portfolio & Business Platform.
 
-The design establishes a high-contrast, polished, and deliberate visual point of view: a curated collection of shipped digital products built by an experienced Computer Engineer from Bohol, Philippines. It rejects generic resume templates and vibecoded cliches in favor of deep surfaces, crisp hairlines, warm-gold highlights, and purposeful 60fps motion.
+The design establishes a high-contrast, polished, and deliberate visual point of view for **ARD Dev Studio**: a curated collection of shipped digital products built by Anthony Riel C. Diango, an experienced Computer Engineer from Bohol, Philippines. It rejects generic resume templates and vibecoded cliches in favor of deep surfaces, crisp hairlines, warm-gold highlights, and purposeful 60fps motion.
 
 ## Brand Identity & Visual Assets
 
@@ -12,13 +12,13 @@ The visual identity is anchored by official metallic and architectural gold insi
 
 | Asset | File | Application | Visual Role |
 |---|---|---|---|
-| **ARD Metallic Monogram** | `public/images/logo.jpg` | Header brand mark, Footer signature, Browser Favicon (`/images/logo.jpg`) | 3D beveled gold monogram emblem symbolizing precision engineering and craftsmanship. |
+| **ARD Metallic Monogram** | `public/images/logo.jpg` | Header brand mark, Footer signature, Browser Favicon (`/images/logo.jpg`) | 3D beveled gold monogram emblem symbolizing precision engineering and craftsmanship for ARD Dev Studio. |
 | **Architectural Blueprint Seal** | `public/images/logodesign.jpg` | Hero interactive showcase card, OpenGraph image, Twitter preview | High-definition technical blueprint medallion featuring gold circuitry, gear motifs, and architectural symmetry. |
 
 ### Visual Implementation Details
-- **Header**: Circular 38px badge with gold ring border (`border-gold/30`), hover scale transition, and subtle ambient drop shadow.
-- **Hero Showcase**: 12-column responsive layout featuring an interactive 3D perspective card (`useMouseTilt`) containing the blueprint seal, active "Systems Engineer / Full-Stack" badge, and live telemetry chip.
-- **Footer**: Circular 36px badge paired with identity credentials and location metadata.
+- **Header**: Circular 38px badge with gold ring border (`border-gold/30`), hover scale transition, and dual-tier typography ("ARD Dev Studio" with "Anthony Riel Diango").
+- **Hero Showcase**: 12-column responsive layout featuring an interactive 3D perspective card (`useMouseTilt`) containing the blueprint seal, active "ARD DEV STUDIO // SEAL" header, and "Lead Engineer: Anthony Riel Diango" telemetry.
+- **Footer**: Circular 36px badge paired with studio title, engineer credentials, and location metadata.
 
 ## Color Tokens & Palette
 

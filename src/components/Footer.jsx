@@ -25,13 +25,18 @@ export default function Footer() {
               <div className="w-9 h-9 rounded-lg overflow-hidden bg-[#17191E] border border-[#D6AD63]/40 flex items-center justify-center shadow-[0_0_12px_rgba(214,173,99,0.2)] shrink-0">
                 <img
                   src="/images/logo.jpg"
-                  alt="Anthony Riel Diango ARD Logo"
+                  alt="ARD Dev Studio Logo"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="font-display font-bold text-lg text-[#F2F0EB]">
-                {profile.identity.name}
-              </span>
+              <div className="flex flex-col">
+                <span className="font-display font-bold text-lg text-[#F2F0EB]">
+                  ARD Dev Studio
+                </span>
+                <span className="font-mono text-xs text-[#A1A1AA]">
+                  {profile.identity.name}
+                </span>
+              </div>
             </div>
             
             <p className="font-mono text-xs text-[#D6AD63] uppercase tracking-wider">
@@ -119,7 +124,7 @@ export default function Footer() {
         {/* Bottom Bar: Copyright & Availability */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#71717A]">
           <p>
-            &copy; {currentYear} {profile.identity.name}. All rights reserved.
+            &copy; {currentYear} ARD Dev Studio • {profile.identity.name}. All rights reserved.
           </p>
 
           <div className="flex items-center gap-2">

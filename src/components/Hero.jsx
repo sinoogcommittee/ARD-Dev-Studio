@@ -83,11 +83,11 @@ export default function Hero() {
             <div className="anim-fade-up anim-delay-3 flex flex-col gap-3 max-w-2xl mb-8 mx-auto lg:mx-0">
               <div className="flex items-center gap-3 justify-center lg:justify-start">
                 <span className="font-mono text-sm uppercase tracking-wider text-[#D6AD63] font-semibold">
-                  Anthony Riel C. Diango
+                  ARD Dev Studio
                 </span>
                 <span className="text-[#292C32]">•</span>
                 <span className="text-sm text-[#A1A1AA]">
-                  Full-Stack Web Developer &amp; Technical Support
+                  Anthony Riel C. Diango
                 </span>
               </div>
               <p className="text-base sm:text-lg text-[#A1A1AA] leading-relaxed">
@@ -212,7 +212,7 @@ export default function Hero() {
               <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[#292C32]/70 text-[11px] font-mono">
                 <span className="text-[#D6AD63] flex items-center gap-1.5 font-semibold">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#D6AD63] animate-pulse" />
-                  AUTHENTIC EMBLEM // ARD
+                  ARD DEV STUDIO // SEAL
                 </span>
                 <span className="text-[#71717A]">SYS_REV // 2026</span>
               </div>
@@ -221,7 +221,7 @@ export default function Hero() {
               <div className="relative rounded-xl overflow-hidden border border-[#292C32]/80 bg-[#101114] aspect-[16/10] flex items-center justify-center group-hover:shadow-[0_0_30px_rgba(214,173,99,0.2)] transition-shadow">
                 <img
                   src="/images/logodesign.jpg"
-                  alt="Anthony Riel Diango 3D Gold Insignia Blueprint"
+                  alt="ARD Dev Studio 3D Gold Insignia Blueprint"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 
@@ -235,12 +235,12 @@ export default function Hero() {
               {/* Telemetry Footer */}
               <div className="pt-4 mt-4 border-t border-[#292C32]/70 flex items-center justify-between text-[11px] font-mono text-[#A1A1AA]">
                 <div>
-                  <span className="text-[#71717A] block text-[9px] uppercase">Engineer Identity</span>
-                  <span className="text-[#F2F0EB] font-semibold">Anthony Riel Diango</span>
+                  <span className="text-[#71717A] block text-[9px] uppercase">Studio &amp; Engineering</span>
+                  <span className="text-[#F2F0EB] font-semibold">ARD Dev Studio</span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[#71717A] block text-[9px] uppercase">Specialization</span>
-                  <span className="text-[#D6AD63]">Full-Stack Web Dev</span>
+                  <span className="text-[#71717A] block text-[9px] uppercase">Lead Engineer</span>
+                  <span className="text-[#D6AD63]">Anthony Riel Diango</span>
                 </div>
               </div>
             </div>

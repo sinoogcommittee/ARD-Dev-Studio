@@ -9,6 +9,7 @@
 
 export const profile = {
   identity: {
+    brandName: 'ARD Dev Studio',
     name: 'Anthony Riel C. Diango',
     role: 'Full-Stack Web Developer | Technical Support',
     location: 'Guinacot, Guindulman, Bohol, Philippines',

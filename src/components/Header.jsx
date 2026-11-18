@@ -35,22 +35,22 @@ export default function Header() {
           <a
             href="#main-content"
             onClick={(e) => handleNav(e, '#main-content')}
-            aria-label="Anthony Riel C. Diango — Back to top"
+            aria-label="ARD Dev Studio — Back to top"
             className="group flex items-center gap-3 transition-transform duration-200 hover:scale-[1.02]"
           >
             <div className="w-10 h-10 rounded-lg overflow-hidden bg-[#17191E] border border-[#D6AD63]/40 group-hover:border-[#D6AD63] group-hover:shadow-[0_0_16px_rgba(214,173,99,0.35)] transition-all flex items-center justify-center shrink-0">
               <img
                 src="/images/logo.jpg"
-                alt="Anthony Riel Diango ARD Monogram Logo"
+                alt="ARD Dev Studio Emblem"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="flex flex-col">
               <span className="font-display font-bold text-base tracking-tight text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors leading-tight">
-                Riel Diango
+                ARD Dev Studio
               </span>
               <span className="font-mono text-[11px] text-[#A1A1AA] tracking-wider uppercase">
-                Full-Stack Dev
+                Anthony Riel Diango
               </span>
             </div>
           </a>

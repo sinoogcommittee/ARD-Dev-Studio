@@ -1,5 +1,5 @@
 # PORTFOLIO_MASTER_PLAN.md
-# Anthony Riel C. Diango — Personal Developer Portfolio
+# ARD Dev Studio — Anthony Riel C. Diango Portfolio & Business Platform
 
 > **Document purpose:** Product, design, content, architecture, implementation, and deployment specification for a premium, cinematic personal portfolio website.
 >
