@@ -48,7 +48,7 @@ const NAV_ITEMS = [
   },
 ];
 
-export default function MobileFloatingNav({ onOpenAdmin }) {
+export default function MobileFloatingNav() {
   const [activeSection, setActiveSection] = useState('work');
 
   // Track active section via IntersectionObserver
@@ -94,9 +94,13 @@ export default function MobileFloatingNav({ onOpenAdmin }) {
       }}
     >
       <div
-        className="mobile-dock pointer-events-auto flex items-center justify-between gap-1 p-1.5 w-full max-w-sm sm:max-w-md rounded-full bg-[#14161B]/95 backdrop-blur-2xl border border-[#292C32] shadow-[0_12px_40px_rgba(0,0,0,0.85),0_0_24px_rgba(214,173,99,0.12)]"
+        className="mobile-dock pointer-events-auto flex items-center justify-between gap-1 p-1.5 w-full max-w-[290px] xs:max-w-[310px] rounded-full"
         style={{ '--active-index': Math.max(0, NAV_ITEMS.findIndex(({ id }) => id === activeSection)) }}
       >
+        {/* Shimmering Gold Flakes Background Layers */}
+        <div className="gold-flakes-overlay" aria-hidden="true" />
+        <div className="gold-flakes-shimmer" aria-hidden="true" />
+
         <span className="mobile-dock-indicator" aria-hidden="true" />
         
         {NAV_ITEMS.map(({ id, href, label, icon }) => {
@@ -116,23 +120,6 @@ export default function MobileFloatingNav({ onOpenAdmin }) {
             </a>
           );
         })}
-
-        {/* Studio Admin Portal Trigger */}
-        <button
-          type="button"
-          onClick={onOpenAdmin}
-          aria-label="Open Studio Portal"
-              className="mobile-dock-item relative z-10 flex flex-col items-center justify-center flex-1 py-1.5 px-2 rounded-full text-[#71717A] hover:text-[#D6AD63] transition-[color,background-color,transform] duration-200 select-none"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span className="text-[10px] font-mono tracking-tight mt-0.5 leading-none">
-            Portal
-          </span>
-        </button>
-
       </div>
     </nav>
   );

@@ -59,7 +59,7 @@ export default function App() {
       <Footer currentStatus={currentStatus} onOpenAdmin={() => setAdminOpen(true)} />
 
       {/* Floating Bottom Navigation for Mobile & Tablet Portrait */}
-      <MobileFloatingNav onOpenAdmin={() => setAdminOpen(true)} />
+      <MobileFloatingNav />
 
       {/* PWA App Install Banner for Mobile & Desktop */}
       <InstallAppPrompt />

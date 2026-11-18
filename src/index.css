@@ -414,19 +414,87 @@ a {
   left: 1rem;
 }
 
-.mobile-dock { position: relative; isolation: isolate; }
-.mobile-dock-indicator {
-  position: absolute; z-index: 0; top: 6px; bottom: 6px; left: 6px;
-  width: calc((100% - 28px) / 5); border: 1px solid rgba(214, 173, 99, 0.25);
-  border-radius: 999px; background: linear-gradient(135deg, rgba(214, 173, 99, 0.2), rgba(214, 173, 99, 0.08));
-  box-shadow: 0 0 14px rgba(214, 173, 99, 0.12);
-  transform: translateX(calc(var(--active-index, 0) * (100% + 4px)));
-  transition: transform 520ms var(--ease-cinematic);
+.mobile-dock {
+  position: relative;
+  isolation: isolate;
+  background-color: rgba(18, 19, 24, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(214, 173, 99, 0.35);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.88),
+    0 0 20px rgba(214, 173, 99, 0.15),
+    inset 0 1px 0 rgba(255, 235, 170, 0.25);
+  overflow: hidden;
 }
+
+/* Authentic Gold Flakes & Shimmer Texture */
+.gold-flakes-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.75;
+  background-image: 
+    radial-gradient(1.5px 1.5px at 12% 25%, rgba(255, 223, 128, 0.95) 50%, transparent 100%),
+    radial-gradient(2px 1.5px at 28% 68%, rgba(214, 173, 99, 0.85) 50%, transparent 100%),
+    radial-gradient(1px 1px at 38% 18%, rgba(247, 231, 206, 0.95) 50%, transparent 100%),
+    radial-gradient(2.5px 2px at 52% 45%, rgba(229, 190, 117, 0.9) 50%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 64% 75%, rgba(255, 215, 0, 0.85) 50%, transparent 100%),
+    radial-gradient(2px 2px at 78% 28%, rgba(214, 173, 99, 0.9) 50%, transparent 100%),
+    radial-gradient(1px 1px at 89% 62%, rgba(255, 235, 170, 0.95) 50%, transparent 100%),
+    radial-gradient(2px 1px at 94% 20%, rgba(205, 155, 75, 0.8) 50%, transparent 100%),
+    radial-gradient(1.5px 2px at 4% 80%, rgba(229, 190, 117, 0.85) 50%, transparent 100%),
+    radial-gradient(2px 2px at 45% 82%, rgba(243, 229, 171, 0.9) 50%, transparent 100%),
+    radial-gradient(1px 1.5px at 70% 12%, rgba(255, 223, 128, 0.85) 50%, transparent 100%),
+    radial-gradient(2.5px 1.5px at 20% 40%, rgba(214, 173, 99, 0.95) 50%, transparent 100%),
+    radial-gradient(1.5px 1px at 84% 85%, rgba(247, 231, 206, 0.9) 50%, transparent 100%);
+  background-size: 130px 100%;
+}
+
+.gold-flakes-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 15%,
+    rgba(255, 235, 170, 0.08) 45%,
+    rgba(255, 255, 255, 0.16) 50%,
+    rgba(214, 173, 99, 0.1) 55%,
+    transparent 85%
+  );
+  background-size: 250% 100%;
+  animation: gold-shimmer-sweep 8s ease-in-out infinite;
+}
+
+@keyframes gold-shimmer-sweep {
+  0% { background-position: 220% 0; }
+  50%, 100% { background-position: -150% 0; }
+}
+
+.mobile-dock-indicator {
+  position: absolute;
+  z-index: 1;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  width: calc((100% - 12px) / 4);
+  border: 1px solid rgba(214, 173, 99, 0.4);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(214, 173, 99, 0.28), rgba(214, 173, 99, 0.1));
+  box-shadow: 0 0 16px rgba(214, 173, 99, 0.22);
+  transform: translateX(calc(var(--active-index, 0) * 100%));
+  transition: transform 420ms var(--ease-cinematic);
+}
+
 .mobile-dock-item:active { transform: scale(0.94); }
+
 @media (prefers-reduced-motion: reduce) {
   .mobile-dock-indicator { transition: none; }
   .mobile-dock-item:active { transform: none; }
+  .gold-flakes-shimmer { animation: none; opacity: 0; }
 }
 
 /* ─── Motion-led hero, geometric ARD assembly, compact first viewport ── */

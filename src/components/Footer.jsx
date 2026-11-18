@@ -16,7 +16,7 @@ export default function Footer({ currentStatus, onOpenAdmin }) {
   return (
     <footer
       role="contentinfo"
-      className="bg-[#0b0c0e] border-t border-[#292C32] py-16 text-[#A1A1AA] text-sm relative"
+      className="bg-[#0b0c0e] border-t border-[#292C32] pt-16 pb-36 sm:pb-40 lg:pb-16 text-[#A1A1AA] text-sm relative"
     >
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#292C32]/80">
@@ -129,14 +129,7 @@ export default function Footer({ currentStatus, onOpenAdmin }) {
             &copy; {currentYear} ARD Dev Studio • {profile.identity.name}. All rights reserved.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span className="text-[#A1A1AA]">
-                {currentStatus || profile.identity.availability}
-              </span>
-            </div>
-
+          <div className="flex flex-wrap items-center gap-3">
             {canInstall && !isInstalled && (
               <button
                 type="button"
