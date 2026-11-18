@@ -1,17 +1,10 @@
+import { Link } from 'react-router-dom';
 import { profile } from '../data/profile';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 
 export default function Footer({ currentStatus, onOpenAdmin }) {
   const currentYear = new Date().getFullYear();
   const { canInstall, isInstalled, installApp } = usePWAInstall();
-
-  const handleScroll = (e, href) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
 
   return (
     <footer
@@ -62,19 +55,18 @@ export default function Footer({ currentStatus, onOpenAdmin }) {
             <nav aria-label="Footer navigation">
               <ul role="list" className="space-y-2 p-0 m-0 list-none text-xs">
                 {[
-                  { label: 'Production Projects', href: '#work' },
-                  { label: 'Technical Expertise', href: '#about' },
-                  { label: 'Work History', href: '#experience' },
-                  { label: 'Contact & Inquiry', href: '#contact' },
-                ].map(({ label, href }) => (
-                  <li key={href}>
-                    <a
-                      href={href}
-                      onClick={(e) => handleScroll(e, href)}
+                  { label: 'Production Projects', to: '/projects' },
+                  { label: 'Technical Expertise', to: '/about' },
+                  { label: 'Work History', to: '/about' },
+                  { label: 'Contact & Inquiry', to: '/contact' },
+                ].map(({ label, to }) => (
+                  <li key={label}>
+                    <Link
+                      to={to}
                       className="text-[#A1A1AA] hover:text-[#D6AD63] transition-colors"
                     >
                       {label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

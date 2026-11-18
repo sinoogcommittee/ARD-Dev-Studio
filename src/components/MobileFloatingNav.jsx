@@ -1,9 +1,21 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const NAV_ITEMS = [
   {
-    id: 'work',
-    href: '#work',
+    id: 'home',
+    to: '/',
+    label: 'Home',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+    ),
+  },
+  {
+    id: 'projects',
+    to: '/projects',
     label: 'Projects',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -16,7 +28,7 @@ const NAV_ITEMS = [
   },
   {
     id: 'about',
-    href: '#about',
+    to: '/about',
     label: 'About',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -26,19 +38,8 @@ const NAV_ITEMS = [
     ),
   },
   {
-    id: 'experience',
-    href: '#experience',
-    label: 'Experience',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-      </svg>
-    ),
-  },
-  {
     id: 'contact',
-    href: '#contact',
+    to: '/contact',
     label: 'Contact',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -49,8 +50,18 @@ const NAV_ITEMS = [
 ];
 
 export default function MobileFloatingNav() {
-  const [activeSection, setActiveSection] = useState('work');
+  const { pathname } = useLocation();
   const canvasRef = useRef(null);
+
+  // Determine active index by route
+  const getActiveIndex = () => {
+    if (pathname === '/') return 0;
+    if (pathname.startsWith('/projects')) return 1;
+    if (pathname.startsWith('/about')) return 2;
+    if (pathname.startsWith('/contact')) return 3;
+    return 0;
+  };
+  const activeIndex = getActiveIndex();
 
   // Moving ambient gold flakes canvas (sparse, gentle drift, subtle twinkle)
   useEffect(() => {
@@ -176,40 +187,6 @@ export default function MobileFloatingNav() {
     };
   }, []);
 
-  // Track active section via IntersectionObserver
-  useEffect(() => {
-    const sectionIds = ['work', 'about', 'experience', 'contact'];
-    const observers = [];
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(id);
-          }
-        },
-        { rootMargin: '-30% 0px -40% 0px', threshold: 0.1 }
-      );
-
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((obs) => obs.disconnect());
-  }, []);
-
-  const handleNav = (e, href) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-      target.scrollIntoView({ behavior, block: 'start' });
-    }
-  };
-
   return (
     <nav
       aria-label="Mobile navigation"
@@ -220,28 +197,27 @@ export default function MobileFloatingNav() {
     >
       <div
         className="mobile-dock pointer-events-auto flex items-center justify-between gap-1 p-1.5 w-full max-w-[290px] xs:max-w-[310px] rounded-full"
-        style={{ '--active-index': Math.max(0, NAV_ITEMS.findIndex(({ id }) => id === activeSection)) }}
+        style={{ '--active-index': activeIndex }}
       >
         {/* Moving Gold Flakes Micro-Canvas */}
         <canvas ref={canvasRef} className="dock-gold-canvas" aria-hidden="true" />
 
         <span className="mobile-dock-indicator" aria-hidden="true" />
         
-        {NAV_ITEMS.map(({ id, href, label, icon }) => {
-          const isActive = activeSection === id;
+        {NAV_ITEMS.map(({ id, to, label, icon }, idx) => {
+          const isActive = activeIndex === idx;
           return (
-            <a
+            <Link
               key={id}
-              href={href}
-              onClick={(e) => handleNav(e, href)}
-              aria-current={isActive ? 'location' : undefined}
+              to={to}
+              aria-current={isActive ? 'page' : undefined}
               className={`mobile-dock-item relative z-10 flex flex-col items-center justify-center flex-1 py-1.5 px-2 rounded-full transition-colors duration-200 select-none ${isActive ? 'text-[#D6AD63] font-bold' : 'text-[#A1A1AA] hover:text-[#F2F0EB]'}`}
             >
               <span className="transition-transform duration-200">{icon}</span>
               <span className="text-[10px] font-mono tracking-tight mt-0.5 leading-none">
                 {label}
               </span>
-            </a>
+            </Link>
           );
         })}
       </div>

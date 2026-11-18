@@ -1,21 +1,17 @@
-import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const NAV_LINKS = [
-  { label: 'Projects', href: '#work' },
-  { label: 'About & Skills', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', to: '/' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'About & Skills', to: '/about' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 export default function Header({ currentStatus }) {
-  const handleNav = (e, href) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-      target.scrollIntoView({ behavior, block: 'start' });
-    }
-  };
+  const { pathname } = useLocation();
+
+  const isActive = (to) =>
+    to === '/' ? pathname === '/' : pathname.startsWith(to);
 
   return (
     <>
@@ -30,10 +26,9 @@ export default function Header({ currentStatus }) {
       >
         <div className="container-custom flex items-center justify-between h-18 py-3.5">
           {/* Brand Wordmark with authentic ARD logo */}
-          <a
-            href="#main-content"
-            onClick={(e) => handleNav(e, '#main-content')}
-            aria-label="ARD Dev Studio — Back to top"
+          <Link
+            to="/"
+            aria-label="ARD Dev Studio — Home"
             className="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-200 hover:scale-[1.02] shrink-0"
           >
             <div className="h-9 w-14 sm:h-10 sm:w-16 rounded-lg overflow-hidden bg-[#101114] border border-[#D6AD63]/40 group-hover:border-[#D6AD63] group-hover:shadow-[0_0_16px_rgba(214,173,99,0.35)] transition-all flex items-center justify-center shrink-0 p-0.5">
@@ -51,20 +46,24 @@ export default function Header({ currentStatus }) {
                 Anthony Riel Diango
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation Links */}
           <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-7">
             <ul role="list" className="flex items-center gap-7 m-0 p-0 list-none">
-              {NAV_LINKS.map(({ label, href }) => (
-                <li key={href}>
-                  <a
-                    href={href}
-                    onClick={(e) => handleNav(e, href)}
-                    className="text-sm font-medium text-[#A1A1AA] hover:text-[#F2F0EB] transition-colors tracking-wide py-1 border-b border-transparent hover:border-[#D6AD63]"
+              {NAV_LINKS.map(({ label, to }) => (
+                <li key={to}>
+                  <Link
+                    to={to}
+                    className={`text-sm font-medium transition-colors tracking-wide py-1 border-b ${
+                      isActive(to)
+                        ? 'text-[#D6AD63] border-[#D6AD63]'
+                        : 'text-[#A1A1AA] hover:text-[#F2F0EB] border-transparent hover:border-[#D6AD63]'
+                    }`}
+                    aria-current={isActive(to) ? 'page' : undefined}
                   >
                     {label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -76,13 +75,12 @@ export default function Header({ currentStatus }) {
                 <span>Available</span>
               </div>
 
-              <a
-                href="#contact"
-                onClick={(e) => handleNav(e, '#contact')}
+              <Link
+                to="/contact"
                 className="btn-gold-primary border-beam text-xs py-2 px-4 h-9 font-semibold"
               >
                 Start a Conversation
-              </a>
+              </Link>
             </div>
           </nav>
 

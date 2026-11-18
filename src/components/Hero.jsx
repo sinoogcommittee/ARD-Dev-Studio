@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { profile } from '../data/profile';
 import Counter from './Counter';
 import HeroBlueprintCanvas from './motion/HeroBlueprintCanvas';
@@ -110,22 +111,22 @@ export default function Hero() {
 
             <div className="hero-actions">
               <motion.div ref={primaryRef} style={primaryStyle} className="magnetic-wrap">
-                <a href="#work" aria-label="Explore 16 Deployments" onClick={scrollTo('#work')} className="btn-gold-primary hero-cta border-beam">
+                <Link to="/projects" aria-label="Explore 16 Deployments" className="btn-gold-primary hero-cta border-beam">
                   <span className="hero-cta-label-full">Explore 16 Deployments</span>
                   <span className="hero-cta-label-compact" aria-hidden="true">Explore Work</span>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M7 13l5 5 5-5M12 6v12" />
                   </svg>
-                </a>
+                </Link>
               </motion.div>
               <motion.div ref={secondaryRef} style={secondaryStyle} className="magnetic-wrap">
-                <a href="#contact" aria-label="Discuss a Project" onClick={scrollTo('#contact')} className="btn-dark-outline hero-cta border-beam">
+                <Link to="/contact" aria-label="Discuss a Project" className="btn-dark-outline hero-cta border-beam">
                   <span className="hero-cta-label-full">Discuss a Project</span>
                   <span className="hero-cta-label-compact" aria-hidden="true">Discuss Project</span>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                   </svg>
-                </a>
+                </Link>
               </motion.div>
             </div>
 
