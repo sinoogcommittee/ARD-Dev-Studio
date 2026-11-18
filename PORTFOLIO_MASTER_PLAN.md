@@ -1616,19 +1616,20 @@ Acceptance:
 - [x] Visible keyboard focus on all interactive elements.
 - [x] 44/44 build audit checks pass (`node audit-build.mjs`).
 
-## Phase 3 — Supabase contact backend & database setup [COMPLETED]
+## Phase 3 — Supabase contact backend & database setup [COMPLETED & VERIFIED LIVE]
 
 Deliverables:
 - [x] Supabase SQL migration for the `messages` table (`supabase/migrations/20261118000000_create_messages_table.sql`).
 - [x] Strict Row-Level Security (RLS) policies allowing public/anon inserts while strictly denying unauthorized reads/updates/deletes.
+- [x] Live database connected to `https://ndwwoxsgcegdqiyoipvj.supabase.co` via `.env.local`.
+- [x] End-to-end live insert and RLS security verified (`npm run test:live-supabase`).
 - [x] Resilient Supabase client with safe unconfigured fallback (`src/lib/supabase.js`).
 - [x] Comprehensive setup and migration guide provided in `supabase/README.md`.
-- [x] Automated schema and client verification test passing (`test-supabase-schema.mjs`).
 
 Acceptance:
-- [x] Migration SQL is fully idempotent and tested.
-- [x] Unconfigured client falls back gracefully to direct mailto client.
-- [x] Frontend form validation enforces schema constraints.
+- [x] Live table `public.messages` operational in production Supabase project `ndwwoxsgcegdqiyoipvj`.
+- [x] Public anonymous visitors can transmit contact messages without error.
+- [x] Row-Level Security actively prevents public reading or scraping of submitted contact data.
 
 ## Phase 4 — Production deployment & smoke tests [CURRENT NEXT STEP]
 
