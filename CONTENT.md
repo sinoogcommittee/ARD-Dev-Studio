@@ -48,9 +48,8 @@ Each entry includes the resume's project name, deployment, and scope. Link each 
 
 ## Experience
 
-- Special Secondary Teacher I, Computer Programming (Java & .NET Technology), Department of Education, Fermin Tayabas National High School, Cabayugan, Calape, Bohol — August 2024–present. Teaches senior high school programming; architects and deploys school assessment, weather modality, and athletic tournament applications; writes technical documentation.
-- Administrative Aide II, Procurement Section & Digital Operations, Department of Public Works and Highways, Bohol 3rd District Engineering Office, Sawang, Guindulman, Bohol — November 2023–June 2024. Supported livestreaming, online project postings, procurement documentation, compliance reports, and digital routing logs.
-- Computer Technologist I / Administrative Assistant I (MIS & Database Systems), Department of Agriculture Regional Field Office VIII, Tacloban City, Leyte — May 2015–March 2021. Built and maintained BUB and procurement tracking database software; administered MIS workflows and reporting portals; provided Tier-2 support and network operations.
+- Secondary School Teacher I, Computer Programming (Java & .NET Technology), Department of Education, Fermin Tayabas National High School, Cabayugan, Calape, Bohol — August 2024–present. Teaches senior high school programming; architects and deploys school assessment, weather modality, and athletic tournament applications; writes technical documentation.
+- Computer Technologist, Department of Agriculture Regional Field Office VIII, Tacloban City, Leyte — May 2015–March 2024. Built and maintained BUB and procurement tracking database software; administered MIS workflows and reporting portals; provided Tier-2 support and network operations.
 - Technical Service Engineer, Business Machines Corporation, Cagayan de Oro City, Misamis Oriental — October 2013–May 2015. Deployed and supported POS, biometric, CCTV, and office systems; provided client onboarding, training, and LAN cabling.
 
 ## Education and credentials

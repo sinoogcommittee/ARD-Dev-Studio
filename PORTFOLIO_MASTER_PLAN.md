@@ -340,7 +340,7 @@ Suggested narrative should be written in first person after owner review. Avoid 
 
 Preserve the résumé's titles, dates, organizations, and descriptions.
 
-### Special Secondary Teacher I (SST-I) — Computer Programming (Java & .NET Technology)
+### Secondary School Teacher I (SST-I) — Computer Programming (Java & .NET Technology)
 **August 2024 – Present**  
 Department of Education (DepEd) — Fermin Tayabas National High School, Cabayugan, Calape, Bohol
 
@@ -349,17 +349,8 @@ Résumé responsibilities:
 - Architect and deploy production web applications that automate school assessments, weather-driven learning modality decisions, and multi-district athletic tournaments.
 - Translate complex technical workflows into clear, structured documentation and maintainable codebases.
 
-### Administrative Aide II — Procurement Section & Digital Operations
-**November 2023 – June 2024**  
-Department of Public Works and Highways (DPWH) — Bohol 3rd District Engineering Office, Sawang, Guindulman, Bohol
-
-Résumé responsibilities:
-- Managed technical setup and live broadcast operations (livestreaming) across official digital platforms during Pre-Bid and Opening of Bids conferences.
-- Administered online project postings, public notices, and procurement documentation workflows on PhilGEPS and the official DPWH website.
-- Prepared consolidated procurement compliance reports, COA audit submission packages, and digital routing logs for Bids and Awards Committee (BAC) documents.
-
-### Computer Technologist I / Administrative Assistant I (MIS & Database Systems)
-**May 2015 – March 2021**  
+### Computer Technologist
+**May 2015 – March 2024**  
 Department of Agriculture Regional Field Office VIII — Tacloban City, Leyte
 
 Résumé responsibilities:

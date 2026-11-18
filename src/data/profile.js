@@ -65,24 +65,17 @@ export const profile = {
 
   experience: [
     {
-      role: 'Special Secondary Teacher I, Computer Programming (Java & .NET Technology)',
+      role: 'Secondary School Teacher I, Computer Programming (Java & .NET Technology)',
       organization: 'Department of Education, Fermin Tayabas National High School',
       location: 'Cabayugan, Calape, Bohol',
       period: 'August 2024–present',
       description: 'Teaches senior high school programming; architects and deploys school assessment, weather modality, and athletic tournament applications; writes technical documentation.'
     },
     {
-      role: 'Administrative Aide II, Procurement Section & Digital Operations',
-      organization: 'Department of Public Works and Highways, Bohol 3rd District Engineering Office',
-      location: 'Sawang, Guindulman, Bohol',
-      period: 'November 2023–June 2024',
-      description: 'Supported livestreaming, online project postings, procurement documentation, compliance reports, and digital routing logs.'
-    },
-    {
-      role: 'Computer Technologist I / Administrative Assistant I (MIS & Database Systems)',
+      role: 'Computer Technologist',
       organization: 'Department of Agriculture Regional Field Office VIII',
       location: 'Tacloban City, Leyte',
-      period: 'May 2015–March 2021',
+      period: 'May 2015–March 2024',
       description: 'Built and maintained BUB and procurement tracking database software; administered MIS workflows and reporting portals; provided Tier-2 support and network operations.'
     },
     {

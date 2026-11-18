@@ -8,8 +8,8 @@ import path from 'path';
 const html = fs.readFileSync('dist/index.html', 'utf-8');
 const cssFile = fs.readdirSync('dist/assets').find(f => f.endsWith('.css'));
 const css  = fs.readFileSync(path.join('dist/assets', cssFile), 'utf-8');
-const jsFile  = fs.readdirSync('dist/assets').find(f => f.endsWith('.js'));
-const js   = fs.readFileSync(path.join('dist/assets', jsFile), 'utf-8');
+const jsFiles = fs.readdirSync('dist/assets').filter(f => f.endsWith('.js'));
+const js = jsFiles.map(f => fs.readFileSync(path.join('dist/assets', f), 'utf-8')).join('\n');
 
 const checks = [];
 const assert = (name, cond, detail = '') => checks.push({ name, pass: !!cond, detail });
