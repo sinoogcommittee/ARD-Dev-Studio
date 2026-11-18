@@ -55,10 +55,10 @@ export default function Hero({ currentStatus }) {
 
       {/* ─── Hero Content ───────────────────────────────────────────── */}
       <div className="container-custom relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* Left Column: Headline, Bio & CTAs (7 columns) */}
-          <div className="lg:col-span-7 text-center lg:text-left">
+          {/* Left Column: Headline, Bio & CTAs (Follows art on mobile/tablet, left column on desktop) */}
+          <div className="lg:col-span-7 text-center lg:text-left order-2 lg:order-1 pt-4 pb-16 lg:py-0">
             
             {/* Main Display Title */}
             <h1 className="anim-fade-up anim-delay-1 font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F2F0EB] leading-[1.1] mb-6">
@@ -174,12 +174,12 @@ export default function Hero({ currentStatus }) {
 
           </div>
 
-          {/* Right Column: 3D Holographic Brand Emblem Card (5 columns) */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end anim-fade-up anim-delay-3">
+          {/* Right Column: 3D Holographic Brand Emblem Card (First full-screen view on mobile/tablet portrait, right column on desktop) */}
+          <div className="lg:col-span-5 flex flex-col justify-center items-center lg:items-end order-1 lg:order-2 min-h-[calc(100svh-4.5rem)] lg:min-h-0 py-6 lg:py-0 anim-fade-up anim-delay-1">
             <div
               ref={emblemRef}
               style={emblemTiltStyle}
-              className="relative w-full max-w-md rounded-2xl bg-[#17191E]/90 border border-[#292C32] p-5 sm:p-6 shadow-2xl backdrop-blur-xl group hover:border-[#D6AD63]/60 transition-colors"
+              className="relative w-full max-w-sm sm:max-w-md rounded-2xl bg-[#17191E]/90 border border-[#292C32] p-5 sm:p-6 shadow-2xl backdrop-blur-xl group hover:border-[#D6AD63]/60 transition-colors"
             >
               {/* Cursor Spotlight on Emblem */}
               <div
@@ -232,6 +232,14 @@ export default function Hero({ currentStatus }) {
                   <span className="text-[#D6AD63]">Anthony Riel Diango</span>
                 </div>
               </div>
+            </div>
+
+            {/* Scroll Indicator Cue (mobile & tablet portrait only) */}
+            <div className="lg:hidden mt-8 flex flex-col items-center gap-1.5 text-xs font-mono text-[#D6AD63] animate-bounce select-none">
+              <span className="tracking-wider uppercase text-[10px] font-semibold">Scroll to Explore</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
             </div>
           </div>
 

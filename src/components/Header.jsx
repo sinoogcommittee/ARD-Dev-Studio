@@ -8,15 +8,12 @@ const NAV_LINKS = [
 ];
 
 export default function Header({ currentStatus }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   const handleNav = (e, href) => {
     e.preventDefault();
     const target = document.querySelector(href);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    setMenuOpen(false);
   };
 
   return (
@@ -56,7 +53,7 @@ export default function Header({ currentStatus }) {
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-7">
+          <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-7">
             <ul role="list" className="flex items-center gap-7 m-0 p-0 list-none">
               {NAV_LINKS.map(({ label, href }) => (
                 <li key={href}>
@@ -73,7 +70,7 @@ export default function Header({ currentStatus }) {
 
             {/* Availability Pill & Contact CTA */}
             <div className="flex items-center gap-4 pl-4 border-l border-[#292C32]">
-              <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-[#17191E] border border-[#292C32] text-xs font-mono text-[#A1A1AA]">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#17191E] border border-[#292C32] text-xs font-mono text-[#A1A1AA]">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>Available</span>
               </div>
@@ -88,63 +85,22 @@ export default function Header({ currentStatus }) {
             </div>
           </nav>
 
-          {/* Mobile Hamburger Button */}
-          <div className="flex items-center gap-3 md:hidden">
-            <button
-              aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-              aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              onClick={() => setMenuOpen((o) => !o)}
-              className="p-2.5 rounded-md bg-[#17191E] border border-[#292C32] text-[#F2F0EB] hover:text-[#D6AD63] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D6AD63]"
-            >
-              {menuOpen ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="4" y1="12" x2="20" y2="12"></line>
-                  <line x1="4" y1="6" x2="20" y2="6"></line>
-                  <line x1="4" y1="18" x2="20" y2="18"></line>
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation Drawer */}
-        {menuOpen && (
-          <nav
-            id="mobile-menu"
-            aria-label="Mobile navigation"
-            className="md:hidden border-t border-[#292C32] bg-[#101114]/98 px-6 py-6 flex flex-col gap-4 shadow-2xl animate-fade-in"
-          >
-            {NAV_LINKS.map(({ label, href }) => (
-              <a
-                key={href}
-                href={href}
-                onClick={(e) => handleNav(e, href)}
-                className="text-base font-medium text-[#F2F0EB] hover:text-[#D6AD63] py-2 border-b border-[#292C32]/60 transition-colors"
-              >
-                {label}
-              </a>
-            ))}
-            <div className="pt-2 flex flex-col gap-3">
-              <div className="flex items-center gap-2 py-1 text-xs font-mono text-emerald-400">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="truncate">{currentStatus || 'Available for remote & freelance roles'}</span>
-              </div>
-              <a
-                href="#contact"
-                onClick={(e) => handleNav(e, '#contact')}
-                className="btn-gold-primary text-center py-2.5 text-sm"
-              >
-                Get in Touch
-              </a>
+          {/* Mobile/Tablet Right Actions (Replacing Hamburger with sleek header CTA) */}
+          <div className="flex items-center gap-2.5 lg:hidden">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#17191E] border border-[#292C32] text-[11px] font-mono text-[#A1A1AA]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Available</span>
             </div>
-          </nav>
-        )}
+            <a
+              href="#contact"
+              onClick={(e) => handleNav(e, '#contact')}
+              className="btn-gold-primary text-xs py-1.5 px-3 h-8 font-semibold shrink-0"
+            >
+              Contact
+            </a>
+          </div>
+
+        </div>
       </header>
     </>
   );
