@@ -52,6 +52,23 @@ const NAV_ITEMS = [
 export default function MobileFloatingNav() {
   const { pathname } = useLocation();
   const canvasRef = useRef(null);
+  const navRef = useRef(null);
+
+  // Force Chromium on mobile to composite and position fixed navbar on initial paint
+  useEffect(() => {
+    const forceComposite = () => {
+      const el = navRef.current;
+      if (!el) return;
+      el.style.transform = 'translateZ(0.001px)';
+      void el.offsetHeight;
+      requestAnimationFrame(() => {
+        if (el) el.style.transform = 'translateZ(0)';
+      });
+    };
+    forceComposite();
+    const t = setTimeout(forceComposite, 80);
+    return () => clearTimeout(t);
+  }, []);
 
   // Determine active index by route
   const getActiveIndex = () => {
@@ -189,6 +206,7 @@ export default function MobileFloatingNav() {
 
   return (
     <nav
+      ref={navRef}
       aria-label="Mobile navigation"
       className="mobile-nav-container fixed inset-x-0 bottom-3 z-50 pointer-events-none lg:hidden flex justify-center px-3"
       style={{

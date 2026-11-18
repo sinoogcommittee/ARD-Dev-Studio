@@ -55,7 +55,7 @@ function AppShell() {
   };
 
   return (
-    <div className="bg-[#101114] text-[#F2F0EB] min-h-screen selection:bg-[#D6AD63]/30 selection:text-[#E5BE75]">
+    <div className="bg-[#101114] text-[#F2F0EB] min-h-[100dvh] selection:bg-[#D6AD63]/30 selection:text-[#E5BE75]">
       <Header currentStatus={currentStatus} />
 
       <Routes>

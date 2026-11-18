@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ard-dev-studio-v1';
+const CACHE_NAME = 'ard-dev-studio-v2';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
@@ -12,12 +12,13 @@ const PRECACHE_ASSETS = [
 ];
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(PRECACHE_ASSETS).catch((err) => {
         console.warn('[SW] Precache partial fallback:', err);
       });
-    }).then(() => self.skipWaiting())
+    })
   );
 });
 
@@ -41,11 +42,26 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Network first, falling back to cache
+  // HTML navigation requests: network first with cache fallback
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const copy = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match('/index.html'))
+    );
+    return;
+  }
+
+  // Asset requests: network first, falling back to cache
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
-        // Cache successful responses for same-origin
         if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -58,9 +74,6 @@ self.addEventListener('fetch', (event) => {
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) {
           return cachedResponse;
-        }
-        if (event.request.mode === 'navigate') {
-          return caches.match('/index.html');
         }
       })
   );
