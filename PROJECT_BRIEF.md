@@ -15,7 +15,8 @@ Create a visually memorable, high-performance portfolio and business platform fo
 - **Live Production URL**: [https://arddevstudio.onrender.com](https://arddevstudio.onrender.com)
 - **Visual Identity & Brand Assets**:
   - Official ARD 3D metallic monogram (`public/images/logo.jpg`) integrated into header navigation, browser favicon, and footer.
-  - Official architectural blueprint seal (`public/images/logodesign.jpg`) showcased in the interactive Hero 3D tilt card, OpenGraph meta, and Twitter preview.
+  - Official architectural blueprint seal (`public/images/logodesign.jpg`) showcased in the interactive Hero 3D tilt card.
+  - Official social media preview card (1200×630 px) powered by `public/images/ARDDevStudioLogo-preview.png` for rich link previews across Facebook, WhatsApp, Messenger, LinkedIn, X/Twitter, Telegram, and Discord.
   - High-resolution master asset (`public/images/ARDDevStudioLogo.png`) preserved in repository.
   - Premium dark editorial theme (`#101114` charcoal base, `#17191E` surfaces, `#D6AD63` warm gold accents, Space Grotesk / Inter / JetBrains Mono typography).
 - **Motion-Intensive Features**:
@@ -37,7 +38,7 @@ Create a visually memorable, high-performance portfolio and business platform fo
   - Successfully deployed on Render: `https://arddevstudio.onrender.com`.
   - `render.yaml` Blueprint configured with static SPA rewrites, caching headers, and security headers.
   - Hardened `.gitignore` protecting secrets and build state.
-- **Quality Assurance**: 55/55 build audit checks passing, 3/3 Supabase tests passing, 100% data fidelity against `CONTENT.md`, zero compile errors.
+- **Quality Assurance**: 60/60 build audit checks passing, 3/3 Supabase tests passing, 100% data fidelity against `CONTENT.md`, zero compile errors.
 
 ## Post-Launch Operations
 

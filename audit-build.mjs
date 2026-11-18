@@ -25,6 +25,9 @@ assert('PWA manifest linked',           html.includes('rel="manifest"') && html.
 assert('Apple touch icon linked',       html.includes('rel="apple-touch-icon"'));
 assert('Application name meta',         html.includes('name="application-name"') && html.includes('ARD Dev Studio'));
 assert('Mobile web app capable meta',   html.includes('name="mobile-web-app-capable"'));
+assert('OG image points to ARDDevStudioLogo preview', html.includes('ARDDevStudioLogo-preview.png'));
+assert('OG image uses absolute URL',    html.includes('content="https://arddevstudio.onrender.com/images/ARDDevStudioLogo-preview.png"'));
+assert('Twitter image uses absolute URL', html.includes('name="twitter:image"') && html.includes('ARDDevStudioLogo-preview.png'));
 
 // ── PWA & App Manifest ──────────────────────────────────────────────
 const manifestExists = fs.existsSync('dist/manifest.json');
@@ -38,6 +41,8 @@ if (manifestExists) {
 }
 assert('Service worker exists in dist', fs.existsSync('dist/sw.js'));
 assert('PWA icons exist in dist',       fs.existsSync('dist/images/icon-192.png') && fs.existsSync('dist/images/icon-512.png'));
+assert('Original ARDDevStudioLogo.png preserved', fs.existsSync('dist/images/ARDDevStudioLogo.png'));
+assert('Social preview image exists in dist', fs.existsSync('dist/images/ARDDevStudioLogo-preview.png'));
 
 // ── JS bundle — accessibility & semantic landmarks ───────────────────
 assert('Skip link present',             js.includes('skip-link'));
