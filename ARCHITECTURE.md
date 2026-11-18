@@ -30,8 +30,8 @@ Portfolio/
     ├── index.css             # Design tokens, motion keyframes, and utility classes
     ├── main.jsx              # Application entry point
     ├── components/
-    │   ├── Header.jsx        # Sticky glass navigation with brand emblem & mobile drawer
-    │   ├── Hero.jsx          # Cinematic hero with particle canvas, magnetic CTAs & 3D emblem card
+    │   ├── Header.jsx        # Sticky glass navigation with brand emblem & desktop links
+    │   ├── Hero.jsx          # Cinematic hero (portrait full-screen art landing, side-by-side desktop)
     │   ├── ParticleCanvas.jsx# Interactive HTML5 ambient particle canvas
     │   ├── Counter.jsx       # Eased number counter for production metrics
     │   ├── ProjectGallery.jsx# Filterable, searchable gallery of all 16 deployments
@@ -40,6 +40,8 @@ Portfolio/
     │   ├── AboutSection.jsx  # Technical skills grid, timeline, and accredited credentials
     │   ├── ContactSection.jsx# Direct channels (Email, Phone, FB) & Supabase fallback form
     │   ├── Footer.jsx        # Semantic footer with brand badge, navigation, and copyright
+    │   ├── MobileFloatingNav.jsx # Bottom floating navigation dock for mobile and tablet portrait
+    │   ├── AdminPortal.jsx   # Authenticated console for inbox triage and live status updates
     │   └── categoryMeta.js   # Domain accent colors, labels, and badges
     ├── data/
     │   ├── projects.js       # All 16 live deployments verified 1:1 with CONTENT.md
@@ -47,7 +49,8 @@ Portfolio/
     ├── hooks/
     │   ├── useScrollReveal.jsx # IntersectionObserver scroll reveal wrapper
     │   ├── useMouseTilt.js     # 3D card perspective & cursor spotlight hook
-    │   └── useMagnetic.js      # Elastic magnetic button attraction hook
+    │   ├── useMagnetic.js      # Elastic magnetic button attraction hook
+    │   └── useSiteSettings.js  # Live availability status synchronization hook
     └── lib/
         └── supabase.js       # Resilient Supabase client with safe unconfigured fallback
 ```

@@ -72,6 +72,10 @@ The portfolio implements 5 dedicated motion modules that guide user attention wi
 6. **Scroll Reveal Choreography (`useScrollReveal.jsx`)**:
    - Sections and cards fade and translate smoothly into view using hardware-accelerated `transform` and `opacity`.
 
+7. **Mobile Floating Dock & Portrait Art Landing Architecture (`MobileFloatingNav.jsx`)**:
+   - On mobile and tablet portrait devices, the 3D brand art card commands the entire landing viewport (`min-h-[calc(100svh-4.5rem)]`), framed between the clean top header and the floating glass dock.
+   - The traditional hamburger dropdown is replaced by an ergonomic floating bottom navigation dock (`MobileFloatingNav.jsx`) matching the design language across Anthony's shipped systems (e.g. DentalClinic, The Boarders), featuring active intersection tracking, touch-optimized tap targets, safe-area inset compensation, and a direct Studio Portal trigger.
+
 ## Accessibility & Reduced-Motion Guarantees
 
 - **`prefers-reduced-motion: reduce`**: A dedicated global media query overrides all animations and transitions (`0.01ms`), disables canvas particle animation, disables 3D tilt, and immediately displays final counter numbers.
