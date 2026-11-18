@@ -10,11 +10,13 @@ Create a visually memorable, high-performance portfolio and business platform fo
 - **Main action**: Open a live production project deployment or initiate a direct project discussion.
 - **Secondary action**: Review his technical stack, employment history in government and education, and accredited credentials.
 
-## Current Project Status: Phase 1-3 & Branding Complete (Ready for Phase 4 Deploy)
+## Current Project Status: Phase 1-4 Complete (Live in Production)
 
+- **Live Production URL**: [https://arddevstudio.onrender.com](https://arddevstudio.onrender.com)
 - **Visual Identity & Brand Assets**:
   - Official ARD 3D metallic monogram (`public/images/logo.jpg`) integrated into header navigation, browser favicon, and footer.
   - Official architectural blueprint seal (`public/images/logodesign.jpg`) showcased in the interactive Hero 3D tilt card, OpenGraph meta, and Twitter preview.
+  - High-resolution master asset (`public/images/ARDDevStudioLogo.png`) preserved in repository.
   - Premium dark editorial theme (`#101114` charcoal base, `#17191E` surfaces, `#D6AD63` warm gold accents, Space Grotesk / Inter / JetBrains Mono typography).
 - **Motion-Intensive Features**:
   1. Interactive HTML5 ambient particle canvas with proximity filaments.
@@ -23,20 +25,21 @@ Create a visually memorable, high-performance portfolio and business platform fo
   4. Magnetic physics-based primary CTA buttons (`useMagnetic.js`).
   5. Cinematic architectural inspection dialog for detailed system inspection (`ProjectModal.jsx`).
   6. Smooth scroll choreography via `IntersectionObserver` (`useScrollReveal.jsx`).
+  7. Mobile-first full screen 3D art landing view and floating bottom navigation dock (`MobileFloatingNav.jsx`).
 - **Project Inventory**: All 16 live deployments from `CONTENT.md` operational with category filtering and instant keyword search.
-- **Supabase Backend (Phase 3 Verified Live)**:
-  - Database migration in `supabase/migrations/20261118000000_create_messages_table.sql`.
+- **Supabase Backend & Studio Portal**:
   - Connected and tested live against `https://ndwwoxsgcegdqiyoipvj.supabase.co`.
-  - Strict Row-Level Security (RLS) enabling anonymous public inserts while blocking unauthorized read scraping.
-  - Client helper gracefully falls back to direct mail client when unconfigured.
+  - Database migration in `supabase/migrations/20261118000000_create_messages_table.sql`.
+  - Dynamic availability status settings in `supabase/migrations/20261118000001_create_site_settings_table.sql`.
+  - Private in-app Studio Admin Portal (`AdminPortal.jsx`) for 1-click message triage and real-time status updates without redeploying.
 - **Hosting & Infrastructure**:
-  - `render.yaml` Blueprint configured for static SPA deployment in Singapore region with SPA rewrites (`/*` -> `/index.html`) and security headers.
-  - Hardened `.gitignore` protecting secrets, build output, and local state.
+  - Successfully deployed on Render: `https://arddevstudio.onrender.com`.
+  - `render.yaml` Blueprint configured with static SPA rewrites, caching headers, and security headers.
+  - Hardened `.gitignore` protecting secrets and build state.
 - **Quality Assurance**: 44/44 build audit checks passing, 3/3 Supabase tests passing, 100% data fidelity against `CONTENT.md`, zero compile errors.
 
-## Immediate Next Steps (Phase 4 Launch)
+## Post-Launch Operations
 
-1. **Push to Remote Git Repository**: Commit all changes and push `main` branch to GitHub.
-2. **Deploy on Render**: Link the repository on Render via Blueprint (`render.yaml`).
-3. **Set Production Environment Variables**: Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to the Render environment settings.
-4. **Post-Deployment Smoke Test**: Verify live URL, contact form submission to Supabase, and live external links for all 16 projects.
+1. **Inquiries Management**: Use the in-app Studio Portal (`#admin` or footer button) to review incoming messages directly on `https://arddevstudio.onrender.com`.
+2. **Dynamic Availability**: Toggle or update your status text anytime from the Studio Portal without code changes.
+3. **Continuous Deployment**: Future Git commits pushed to `main` will automatically trigger fresh builds and deployments on Render.

@@ -12,6 +12,12 @@
   Built with <strong>React 18</strong>, <strong>Tailwind CSS</strong>, and <strong>Supabase</strong> by <strong>Anthony Riel C. Diango</strong> (Bohol, Philippines).
 </p>
 
+<p align="center">
+  <a href="https://arddevstudio.onrender.com" target="_blank" rel="noopener noreferrer">
+    <strong>🌐 Live Production Deployment: arddevstudio.onrender.com ↗</strong>
+  </a>
+</p>
+
 ---
 
 ## ⚡ Overview
@@ -184,7 +190,7 @@ This repository includes a production-ready Render Blueprint ([`render.yaml`](re
 1. Push your repository to GitHub.
 2. In the [Render Dashboard](https://dashboard.render.com/), click **New** → **Blueprint**.
 3. Connect your repository. Render automatically configures:
-   - **Service Name**: `ard-dev-studio`
+   - **Service Name**: `arddevstudio`
    - **Environment**: Static Site
    - **Build Command**: `npm install && npm run build`
    - **Publish Directory**: `./dist`
@@ -194,7 +200,7 @@ This repository includes a production-ready Render Blueprint ([`render.yaml`](re
 4. Add your environment variables in the Render Dashboard:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
-5. Click **Deploy**.
+5. Click **Deploy**. Your site is now live at [https://arddevstudio.onrender.com](https://arddevstudio.onrender.com)!
 
 ---
 

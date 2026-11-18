@@ -6,7 +6,7 @@
 
 services:
   - type: web
-    name: ard-dev-studio
+    name: arddevstudio
     env: static
     plan: free
     region: singapore # Closest region to the Philippines
