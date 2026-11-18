@@ -52,7 +52,7 @@ Portfolio/
 | **Phase 1: Foundation & Data** | **Completed** | Vite + React + Tailwind scaffolded; 16 projects and profile centralized in `src/data/`; safe Supabase helper created; 1:1 verification test passing. |
 | **Phase 2: Core Dark UI & Motion** | **Completed** | Full dark editorial theme implemented (`#101114`, `#D6AD63`); 5 cinematic motion modules active (3D tilt, particle canvas, counters, magnetic CTAs, modal); responsive mobile drawer; zero build errors. |
 | **Phase 3: Supabase Backend** | **Completed & Verified Live** | SQL migration created; live database `https://ndwwoxsgcegdqiyoipvj.supabase.co` connected; live insert & RLS verified via `npm run test:live-supabase`. |
-| **Phase 4: Deployment & DNS** | *Current Next Step* | Render / Vercel SPA rewrite configuration, static assets optimization, and production smoke tests. |
+| **Phase 4: Deployment & DNS** | **In Progress** | `render.yaml` Blueprint configured with static build, SPA rewrite rules, security headers, and hardened `.gitignore`; ready to connect on Render. |
 
 ## Contact Form & Backend Resilience
 

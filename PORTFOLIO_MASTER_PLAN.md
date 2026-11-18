@@ -1631,11 +1631,14 @@ Acceptance:
 - [x] Public anonymous visitors can transmit contact messages without error.
 - [x] Row-Level Security actively prevents public reading or scraping of submitted contact data.
 
-## Phase 4 — Production deployment & smoke tests [CURRENT NEXT STEP]
+## Phase 4 — Production deployment & smoke tests [IN PROGRESS]
 
 Deliverables:
-- [ ] Deploy static build to Render (or Vercel).
-- [ ] Configure SPA routing rewrite rules (`/*` -> `/index.html`).
+- [x] Configure `render.yaml` Blueprint for Render static site hosting.
+- [x] Configure SPA routing rewrite rules (`/*` -> `/index.html`) to prevent 404s.
+- [x] Configure caching and security headers (`Cache-Control`, `X-Content-Type-Options`, `X-Frame-Options`).
+- [x] Harden `.gitignore` against accidental secret commits (`.env`, `.env.*`, `.supabase/`).
+- [ ] Connect repository to Render dashboard for automated CI/CD builds.
 - [ ] Verify all 16 live external project URLs in production.
 - [ ] Run Chrome DevTools accessibility and Core Web Vitals audit on deployed URL.
 - Featured projects.

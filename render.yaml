@@ -1,0 +1,43 @@
+# ============================================================================
+# Render Blueprint Specification
+# Anthony Riel C. Diango Portfolio Website
+# ============================================================================
+# For documentation: https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: anthony-riel-portfolio
+    env: static
+    plan: free
+    region: singapore # Closest region to the Philippines
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: true
+
+    # SPA Routing: Rewrite all page requests to index.html for client-side routing
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+    # Security & Performance Headers
+    headers:
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+
+    # Environment variables (configured securely in Render dashboard or sync=false)
+    envVars:
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
