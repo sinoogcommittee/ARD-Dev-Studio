@@ -190,9 +190,11 @@ export default function MobileFloatingNav() {
   return (
     <nav
       aria-label="Mobile navigation"
-      className="fixed inset-x-0 z-40 pointer-events-none lg:hidden flex justify-center px-3"
+      className="mobile-nav-container fixed inset-x-0 bottom-3 z-50 pointer-events-none lg:hidden flex justify-center px-3"
       style={{
-        bottom: 'calc(12px + env(safe-area-inset-bottom, 0px))',
+        bottom: 'max(12px, calc(12px + env(safe-area-inset-bottom, 0px)))',
+        transform: 'translateZ(0)',
+        WebkitTransform: 'translateZ(0)',
       }}
     >
       <div
