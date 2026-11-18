@@ -11,7 +11,9 @@ This directory contains the database migration for the **Anthony Riel C. Diango 
 1. Open your project dashboard at [supabase.com](https://supabase.com/dashboard).
 2. In the left sidebar, navigate to the **SQL Editor**.
 3. Click **New Query**.
-4. Copy and paste the entire contents of [`supabase/migrations/20261118000000_create_messages_table.sql`](./migrations/20261118000000_create_messages_table.sql).
+4. Copy and paste the entire contents of:
+   - [`supabase/migrations/20261118000000_create_messages_table.sql`](./migrations/20261118000000_create_messages_table.sql)
+   - [`supabase/migrations/20261118000001_create_site_settings_table.sql`](./migrations/20261118000001_create_site_settings_table.sql)
 5. Click **Run** (or press `Ctrl+Enter`).
 6. You will see a success message: `Success. No rows returned`.
 

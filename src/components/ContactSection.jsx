@@ -3,7 +3,7 @@ import { profile } from '../data/profile';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { RevealDiv } from '../hooks/useScrollReveal';
 
-export default function ContactSection() {
+export default function ContactSection({ currentStatus }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -200,7 +200,7 @@ export default function ContactSection() {
                 </span>
               </div>
               <p className="text-sm font-semibold text-[#F2F0EB] mb-1">
-                {profile.identity.availability}
+                {currentStatus || profile.identity.availability}
               </p>
               <p className="text-xs text-[#A1A1AA] leading-relaxed">
                 Based in Guinacot, Guindulman, Bohol, Philippines. Ready to collaborate across global timezones.

@@ -1,6 +1,6 @@
 import { profile } from '../data/profile';
 
-export default function Footer() {
+export default function Footer({ currentStatus, onOpenAdmin }) {
   const currentYear = new Date().getFullYear();
 
   const handleScroll = (e, href) => {
@@ -121,17 +121,32 @@ export default function Footer() {
 
         </div>
 
-        {/* Bottom Bar: Copyright & Availability */}
+        {/* Bottom Bar: Copyright, Availability & Admin Portal */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#71717A]">
           <p>
             &copy; {currentYear} ARD Dev Studio • {profile.identity.name}. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span className="text-[#A1A1AA]">
-              {profile.identity.availability}
-            </span>
+          <div className="flex flex-wrap items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span className="text-[#A1A1AA]">
+                {currentStatus || profile.identity.availability}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              onClick={onOpenAdmin}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#17191E] border border-[#292C32] text-[11px] text-[#71717A] hover:text-[#D6AD63] hover:border-[#D6AD63]/40 transition-colors"
+              title="Open Studio Admin Portal (#admin or Ctrl+Shift+A)"
+            >
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Studio Portal</span>
+            </button>
           </div>
         </div>
       </div>

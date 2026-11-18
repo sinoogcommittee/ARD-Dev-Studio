@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { label: 'Contact', href: '#contact' },
 ];
 
-export default function Header() {
+export default function Header({ currentStatus }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNav = (e, href) => {
@@ -133,7 +133,7 @@ export default function Header() {
             <div className="pt-2 flex flex-col gap-3">
               <div className="flex items-center gap-2 py-1 text-xs font-mono text-emerald-400">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Available for remote & freelance roles</span>
+                <span className="truncate">{currentStatus || 'Available for remote & freelance roles'}</span>
               </div>
               <a
                 href="#contact"

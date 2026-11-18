@@ -4,7 +4,7 @@ import Counter from './Counter';
 import { useMagnetic } from '../hooks/useMagnetic';
 import { useMouseTilt } from '../hooks/useMouseTilt';
 
-export default function Hero() {
+export default function Hero({ currentStatus }) {
   const { ref: btnPrimaryRef, style: btnPrimaryStyle } = useMagnetic(0.25);
   const { ref: btnOutlineRef, style: btnOutlineStyle } = useMagnetic(0.2);
   const { ref: emblemRef, tiltStyle: emblemTiltStyle, spotlightPos: emblemSpotlight } = useMouseTilt(7);
@@ -67,7 +67,7 @@ export default function Hero() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
               </span>
               <span className="font-mono text-xs text-[#A1A1AA] tracking-wide">
-                {profile.identity.availability}
+                {currentStatus || profile.identity.availability}
               </span>
             </div>
 
