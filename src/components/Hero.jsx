@@ -60,19 +60,8 @@ export default function Hero({ currentStatus }) {
           {/* Left Column: Headline, Bio & CTAs (7 columns) */}
           <div className="lg:col-span-7 text-center lg:text-left">
             
-            {/* Eyebrow: Live Radar Availability Pill */}
-            <div className="anim-fade-up anim-delay-1 inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#17191E] border border-[#292C32] shadow-inner mb-6">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-              </span>
-              <span className="font-mono text-xs text-[#A1A1AA] tracking-wide">
-                {currentStatus || profile.identity.availability}
-              </span>
-            </div>
-
             {/* Main Display Title */}
-            <h1 className="anim-fade-up anim-delay-2 font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F2F0EB] leading-[1.1] mb-6">
+            <h1 className="anim-fade-up anim-delay-1 font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#F2F0EB] leading-[1.1] mb-6">
               Architecting &amp; Deploying{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D6AD63] via-[#F3DEAB] to-[#D6AD63]">
                 Production Systems
@@ -80,7 +69,7 @@ export default function Hero({ currentStatus }) {
             </h1>
 
             {/* Role & Positioning Statement */}
-            <div className="anim-fade-up anim-delay-3 flex flex-col gap-3 max-w-2xl mb-8 mx-auto lg:mx-0">
+            <div className="anim-fade-up anim-delay-2 flex flex-col gap-3 max-w-2xl mb-8 mx-auto lg:mx-0">
               <div className="flex items-center gap-3 justify-center lg:justify-start">
                 <span className="font-mono text-sm uppercase tracking-wider text-[#D6AD63] font-semibold">
                   ARD Dev Studio
@@ -96,7 +85,7 @@ export default function Hero({ currentStatus }) {
             </div>
 
             {/* Primary Action Buttons with Magnetic Physics */}
-            <div className="anim-fade-up anim-delay-4 flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-12">
+            <div className="anim-fade-up anim-delay-3 flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-12">
               <div ref={btnPrimaryRef} style={btnPrimaryStyle}>
                 <a
                   href="#work"
@@ -145,7 +134,7 @@ export default function Hero({ currentStatus }) {
             </div>
 
             {/* Production Metrics Strip with Animated Counters */}
-            <div className="anim-fade-up anim-delay-5 pt-6 border-t border-[#292C32]/80 grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
+            <div className="anim-fade-up anim-delay-4 pt-6 border-t border-[#292C32]/80 grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
               <div className="flex flex-col">
                 <span className="font-mono text-2xl sm:text-3xl font-bold text-[#F2F0EB]">
                   <Counter end={16} suffix="+" />
