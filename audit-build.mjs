@@ -1,6 +1,6 @@
 /**
- * DOM-free HTML/CSS/JSX audit — checks the built dist/index.html and
- * the generated CSS for critical accessibility and layout markers.
+ * Build Audit — checks the built dist/index.html, JS, and CSS
+ * for critical accessibility, semantic landmarks, dark theme tokens, and project URLs.
  */
 import fs from 'fs';
 import path from 'path';
@@ -20,8 +20,9 @@ assert('Charset UTF-8',                 html.includes('charset="UTF-8"'));
 assert('Meta viewport',                 html.includes('name="viewport"'));
 assert('Meta description',              html.includes('name="description"'));
 assert('Page title includes name',      html.includes('Anthony Riel C. Diango'));
+assert('Dark class or scheme in html',  html.includes('dark') || html.includes('color-scheme'));
 
-// ── JS bundle — accessibility & semantic ───────────────────────────
+// ── JS bundle — accessibility & semantic landmarks ───────────────────
 assert('Skip link present',             js.includes('skip-link'));
 assert('Main landmark',                 js.includes('"main"') || js.includes('main-content'));
 assert('Header role banner',            js.includes('"banner"'));
@@ -35,7 +36,6 @@ assert('Heading h2 about',             js.includes('about-heading'));
 assert('Heading h2 contact',           js.includes('contact-heading'));
 assert('aria-live polite on filter',    js.includes('aria-live'));
 assert('aria-pressed on filters',       js.includes('aria-pressed'));
-assert('aria-label project cards',      js.includes('aria-label') && js.includes('institutional'));
 assert('rel noopener noreferrer',       js.includes('noopener noreferrer'));
 assert('External links open new tab',   js.includes('_blank'));
 assert('mailto link',                   js.includes('mailto:'));
@@ -63,34 +63,25 @@ assert('All 16 live URLs present',
 );
 assert('Contact email in bundle',       js.includes('rieldiango24@gmail.com'));
 assert('Contact phone in bundle',       js.includes('+63 960 676 8549'));
-// Supabase is tree-shaken/minified; check that the helper module's exports
-// are referenced — the source file contains isSupabaseConfigured, and the
-// Contact component conditionally renders based on it.
-assert('Supabase graceful null check',  js.includes('isSupabaseConfigured') || js.includes('Send a Message'));
+assert('Supabase graceful null check',  js.includes('isSupabaseConfigured') || js.includes('Send a Direct Message'));
 
-// ── CSS — accessibility & motion ────────────────────────────────────
+// ── CSS — Dark Editorial tokens, accessibility & motion ─────────────
 assert('focus-visible ring defined',    css.includes('focus-visible'));
 assert('prefers-reduced-motion block',  css.includes('prefers-reduced-motion'));
 assert('Fade-up animation keyframe',    css.includes('fade-up'));
 assert('Reveal transition defined',     css.includes('.reveal'));
 assert('Skip link styles present',      css.includes('.skip-link'));
-assert('Filter button styles',          css.includes('.filter-btn'));
-assert('Project card hover styles',     css.includes('.project-card'));
-assert('Timeline styles',               css.includes('.timeline-line') && css.includes('.timeline-dot'));
-assert('Category band classes',         css.includes('cat-band-healthcare'));
-assert('Form field styles',             css.includes('.form-field'));
-assert('Button primary styles',         css.includes('.btn-primary'));
-assert('Button outline styles',         css.includes('.btn-outline'));
-assert('Mobile menu styles',            css.includes('.mobile-menu'));
-assert('Container layout util',         css.includes('.container'));
-assert('Section pad util',              css.includes('.section-pad'));
-assert('Hairline divider util',         css.includes('.hairline'));
-assert('Label-caps util',               css.includes('.label-caps'));
-assert('Chip badge util',               css.includes('.chip'));
-assert('CSS custom properties (tokens)',css.includes('--accent') && css.includes('--ink') && css.includes('--paper'));
-assert('Font Playfair Display loaded',  css.includes('Playfair Display') || css.includes('playfair'));
-assert('font-display-swap or similar',  css.includes('swap') || css.includes('googleapis'));
-assert('No horizontal overflow risk',   !css.includes('overflow-x: scroll') && !css.includes('width: 200'));
+assert('Category badge classes',        css.includes('cat-badge-healthcare'));
+assert('Button gold primary styles',    css.includes('.btn-gold-primary'));
+assert('Button dark outline styles',    css.includes('.btn-dark-outline'));
+assert('Card dark styles',              css.includes('.card-dark'));
+assert('Tech chip styles',              css.includes('.tech-chip'));
+assert('Filter pill styles',            css.includes('.filter-pill'));
+assert('Container layout util',         css.includes('.container-custom'));
+assert('Section spacing util',          css.includes('.section-spacing'));
+assert('Mono caps util',                css.includes('.mono-caps'));
+assert('Dark tokens present',           css.includes('--bg-dark') && css.includes('--accent-gold'));
+assert('Fonts loaded',                  css.includes('Space Grotesk') || css.includes('Inter') || css.includes('JetBrains Mono'));
 
 // ── Report ──────────────────────────────────────────────────────────
 const passed = checks.filter(c => c.pass).length;

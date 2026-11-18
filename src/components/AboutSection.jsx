@@ -1,279 +1,248 @@
 import { profile } from '../data/profile';
 import { RevealDiv } from '../hooks/useScrollReveal';
 
-const SKILL_GROUPS = [
+const SKILL_CATEGORIES = [
   {
-    label: 'Frontend',
+    title: 'Frontend Development',
     items: profile.skills.frontend,
     icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <rect x="1" y="2" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
-        <line x1="5.5" y1="14" x2="10.5" y2="14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <line x1="8" y1="12" x2="8" y2="14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+        <line x1="8" y1="21" x2="16" y2="21"></line>
+        <line x1="12" y1="17" x2="12" y2="21"></line>
       </svg>
     ),
   },
   {
-    label: 'Backend & Languages',
+    title: 'Backend & Languages',
     items: profile.skills.backendAndLanguages,
     icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <polyline points="4,5 1,8 4,11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <polyline points="12,5 15,8 12,11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <line x1="10" y1="3" x2="6" y2="13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
       </svg>
     ),
   },
   {
-    label: 'Hosting & Integrations',
+    title: 'Cloud, Hosting & Integrations',
     items: profile.skills.hostingAndIntegrations,
     icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <ellipse cx="8" cy="8" rx="7" ry="3" stroke="currentColor" strokeWidth="1.5"/>
-        <ellipse cx="8" cy="8" rx="7" ry="3" stroke="currentColor" strokeWidth="1.5" transform="rotate(60 8 8)"/>
-        <ellipse cx="8" cy="8" rx="7" ry="3" stroke="currentColor" strokeWidth="1.5" transform="rotate(-60 8 8)"/>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
       </svg>
     ),
   },
   {
-    label: 'Systems & Infrastructure',
+    title: 'Systems & Infrastructure',
     items: profile.skills.systems,
     icon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-        <rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-        <rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-        <rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+        <line x1="6" y1="6" x2="6.01" y2="6"></line>
+        <line x1="6" y1="18" x2="6.01" y2="18"></line>
       </svg>
     ),
   },
 ];
-
-function TimelineEntry({ role, organization, location, period, description, isLast }) {
-  return (
-    <div style={{ position: 'relative', paddingLeft: '2rem', paddingBottom: isLast ? 0 : '2.5rem' }}>
-      {!isLast && <div className="timeline-line" />}
-      <div className="timeline-dot" />
-      <div>
-        <span className="label-caps">{period}</span>
-        <h3
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '1.0625rem',
-            fontWeight: 700,
-            color: 'var(--ink)',
-            lineHeight: 1.3,
-            marginTop: '0.4rem',
-            marginBottom: '0.2rem',
-          }}
-        >
-          {role}
-        </h3>
-        <p style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--muted)', marginBottom: '0.5rem' }}>
-          {organization}
-          <span style={{ color: 'var(--border)', margin: '0 0.4rem' }}>·</span>
-          {location}
-        </p>
-        <p style={{ fontSize: '0.9rem', lineHeight: 1.65, color: 'var(--ink)', opacity: 0.78 }}>
-          {description}
-        </p>
-      </div>
-    </div>
-  );
-}
 
 export default function AboutSection() {
   return (
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="section-pad"
-      style={{ background: '#efebe2', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}
+      className="section-spacing bg-[#101114] border-b border-[#292C32] relative overflow-hidden"
     >
-      <div className="container">
+      {/* Background glow accent */}
+      <div
+        aria-hidden="true"
+        className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-[#D6AD63]/5 rounded-full blur-[150px] pointer-events-none"
+      />
 
-        {/* Section header */}
-        <RevealDiv style={{ marginBottom: '3.5rem' }}>
-          <span className="label-caps">Background</span>
-          <hr className="hairline" style={{ marginTop: '0.75rem', marginBottom: '1.25rem', maxWidth: '2.5rem', borderColor: 'var(--accent)', borderWidth: '2px' }} />
+      <div className="container-custom relative z-10">
+        {/* Section Header */}
+        <RevealDiv className="mb-14 max-w-3xl">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D6AD63]" />
+            <span className="mono-caps text-[#D6AD63]">Background &amp; Expertise</span>
+          </div>
           <h2
             id="about-heading"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
-              fontWeight: 700,
-              color: 'var(--ink)',
-              lineHeight: 1.15,
-            }}
+            className="font-display text-3xl sm:text-5xl font-bold text-[#F2F0EB] tracking-tight mb-4"
           >
-            Experience &amp; Skills
+            Engineering Foundation &amp; Technical Capabilities
           </h2>
+          <p className="text-base sm:text-lg text-[#A1A1AA] leading-relaxed">
+            Over a decade of combined hands-on experience in software development,
+            database architecture, mission-critical public portals, and technical instruction.
+          </p>
         </RevealDiv>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 26rem), 1fr))',
-            gap: '4rem',
-          }}
-        >
-          {/* Experience timeline */}
-          <RevealDiv>
-            <h3 className="label-caps" style={{ marginBottom: '1.75rem' }}>Work History</h3>
-            {profile.experience.map((exp, i) => (
-              <TimelineEntry
-                key={i}
-                {...exp}
-                isLast={i === profile.experience.length - 1}
-              />
-            ))}
-          </RevealDiv>
+        {/* ─── Technical Skills Grid ─────────────────────────────────── */}
+        <div className="mb-20">
+          <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#292C32]">
+            <h3 className="font-display text-xl font-bold text-[#F2F0EB]">
+              Technical Stack &amp; Specializations
+            </h3>
+            <span className="font-mono text-xs text-[#D6AD63]">
+              Verified Capabilities
+            </span>
+          </div>
 
-          {/* Skills */}
-          <RevealDiv delay={100}>
-            <h3 className="label-caps" style={{ marginBottom: '1.75rem' }}>Technical Skills</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
-              {SKILL_GROUPS.map(({ label, items, icon }) => (
-                <div key={label}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      marginBottom: '0.75rem',
-                      color: 'var(--accent)',
-                    }}
-                  >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {SKILL_CATEGORIES.map(({ title, items, icon }, index) => (
+              <RevealDiv
+                key={title}
+                delay={index * 60}
+                className="p-6 rounded-lg bg-[#17191E] border border-[#292C32] hover:border-[#D6AD63]/40 transition-colors flex flex-col justify-between"
+              >
+                <div>
+                  <div className="w-10 h-10 rounded-lg bg-[#1E2127] border border-[#292C32] flex items-center justify-center text-[#D6AD63] mb-4">
                     {icon}
-                    <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.8125rem', fontWeight: 600, color: 'var(--ink)' }}>
-                      {label}
-                    </span>
                   </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                  <h4 className="font-display font-bold text-base text-[#F2F0EB] mb-4">
+                    {title}
+                  </h4>
+                  <ul className="flex flex-col gap-2 p-0 m-0 list-none">
                     {items.map((skill) => (
-                      <span
+                      <li
                         key={skill}
-                        style={{
-                          fontFamily: 'var(--font-body)',
-                          fontSize: '0.8rem',
-                          color: 'var(--ink)',
-                          background: 'var(--paper)',
-                          border: '1px solid var(--border)',
-                          borderRadius: '2px',
-                          padding: '0.25rem 0.65rem',
-                          lineHeight: 1.5,
-                        }}
+                        className="text-xs text-[#A1A1AA] flex items-start gap-2 leading-relaxed"
                       >
-                        {skill}
-                      </span>
+                        <span className="text-[#D6AD63] mt-1 text-[10px]">▹</span>
+                        <span>{skill}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </div>
-              ))}
-            </div>
+              </RevealDiv>
+            ))}
+          </div>
 
-            {/* AI-assisted workflows note */}
-            <div
-              style={{
-                marginTop: '2rem',
-                borderTop: '1px solid var(--border)',
-                paddingTop: '1.25rem',
-                display: 'flex',
-                gap: '0.5rem',
-                flexWrap: 'wrap',
-              }}
-            >
-              <span className="label-caps" style={{ width: '100%', marginBottom: '0.5rem' }}>
-                AI-Assisted Engineering
+          {/* AI-Assisted Engineering Callout */}
+          <RevealDiv delay={100} className="mt-6 p-4 rounded-lg bg-[#17191E]/70 border border-[#292C32] flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-xs text-[#D6AD63] uppercase tracking-wider font-semibold">
+                AI-Assisted Engineering Workflows:
               </span>
-              {profile.skills.aiAssistedWorkflows.map((tool) => (
-                <span
-                  key={tool}
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontSize: '0.8rem',
-                    color: 'var(--accent)',
-                    background: 'rgba(184,115,51,0.08)',
-                    border: '1px solid rgba(184,115,51,0.25)',
-                    borderRadius: '2px',
-                    padding: '0.25rem 0.65rem',
-                  }}
-                >
-                  {tool}
-                </span>
-              ))}
-            </div>
-          </RevealDiv>
-        </div>
-
-        {/* Education & Credentials — compact sub-section */}
-        <RevealDiv delay={120} style={{ marginTop: '4rem', paddingTop: '3rem', borderTop: '1px solid var(--border)' }}>
-          <span className="label-caps" style={{ marginBottom: '1rem', display: 'block' }}>Education &amp; Credentials</span>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 22rem), 1fr))',
-              gap: '2.5rem',
-            }}
-          >
-            {/* Degrees */}
-            <div>
-              <h3 style={{ fontFamily: 'var(--font-body)', fontSize: '0.875rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '1.25rem' }}>
-                Academic Degrees
-              </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                {profile.educationAndCredentials.degrees.map((deg, i) => (
-                  <div key={i} style={{ borderLeft: '2px solid var(--accent)', paddingLeft: '1rem' }}>
-                    <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1rem', color: 'var(--ink)', marginBottom: '0.2rem' }}>
-                      {deg.degree}
-                    </p>
-                    <p style={{ fontSize: '0.8375rem', color: 'var(--muted)', lineHeight: 1.5 }}>{deg.institution}</p>
-                    <p style={{ fontSize: '0.75rem', color: 'var(--muted)', marginTop: '0.2rem', letterSpacing: '0.02em' }}>{deg.period}</p>
-                  </div>
+              <div className="flex flex-wrap gap-2">
+                {profile.skills.aiAssistedWorkflows.map((tool) => (
+                  <span key={tool} className="tech-chip text-[#D6AD63] border-[#D6AD63]/30">
+                    {tool}
+                  </span>
                 ))}
               </div>
             </div>
+            <span className="font-mono text-[11px] text-[#71717A]">
+              Accelerated delivery, rigorous testing &amp; architecture modeling
+            </span>
+          </RevealDiv>
+        </div>
 
-            {/* Credentials */}
-            <div>
-              <h3 style={{ fontFamily: 'var(--font-body)', fontSize: '0.875rem', fontWeight: 600, color: 'var(--ink)', marginBottom: '1.25rem' }}>
-                Certifications &amp; Eligibilities
-              </h3>
-              <ul
-                role="list"
-                style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}
-              >
+        {/* ─── Experience Timeline ───────────────────────────────────── */}
+        <div id="experience" className="pt-6">
+          <div className="flex items-center justify-between mb-10 pb-3 border-b border-[#292C32]">
+            <h3 className="font-display text-2xl font-bold text-[#F2F0EB]">
+              Professional Experience
+            </h3>
+            <span className="font-mono text-xs text-[#A1A1AA]">
+              Chronological Record
+            </span>
+          </div>
+
+          <div className="relative pl-6 sm:pl-8 border-l-2 border-[#292C32] space-y-12">
+            {profile.experience.map((exp, index) => (
+              <RevealDiv key={index} delay={index * 70} className="relative group">
+                {/* Glowing beacon dot on timeline */}
+                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[#101114] border-2 border-[#D6AD63] group-hover:scale-125 transition-transform flex items-center justify-center shadow-md">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#D6AD63]" />
+                </div>
+
+                <div className="p-6 rounded-lg bg-[#17191E] border border-[#292C32] group-hover:border-[#D6AD63]/50 transition-all duration-300 shadow-sm">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <span className="font-mono text-xs font-semibold text-[#D6AD63] tracking-wide">
+                      {exp.period}
+                    </span>
+                    <span className="font-mono text-[11px] text-[#71717A]">
+                      {exp.location}
+                    </span>
+                  </div>
+
+                  <h4 className="font-display text-lg sm:text-xl font-bold text-[#F2F0EB] mb-1">
+                    {exp.role}
+                  </h4>
+
+                  <p className="font-mono text-xs text-[#A1A1AA] mb-4">
+                    {exp.organization}
+                  </p>
+
+                  <p className="text-sm text-[#A1A1AA] leading-relaxed">
+                    {exp.description}
+                  </p>
+                </div>
+              </RevealDiv>
+            ))}
+          </div>
+        </div>
+
+        {/* ─── Education & Official Credentials ──────────────────────── */}
+        <div className="mt-20 pt-12 border-t border-[#292C32]">
+          <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#292C32]">
+            <h3 className="font-display text-2xl font-bold text-[#F2F0EB]">
+              Education &amp; Credentials
+            </h3>
+            <span className="font-mono text-xs text-[#D6AD63]">
+              Accredited Qualifications
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Academic Degrees */}
+            <RevealDiv className="p-6 rounded-lg bg-[#17191E] border border-[#292C32]">
+              <h4 className="font-mono text-xs uppercase tracking-wider text-[#D6AD63] font-bold mb-4">
+                Academic Degrees
+              </h4>
+              <div className="space-y-6">
+                {profile.educationAndCredentials.degrees.map((deg, i) => (
+                  <div key={i} className="border-l-2 border-[#D6AD63]/60 pl-4">
+                    <p className="font-display font-bold text-base text-[#F2F0EB]">
+                      {deg.degree}
+                    </p>
+                    <p className="text-xs text-[#A1A1AA] mt-0.5">
+                      {deg.institution}
+                    </p>
+                    <span className="font-mono text-[11px] text-[#D6AD63] mt-1 inline-block">
+                      {deg.period}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </RevealDiv>
+
+            {/* Certifications & Eligibilities */}
+            <RevealDiv delay={80} className="p-6 rounded-lg bg-[#17191E] border border-[#292C32]">
+              <h4 className="font-mono text-xs uppercase tracking-wider text-[#D6AD63] font-bold mb-4">
+                Certifications &amp; Professional Licensure
+              </h4>
+              <ul className="space-y-3.5 m-0 p-0 list-none">
                 {profile.educationAndCredentials.credentials.map((cred) => (
                   <li
                     key={cred}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.625rem',
-                      fontSize: '0.9rem',
-                      color: 'var(--ink)',
-                      lineHeight: 1.5,
-                    }}
+                    className="flex items-start gap-3 text-sm text-[#F2F0EB]"
                   >
-                    <span
-                      aria-hidden="true"
-                      style={{
-                        flexShrink: 0,
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '50%',
-                        background: 'var(--accent)',
-                        marginTop: '0.5rem',
-                        display: 'inline-block',
-                      }}
-                    />
-                    {cred}
+                    <span className="w-5 h-5 rounded-full bg-[#D6AD63]/10 border border-[#D6AD63]/30 text-[#D6AD63] flex items-center justify-center text-xs shrink-0 mt-0.5 font-bold">
+                      ✓
+                    </span>
+                    <span className="text-sm text-[#A1A1AA] leading-snug">
+                      {cred}
+                    </span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </RevealDiv>
           </div>
-        </RevealDiv>
+        </div>
+
       </div>
     </section>
   );

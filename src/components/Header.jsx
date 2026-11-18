@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 const NAV_LINKS = [
-  { label: 'Work',    href: '#work' },
-  { label: 'About',   href: '#about' },
+  { label: 'Projects', href: '#work' },
+  { label: 'About & Skills', href: '#about' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -20,51 +21,45 @@ export default function Header() {
 
   return (
     <>
-      <a href="#main-content" className="skip-link">Skip to main content</a>
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
 
-      <header id="site-nav" role="banner">
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1.5rem', height: '3.5rem' }}>
-
-          {/* Wordmark */}
+      <header
+        id="site-nav"
+        role="banner"
+        className="sticky top-0 z-50 nav-backdrop border-b border-[#292C32]/80 transition-all duration-300"
+      >
+        <div className="container-custom flex items-center justify-between h-18 py-3.5">
+          {/* Brand Wordmark with gold accent */}
           <a
             href="#main-content"
             onClick={(e) => handleNav(e, '#main-content')}
-            aria-label="Anthony Riel C. Diango — back to top"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: '1.0625rem',
-              color: 'var(--ink)',
-              letterSpacing: '-0.01em',
-              lineHeight: 1,
-            }}
+            aria-label="Anthony Riel C. Diango — Back to top"
+            className="group flex items-center gap-3 transition-transform duration-200 hover:scale-[1.02]"
           >
-            Riel Diango
+            <div className="w-9 h-9 rounded bg-[#17191E] border border-[#292C32] group-hover:border-[#D6AD63] flex items-center justify-center text-[#D6AD63] font-mono text-sm font-bold shadow-sm transition-colors">
+              RD
+            </div>
+            <div className="flex flex-col">
+              <span className="font-display font-bold text-base tracking-tight text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors leading-tight">
+                Riel Diango
+              </span>
+              <span className="font-mono text-[11px] text-[#A1A1AA] tracking-wider uppercase">
+                Full-Stack Dev
+              </span>
+            </div>
           </a>
 
-          {/* Desktop nav */}
-          <nav aria-label="Primary navigation" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-            <ul
-              role="list"
-              className="desktop-nav"
-              style={{ display: 'flex', gap: '2rem', listStyle: 'none', margin: 0, padding: 0 }}
-            >
+          {/* Desktop Navigation Links */}
+          <nav aria-label="Primary navigation" className="hidden md:flex items-center gap-7">
+            <ul role="list" className="flex items-center gap-7 m-0 p-0 list-none">
               {NAV_LINKS.map(({ label, href }) => (
                 <li key={href}>
                   <a
                     href={href}
                     onClick={(e) => handleNav(e, href)}
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.875rem',
-                      fontWeight: 500,
-                      color: 'var(--muted)',
-                      letterSpacing: '0.02em',
-                      transition: 'color 150ms ease',
-                      textDecoration: 'none',
-                    }}
-                    onMouseEnter={e => e.target.style.color = 'var(--ink)'}
-                    onMouseLeave={e => e.target.style.color = 'var(--muted)'}
+                    className="text-sm font-medium text-[#A1A1AA] hover:text-[#F2F0EB] transition-colors tracking-wide py-1 border-b border-transparent hover:border-[#D6AD63]"
                   >
                     {label}
                   </a>
@@ -72,90 +67,81 @@ export default function Header() {
               ))}
             </ul>
 
-            {/* Contact CTA — desktop */}
-            <a
-              href="#contact"
-              onClick={(e) => handleNav(e, '#contact')}
-              className="btn-primary"
-              style={{ padding: '0.5rem 1.25rem', fontSize: '0.8125rem' }}
-            >
-              Get in Touch
-            </a>
+            {/* Availability Pill & Contact CTA */}
+            <div className="flex items-center gap-4 pl-4 border-l border-[#292C32]">
+              <div className="hidden lg:flex items-center gap-2 px-3 py-1 rounded-full bg-[#17191E] border border-[#292C32] text-xs font-mono text-[#A1A1AA]">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Available</span>
+              </div>
 
-            {/* Hamburger — mobile only */}
+              <a
+                href="#contact"
+                onClick={(e) => handleNav(e, '#contact')}
+                className="btn-gold-primary text-xs py-2 px-4 h-9 font-semibold"
+              >
+                Start a Conversation
+              </a>
+            </div>
+          </nav>
+
+          {/* Mobile Hamburger Button */}
+          <div className="flex items-center gap-3 md:hidden">
             <button
               aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              onClick={() => setMenuOpen(o => !o)}
-              style={{
-                display: 'none',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                padding: '0.5rem',
-                color: 'var(--ink)',
-              }}
-              className="hamburger-btn"
+              onClick={() => setMenuOpen((o) => !o)}
+              className="p-2.5 rounded-md bg-[#17191E] border border-[#292C32] text-[#F2F0EB] hover:text-[#D6AD63] transition-colors focus:outline-none focus:ring-2 focus:ring-[#D6AD63]"
             >
               {menuOpen ? (
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                  <line x1="4" y1="4" x2="18" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <line x1="18" y1="4" x2="4" y2="18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
               ) : (
-                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                  <line x1="3" y1="6" x2="19" y2="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <line x1="3" y1="11" x2="19" y2="11" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                  <line x1="3" y1="16" x2="19" y2="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="4" y1="12" x2="20" y2="12"></line>
+                  <line x1="4" y1="6" x2="20" y2="6"></line>
+                  <line x1="4" y1="18" x2="20" y2="18"></line>
                 </svg>
               )}
             </button>
-          </nav>
+          </div>
         </div>
 
-        {/* Mobile menu */}
-        <nav
-          id="mobile-menu"
-          aria-label="Mobile navigation"
-          className={`mobile-menu${menuOpen ? ' open' : ''}`}
-        >
-          {NAV_LINKS.map(({ label, href }) => (
-            <a
-              key={href}
-              href={href}
-              onClick={(e) => handleNav(e, href)}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '1.0625rem',
-                fontWeight: 500,
-                color: 'var(--ink)',
-                padding: '0.75rem 0',
-                borderBottom: '1px solid var(--border)',
-                display: 'block',
-              }}
-            >
-              {label}
-            </a>
-          ))}
-          <a
-            href="#contact"
-            onClick={(e) => handleNav(e, '#contact')}
-            className="btn-primary"
-            style={{ marginTop: '1rem', alignSelf: 'flex-start' }}
+        {/* Mobile Navigation Drawer */}
+        {menuOpen && (
+          <nav
+            id="mobile-menu"
+            aria-label="Mobile navigation"
+            className="md:hidden border-t border-[#292C32] bg-[#101114]/98 px-6 py-6 flex flex-col gap-4 shadow-2xl animate-fade-in"
           >
-            Get in Touch
-          </a>
-        </nav>
+            {NAV_LINKS.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={(e) => handleNav(e, href)}
+                className="text-base font-medium text-[#F2F0EB] hover:text-[#D6AD63] py-2 border-b border-[#292C32]/60 transition-colors"
+              >
+                {label}
+              </a>
+            ))}
+            <div className="pt-2 flex flex-col gap-3">
+              <div className="flex items-center gap-2 py-1 text-xs font-mono text-emerald-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Available for remote & freelance roles</span>
+              </div>
+              <a
+                href="#contact"
+                onClick={(e) => handleNav(e, '#contact')}
+                className="btn-gold-primary text-center py-2.5 text-sm"
+              >
+                Get in Touch
+              </a>
+            </div>
+          </nav>
+        )}
       </header>
-
-      <style>{`
-        @media (max-width: 680px) {
-          .desktop-nav { display: none !important; }
-          .hamburger-btn { display: flex !important; }
-          #site-nav nav > a.btn-primary { display: none !important; }
-        }
-      `}</style>
     </>
   );
 }

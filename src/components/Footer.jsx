@@ -1,154 +1,129 @@
 import { profile } from '../data/profile';
 
-const handleScroll = (e, href) => {
-  e.preventDefault();
-  const target = document.querySelector(href);
-  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-};
-
 export default function Footer() {
-  const year = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
+
+  const handleScroll = (e, href) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <footer
       role="contentinfo"
-      style={{
-        background: 'var(--ink)',
-        color: 'rgba(245,240,232,0.75)',
-        borderTop: '1px solid rgba(245,240,232,0.08)',
-        padding: '3rem 1.5rem',
-      }}
+      className="bg-[#0b0c0e] border-t border-[#292C32] py-16 text-[#A1A1AA] text-sm relative"
     >
-      <div
-        className="container"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '2rem',
-        }}
-      >
-        {/* Top row */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            flexWrap: 'wrap',
-            gap: '2rem',
-          }}
-        >
-          {/* Identity */}
-          <div>
-            <p
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.125rem',
-                fontWeight: 700,
-                color: 'rgba(245,240,232,0.95)',
-                marginBottom: '0.3rem',
-              }}
-            >
-              {profile.identity.name}
-            </p>
-            <p style={{ fontSize: '0.8125rem', lineHeight: 1.6 }}>
+      <div className="container-custom">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-[#292C32]/80">
+          
+          {/* Identity & Location */}
+          <div className="md:col-span-5 space-y-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded bg-[#17191E] border border-[#D6AD63]/40 flex items-center justify-center text-[#D6AD63] font-mono text-xs font-bold">
+                RD
+              </div>
+              <span className="font-display font-bold text-lg text-[#F2F0EB]">
+                {profile.identity.name}
+              </span>
+            </div>
+            
+            <p className="font-mono text-xs text-[#D6AD63] uppercase tracking-wider">
               {profile.identity.role}
-              <br />
+            </p>
+
+            <p className="text-xs text-[#71717A] max-w-sm leading-relaxed">
               {profile.identity.location}
             </p>
+
+            <p className="text-xs text-[#A1A1AA] pt-2">
+              {profile.identity.resumeClaim}
+            </p>
           </div>
 
-          {/* Nav links */}
-          <nav aria-label="Footer navigation">
-            <ul
-              role="list"
-              style={{
-                listStyle: 'none',
-                margin: 0,
-                padding: 0,
-                display: 'flex',
-                gap: '1.5rem',
-                flexWrap: 'wrap',
-              }}
-            >
-              {[
-                { label: 'Work',    href: '#work' },
-                { label: 'About',   href: '#about' },
-                { label: 'Contact', href: '#contact' },
-              ].map(({ label, href }) => (
-                <li key={href}>
-                  <a
-                    href={href}
-                    onClick={(e) => handleScroll(e, href)}
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.875rem',
-                      fontWeight: 500,
-                      color: 'rgba(245,240,232,0.6)',
-                      transition: 'color 150ms ease',
-                    }}
-                    onMouseEnter={e => e.target.style.color = 'rgba(245,240,232,0.95)'}
-                    onMouseLeave={e => e.target.style.color = 'rgba(245,240,232,0.6)'}
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Contact links */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-            <span style={{ fontSize: '0.6875rem', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.4)', marginBottom: '0.25rem' }}>
-              Contact
+          {/* Quick Navigation */}
+          <div className="md:col-span-3 space-y-3">
+            <span className="font-mono text-xs uppercase tracking-wider text-[#F2F0EB] font-semibold block">
+              Navigation
             </span>
-            <a
-              href={`mailto:${profile.contact.email}`}
-              style={{ fontSize: '0.875rem', color: 'rgba(184,115,51,0.9)', transition: 'color 150ms ease' }}
-              onMouseEnter={e => e.target.style.color = 'var(--accent)'}
-              onMouseLeave={e => e.target.style.color = 'rgba(184,115,51,0.9)'}
-            >
-              {profile.contact.email}
-            </a>
-            <a
-              href={`tel:${profile.contact.phone.replace(/\s/g, '')}`}
-              style={{ fontSize: '0.875rem', color: 'rgba(245,240,232,0.6)', transition: 'color 150ms ease' }}
-              onMouseEnter={e => e.target.style.color = 'rgba(245,240,232,0.95)'}
-              onMouseLeave={e => e.target.style.color = 'rgba(245,240,232,0.6)'}
-            >
-              {profile.contact.phone}
-            </a>
-            <a
-              href={profile.contact.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ fontSize: '0.875rem', color: 'rgba(245,240,232,0.6)', transition: 'color 150ms ease' }}
-              onMouseEnter={e => e.target.style.color = 'rgba(245,240,232,0.95)'}
-              onMouseLeave={e => e.target.style.color = 'rgba(245,240,232,0.6)'}
-            >
-              Facebook Profile
-            </a>
+            <nav aria-label="Footer navigation">
+              <ul role="list" className="space-y-2 p-0 m-0 list-none text-xs">
+                {[
+                  { label: 'Production Projects', href: '#work' },
+                  { label: 'Technical Expertise', href: '#about' },
+                  { label: 'Work History', href: '#experience' },
+                  { label: 'Contact & Inquiry', href: '#contact' },
+                ].map(({ label, href }) => (
+                  <li key={href}>
+                    <a
+                      href={href}
+                      onClick={(e) => handleScroll(e, href)}
+                      className="text-[#A1A1AA] hover:text-[#D6AD63] transition-colors"
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
+
+          {/* Direct Verified Outlets */}
+          <div className="md:col-span-4 space-y-3">
+            <span className="font-mono text-xs uppercase tracking-wider text-[#F2F0EB] font-semibold block">
+              Contact Channels
+            </span>
+            <div className="space-y-2 text-xs font-mono">
+              <div>
+                <span className="text-[#71717A] block text-[10px] uppercase">Email</span>
+                <a
+                  href={`mailto:${profile.contact.email}`}
+                  className="text-[#D6AD63] hover:underline"
+                >
+                  {profile.contact.email}
+                </a>
+              </div>
+
+              <div>
+                <span className="text-[#71717A] block text-[10px] uppercase">Phone</span>
+                <a
+                  href={`tel:${profile.contact.phone.replace(/\s+/g, '')}`}
+                  className="text-[#A1A1AA] hover:text-[#F2F0EB]"
+                >
+                  {profile.contact.phone}
+                </a>
+              </div>
+
+              <div>
+                <span className="text-[#71717A] block text-[10px] uppercase">Facebook</span>
+                <a
+                  href={profile.contact.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#A1A1AA] hover:text-[#F2F0EB]"
+                >
+                  facebook.com/realnariel ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        {/* Divider */}
-        <div style={{ height: '1px', background: 'rgba(245,240,232,0.1)' }} />
+        {/* Bottom Bar: Copyright & Availability */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#71717A]">
+          <p>
+            &copy; {currentYear} {profile.identity.name}. All rights reserved.
+          </p>
 
-        {/* Bottom row */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '0.75rem',
-          }}
-        >
-          <p style={{ fontSize: '0.78125rem', color: 'rgba(245,240,232,0.4)' }}>
-            &copy; {year} {profile.identity.name}. All rights reserved.
-          </p>
-          <p style={{ fontSize: '0.78125rem', color: 'rgba(245,240,232,0.4)' }}>
-            {profile.identity.availability}
-          </p>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="text-[#A1A1AA]">
+              {profile.identity.availability}
+            </span>
+          </div>
         </div>
       </div>
     </footer>

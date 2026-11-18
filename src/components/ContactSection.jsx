@@ -3,341 +3,373 @@ import { profile } from '../data/profile';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { RevealDiv } from '../hooks/useScrollReveal';
 
-const CONTACT_METHODS = [
-  {
-    label: 'Email',
-    value: profile.contact.email,
-    href: `mailto:${profile.contact.email}`,
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" strokeWidth="1.5"/>
-        <polyline points="2,6 10,12 18,6" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    label: 'Phone',
-    value: profile.contact.phone,
-    href: `tel:${profile.contact.phone.replace(/\s/g, '')}`,
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <path d="M4 3h4l1.5 4-2 1.5c1 2 2.5 3.5 4.5 4.5L13.5 11 17 12.5v4a1 1 0 0 1-1 1C7 17.5 2.5 9 3 4a1 1 0 0 1 1-1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    label: 'Facebook',
-    value: 'realnariel',
-    href: profile.contact.facebook,
-    external: true,
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <path d="M17 10A7 7 0 1 1 3 10a7 7 0 0 1 14 0z" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M12 7h-1.5A1.5 1.5 0 0 0 9 8.5V10H7l.5 2H9v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-];
-
-function ContactMethodCard({ label, value, href, icon, external }) {
-  return (
-    <a
-      href={href}
-      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      aria-label={`Contact via ${label}: ${value}`}
-      style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: '1rem',
-        padding: '1.25rem 1.375rem',
-        background: 'var(--white)',
-        border: '1px solid var(--border)',
-        borderRadius: '3px',
-        textDecoration: 'none',
-        transition: 'border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease',
-        color: 'var(--ink)',
-      }}
-      onMouseEnter={e => {
-        e.currentTarget.style.borderColor = 'var(--accent)';
-        e.currentTarget.style.transform = 'translateY(-2px)';
-        e.currentTarget.style.boxShadow = '0 4px 16px rgba(184,115,51,0.14)';
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.borderColor = 'var(--border)';
-        e.currentTarget.style.transform = '';
-        e.currentTarget.style.boxShadow = '';
-      }}
-    >
-      <span style={{ color: 'var(--accent)', flexShrink: 0, marginTop: '0.1rem' }}>{icon}</span>
-      <div>
-        <span className="label-caps" style={{ display: 'block', marginBottom: '0.25rem' }}>{label}</span>
-        <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontWeight: 500, color: 'var(--ink)', wordBreak: 'break-all' }}>
-          {value}
-        </span>
-      </div>
-    </a>
-  );
-}
-
-function ContactForm() {
-  const [fields, setFields] = useState({ name: '', email: '', message: '' });
+export default function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
   const [errors, setErrors] = useState({});
-  const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [status, setStatus] = useState('idle'); // idle | submitting | success | error
+  const [errorMessage, setErrorMessage] = useState('');
 
   const validate = () => {
-    const e = {};
-    if (!fields.name.trim()) e.name = 'Name is required.';
-    if (!fields.email.trim()) e.email = 'Email address is required.';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) e.email = 'Enter a valid email address.';
-    if (!fields.message.trim()) e.message = 'Message is required.';
-    else if (fields.message.trim().length < 10) e.message = 'Message must be at least 10 characters.';
-    return e;
+    const errs = {};
+    if (!formData.name.trim()) {
+      errs.name = 'Please provide your name.';
+    }
+    if (!formData.email.trim()) {
+      errs.email = 'Please provide your email address.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      errs.email = 'Please enter a valid email address.';
+    }
+    if (!formData.message.trim()) {
+      errs.message = 'Please include a message or inquiry details.';
+    } else if (formData.message.trim().length < 10) {
+      errs.message = 'Message must be at least 10 characters.';
+    }
+    return errs;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFields(prev => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errs = validate();
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs);
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
-    setStatus('sending');
+    if (!isSupabaseConfigured) {
+      // Graceful fallback: launch default mail client
+      window.location.href = `mailto:${profile.contact.email}?subject=Project%20Inquiry%20from%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(formData.message)}`;
+      return;
+    }
+
+    setStatus('submitting');
+    setErrorMessage('');
+
     try {
       const { error } = await supabase.from('messages').insert([
         {
-          name: fields.name.trim(),
-          email: fields.email.trim(),
-          message: fields.message.trim(),
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+          created_at: new Date().toISOString(),
         },
       ]);
+
       if (error) throw error;
+
       setStatus('success');
-      setFields({ name: '', email: '', message: '' });
-    } catch {
+      setFormData({ name: '', email: '', message: '' });
+    } catch (err) {
+      console.error('Contact submission error:', err);
       setStatus('error');
+      setErrorMessage(
+        'Unable to send message via database. Please email directly at rieldiango24@gmail.com'
+      );
     }
   };
 
-  if (status === 'success') {
-    return (
-      <div
-        role="status"
-        aria-live="polite"
-        style={{
-          padding: '2rem',
-          background: 'rgba(90,158,111,0.08)',
-          border: '1px solid rgba(90,158,111,0.35)',
-          borderRadius: '3px',
-          textAlign: 'center',
-        }}
-      >
-        <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.25rem', fontWeight: 700, color: '#2d6a4f', marginBottom: '0.5rem' }}>
-          Message sent!
-        </p>
-        <p style={{ fontSize: '0.9rem', color: 'var(--muted)' }}>
-          Thank you for reaching out. I'll get back to you soon.
-        </p>
-        <button
-          onClick={() => setStatus('idle')}
-          className="btn-outline"
-          style={{ marginTop: '1.25rem' }}
-        >
-          Send another message
-        </button>
-      </div>
-    );
-  }
-
-  return (
-    <form onSubmit={handleSubmit} noValidate aria-label="Contact form">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-        <div className="form-field">
-          <label htmlFor="contact-name">Name</label>
-          <input
-            id="contact-name"
-            name="name"
-            type="text"
-            autoComplete="name"
-            value={fields.name}
-            onChange={handleChange}
-            aria-describedby={errors.name ? 'err-name' : undefined}
-            aria-invalid={!!errors.name}
-            placeholder="Your full name"
-          />
-          {errors.name && <span id="err-name" className="field-error" role="alert">{errors.name}</span>}
-        </div>
-
-        <div className="form-field">
-          <label htmlFor="contact-email">Email</label>
-          <input
-            id="contact-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            value={fields.email}
-            onChange={handleChange}
-            aria-describedby={errors.email ? 'err-email' : undefined}
-            aria-invalid={!!errors.email}
-            placeholder="your@email.com"
-          />
-          {errors.email && <span id="err-email" className="field-error" role="alert">{errors.email}</span>}
-        </div>
-
-        <div className="form-field">
-          <label htmlFor="contact-message">Message</label>
-          <textarea
-            id="contact-message"
-            name="message"
-            rows={5}
-            value={fields.message}
-            onChange={handleChange}
-            aria-describedby={errors.message ? 'err-message' : undefined}
-            aria-invalid={!!errors.message}
-            placeholder="Tell me about your project, role, or idea…"
-          />
-          {errors.message && <span id="err-message" className="field-error" role="alert">{errors.message}</span>}
-        </div>
-
-        {status === 'error' && (
-          <div
-            role="alert"
-            aria-live="assertive"
-            style={{
-              padding: '0.875rem 1rem',
-              background: 'rgba(192,57,43,0.07)',
-              border: '1px solid rgba(192,57,43,0.25)',
-              borderRadius: '2px',
-              fontSize: '0.875rem',
-              color: '#c0392b',
-            }}
-          >
-            Something went wrong. Please try emailing directly at{' '}
-            <a href={`mailto:${profile.contact.email}`} style={{ fontWeight: 600, textDecoration: 'underline' }}>
-              {profile.contact.email}
-            </a>
-          </div>
-        )}
-
-        <button
-          type="submit"
-          className="btn-primary"
-          disabled={status === 'sending'}
-          aria-busy={status === 'sending'}
-          style={{ alignSelf: 'flex-start' }}
-        >
-          {status === 'sending' ? 'Sending…' : 'Send Message'}
-          {status !== 'sending' && (
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M1 7h12M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          )}
-        </button>
-      </div>
-    </form>
-  );
-}
-
-export default function ContactSection() {
   return (
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="section-pad"
-      style={{ background: 'var(--paper)', borderTop: '1px solid var(--border)' }}
+      className="section-spacing bg-[#101114] relative overflow-hidden"
     >
-      <div className="container">
+      {/* Background Ambient Glow */}
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-1/3 w-[600px] h-[400px] bg-[#D6AD63]/5 rounded-full blur-[160px] pointer-events-none"
+      />
 
-        {/* Section header */}
-        <RevealDiv style={{ marginBottom: '3rem' }}>
-          <span className="label-caps">Get in Touch</span>
-          <hr className="hairline" style={{ marginTop: '0.75rem', marginBottom: '1.25rem', maxWidth: '2.5rem', borderColor: 'var(--accent)', borderWidth: '2px' }} />
+      <div className="container-custom relative z-10">
+        <RevealDiv className="mb-14 max-w-3xl">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D6AD63]" />
+            <span className="mono-caps text-[#D6AD63]">Get in Touch</span>
+          </div>
           <h2
             id="contact-heading"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(1.75rem, 4vw, 2.75rem)',
-              fontWeight: 700,
-              color: 'var(--ink)',
-              lineHeight: 1.15,
-              marginBottom: '0.75rem',
-            }}
+            className="font-display text-3xl sm:text-5xl font-bold text-[#F2F0EB] tracking-tight mb-4"
           >
             Start a Conversation
           </h2>
-          <p style={{ fontSize: '1.0625rem', color: 'var(--muted)', maxWidth: '40rem', lineHeight: 1.65, marginBottom: '0.75rem' }}>
-            Available for project-based, freelance, part-time, or full-time remote roles. Reach out through any of the channels below.
+          <p className="text-base sm:text-lg text-[#A1A1AA] leading-relaxed">
+            Interested in building a custom web application, school management portal, or sports tabulation engine?
+            Let’s discuss your operational goals and technical requirements.
           </p>
         </RevealDiv>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 24rem), 1fr))',
-            gap: '3.5rem',
-          }}
-        >
-          {/* Direct contact channels */}
-          <RevealDiv>
-            <h3 className="label-caps" style={{ marginBottom: '1.25rem' }}>Direct Contact</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', marginBottom: '2rem' }}>
-              {CONTACT_METHODS.map((method) => (
-                <ContactMethodCard key={method.label} {...method} />
-              ))}
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          {/* ─── Left Column: Direct Contact Methods & Availability ─── */}
+          <div className="lg:col-span-5 space-y-6">
+            <RevealDiv className="space-y-4">
+              <h3 className="font-mono text-xs uppercase tracking-wider text-[#A1A1AA] font-bold">
+                Direct Channels
+              </h3>
 
-            <div
-              style={{
-                padding: '1rem 1.25rem',
-                background: 'rgba(184,115,51,0.06)',
-                border: '1px solid rgba(184,115,51,0.2)',
-                borderRadius: '3px',
-              }}
-            >
-              <span className="label-caps" style={{ color: 'var(--accent)', display: 'block', marginBottom: '0.4rem' }}>Availability</span>
-              <p style={{ fontSize: '0.9rem', color: 'var(--ink)', lineHeight: 1.6 }}>
+              {/* Email Card */}
+              <a
+                href={`mailto:${profile.contact.email}`}
+                className="p-5 rounded-lg bg-[#17191E] border border-[#292C32] hover:border-[#D6AD63] transition-all flex items-start gap-4 group block"
+              >
+                <div className="w-10 h-10 rounded-md bg-[#1E2127] border border-[#292C32] flex items-center justify-center text-[#D6AD63] group-hover:scale-105 transition-transform shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+                <div>
+                  <span className="font-mono text-xs text-[#71717A] uppercase tracking-wider block">
+                    Direct Email
+                  </span>
+                  <span className="font-mono text-sm font-semibold text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors break-all">
+                    {profile.contact.email}
+                  </span>
+                  <p className="text-xs text-[#A1A1AA] mt-1">
+                    Typically responds within 24 hours
+                  </p>
+                </div>
+              </a>
+
+              {/* Phone Card */}
+              <a
+                href={`tel:${profile.contact.phone.replace(/\s+/g, '')}`}
+                className="p-5 rounded-lg bg-[#17191E] border border-[#292C32] hover:border-[#D6AD63] transition-all flex items-start gap-4 group block"
+              >
+                <div className="w-10 h-10 rounded-md bg-[#1E2127] border border-[#292C32] flex items-center justify-center text-[#D6AD63] group-hover:scale-105 transition-transform shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span className="font-mono text-xs text-[#71717A] uppercase tracking-wider block">
+                    Phone / SMS
+                  </span>
+                  <span className="font-mono text-sm font-semibold text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors">
+                    {profile.contact.phone}
+                  </span>
+                  <p className="text-xs text-[#A1A1AA] mt-1">
+                    Call or send an SMS inquiry directly
+                  </p>
+                </div>
+              </a>
+
+              {/* Facebook Card */}
+              <a
+                href={profile.contact.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-5 rounded-lg bg-[#17191E] border border-[#292C32] hover:border-[#D6AD63] transition-all flex items-start gap-4 group block"
+              >
+                <div className="w-10 h-10 rounded-md bg-[#1E2127] border border-[#292C32] flex items-center justify-center text-[#D6AD63] group-hover:scale-105 transition-transform shrink-0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <span className="font-mono text-xs text-[#71717A] uppercase tracking-wider block">
+                    Facebook Profile
+                  </span>
+                  <span className="font-mono text-sm font-semibold text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors">
+                    facebook.com/realnariel
+                  </span>
+                  <p className="text-xs text-[#A1A1AA] mt-1">
+                    Connect or message via Messenger
+                  </p>
+                </div>
+              </a>
+            </RevealDiv>
+
+            {/* Availability Box */}
+            <RevealDiv delay={60} className="p-6 rounded-lg bg-gradient-to-br from-[#17191E] to-[#1E2127] border border-[#292C32]">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="font-mono text-xs font-semibold text-emerald-400 uppercase tracking-wider">
+                  Current Status
+                </span>
+              </div>
+              <p className="text-sm font-semibold text-[#F2F0EB] mb-1">
                 {profile.identity.availability}
               </p>
-            </div>
-          </RevealDiv>
+              <p className="text-xs text-[#A1A1AA] leading-relaxed">
+                Based in Guinacot, Guindulman, Bohol, Philippines. Ready to collaborate across global timezones.
+              </p>
+            </RevealDiv>
+          </div>
 
-          {/* Contact form or fallback */}
-          <RevealDiv delay={100}>
-            {isSupabaseConfigured ? (
-              <>
-                <h3 className="label-caps" style={{ marginBottom: '1.25rem' }}>Send a Message</h3>
-                <ContactForm />
-              </>
-            ) : (
-              <>
-                <h3 className="label-caps" style={{ marginBottom: '1.25rem' }}>Send a Message</h3>
-                <div
-                  style={{
-                    padding: '1.5rem',
-                    background: 'var(--white)',
-                    border: '1px solid var(--border)',
-                    borderRadius: '3px',
-                  }}
-                >
-                  <p style={{ fontSize: '0.9rem', color: 'var(--muted)', lineHeight: 1.65, marginBottom: '1.25rem' }}>
-                    The contact form is not yet active. Please use the direct channels on the left to get in touch — email is the fastest way to reach me.
+          {/* ─── Right Column: Interactive Form / Fallback ─────────── */}
+          <div className="lg:col-span-7">
+            <RevealDiv delay={90} className="p-8 rounded-xl bg-[#17191E] border border-[#292C32] relative">
+              <div className="flex items-center justify-between mb-6 pb-3 border-b border-[#292C32]">
+                <h3 className="font-display text-xl font-bold text-[#F2F0EB]">
+                  Send a Direct Message
+                </h3>
+                <span className="font-mono text-xs text-[#A1A1AA]">
+                  {isSupabaseConfigured ? 'Direct API Form' : 'Graceful Mail Fallback'}
+                </span>
+              </div>
+
+              {!isSupabaseConfigured && (
+                <div className="mb-6 p-4 rounded-lg bg-[#D6AD63]/10 border border-[#D6AD63]/30 text-xs text-[#F2F0EB] flex items-start gap-3">
+                  <span className="text-[#D6AD63] text-base font-bold">ℹ</span>
+                  <p className="leading-relaxed">
+                    The contact form is in direct-client mode. Submitting this form will automatically prepare an email to{' '}
+                    <strong className="text-[#D6AD63]">{profile.contact.email}</strong> with your provided details.
                   </p>
-                  <a href={`mailto:${profile.contact.email}`} className="btn-primary">
-                    Email Me Directly
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                      <path d="M1 7h12M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </a>
                 </div>
-              </>
-            )}
-          </RevealDiv>
+              )}
+
+              {status === 'success' ? (
+                <div
+                  role="status"
+                  aria-live="polite"
+                  className="p-8 text-center bg-emerald-500/10 border border-emerald-500/30 rounded-lg"
+                >
+                  <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-4 text-xl">
+                    ✓
+                  </div>
+                  <h4 className="font-display font-bold text-xl text-[#F2F0EB] mb-2">
+                    Message Sent Successfully
+                  </h4>
+                  <p className="text-sm text-[#A1A1AA] max-w-md mx-auto mb-6">
+                    Thank you for reaching out. Your inquiry has been received and Anthony Riel C. Diango will be in touch shortly.
+                  </p>
+                  <button
+                    onClick={() => setStatus('idle')}
+                    className="btn-gold-primary text-xs py-2 px-5"
+                  >
+                    Send Another Message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                  {/* Name field */}
+                  <div>
+                    <label
+                      htmlFor="form-name"
+                      className="block font-mono text-xs uppercase tracking-wider text-[#A1A1AA] mb-2 font-medium"
+                    >
+                      Your Name <span className="text-[#D6AD63]">*</span>
+                    </label>
+                    <input
+                      id="form-name"
+                      name="name"
+                      type="text"
+                      autoComplete="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="e.g. Maria Santos"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? 'name-error' : undefined}
+                      className={`input-dark ${errors.name ? 'border-red-500/80 focus:border-red-500' : ''}`}
+                    />
+                    {errors.name && (
+                      <p id="name-error" role="alert" className="text-xs text-red-400 mt-1.5 font-mono">
+                        {errors.name}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Email field */}
+                  <div>
+                    <label
+                      htmlFor="form-email"
+                      className="block font-mono text-xs uppercase tracking-wider text-[#A1A1AA] mb-2 font-medium"
+                    >
+                      Email Address <span className="text-[#D6AD63]">*</span>
+                    </label>
+                    <input
+                      id="form-email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="maria@example.com"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? 'email-error' : undefined}
+                      className={`input-dark ${errors.email ? 'border-red-500/80 focus:border-red-500' : ''}`}
+                    />
+                    {errors.email && (
+                      <p id="email-error" role="alert" className="text-xs text-red-400 mt-1.5 font-mono">
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Message field */}
+                  <div>
+                    <label
+                      htmlFor="form-message"
+                      className="block font-mono text-xs uppercase tracking-wider text-[#A1A1AA] mb-2 font-medium"
+                    >
+                      Project Requirements &amp; Message <span className="text-[#D6AD63]">*</span>
+                    </label>
+                    <textarea
+                      id="form-message"
+                      name="message"
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Briefly describe the website, operational portal, or role you want to discuss..."
+                      aria-invalid={!!errors.message}
+                      aria-describedby={errors.message ? 'message-error' : undefined}
+                      className={`input-dark resize-y ${errors.message ? 'border-red-500/80 focus:border-red-500' : ''}`}
+                    />
+                    {errors.message && (
+                      <p id="message-error" role="alert" className="text-xs text-red-400 mt-1.5 font-mono">
+                        {errors.message}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Submission Error Banner */}
+                  {status === 'error' && (
+                    <div
+                      role="alert"
+                      aria-live="assertive"
+                      className="p-4 rounded-lg bg-red-500/10 border border-red-500/30 text-xs text-red-400 leading-relaxed"
+                    >
+                      {errorMessage}
+                    </div>
+                  )}
+
+                  {/* Submit button */}
+                  <div className="pt-2 flex items-center justify-between">
+                    <button
+                      type="submit"
+                      disabled={status === 'submitting'}
+                      className="btn-gold-primary py-3 px-7 text-sm font-semibold tracking-wide disabled:opacity-50"
+                    >
+                      {status === 'submitting' ? (
+                        <span>Submitting...</span>
+                      ) : (
+                        <span>
+                          {isSupabaseConfigured ? 'Transmit Message' : 'Send via Direct Email'}
+                        </span>
+                      )}
+                    </button>
+
+                    <span className="font-mono text-[11px] text-[#71717A]">
+                      Direct &amp; confidential
+                    </span>
+                  </div>
+                </form>
+              )}
+            </RevealDiv>
+          </div>
+
         </div>
       </div>
     </section>

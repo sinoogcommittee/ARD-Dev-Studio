@@ -1,157 +1,105 @@
 import { getCategoryMeta } from './categoryMeta';
 
 /**
- * Intentional typographic project card — no fake screenshots.
- * Uses category colour band + large typographic project initial treatment.
+ * Premium Dark Editorial Project Card.
+ * Features intentional typographic branding, category luminous indicator,
+ * technology stack chips, and prominent live deployment access.
  */
 export default function ProjectCard({ project }) {
   const meta = getCategoryMeta(project.category);
 
   return (
     <article
-      className="project-card"
+      className="card-dark group flex flex-col justify-between p-6 sm:p-7 relative transition-all duration-300"
       aria-label={`${project.title} — ${meta.shortLabel}`}
-      style={{ borderRadius: '3px' }}
+      style={{
+        '--card-accent': meta.accentColor,
+      }}
     >
-      {/* Category colour band */}
+      {/* Ambient background monogram glow */}
       <div
-        className={meta.bandClass}
         aria-hidden="true"
-        style={{ height: '4px', width: '100%', flexShrink: 0 }}
+        className="absolute -right-2 -bottom-4 font-display font-extrabold text-8xl text-white/[0.02] group-hover:text-white/[0.05] group-hover:scale-105 transition-all duration-500 pointer-events-none select-none"
+      >
+        {project.title.charAt(0)}
+      </div>
+
+      {/* Top Hairline Luminous Category Accent */}
+      <div
+        aria-hidden="true"
+        className="absolute top-0 left-0 right-0 h-[2px] opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+        style={{
+          background: `linear-gradient(90deg, ${meta.accentColor} 0%, transparent 80%)`,
+        }}
       />
 
-      {/* Typographic initial panel */}
-      <div
-        aria-hidden="true"
-        style={{
-          height: '7.5rem',
-          background: 'var(--paper)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          overflow: 'hidden',
-          borderBottom: '1px solid var(--border)',
-          userSelect: 'none',
-        }}
-      >
-        {/* Large faded initial */}
+      {/* Header: Category Badge & Featured Flag */}
+      <div className="flex items-center justify-between gap-3 mb-4">
         <span
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 900,
-            fontSize: '6rem',
-            lineHeight: 1,
-            color: meta.color,
-            opacity: 0.08,
-            position: 'absolute',
-            right: '0.5rem',
-            bottom: '-0.5rem',
-            pointerEvents: 'none',
-          }}
-        >
-          {project.title.charAt(0)}
-        </span>
-
-        {/* Category abbr pill */}
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.6875rem',
-            fontWeight: 700,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: meta.color,
-            background: `${meta.color}18`,
-            border: `1px solid ${meta.color}30`,
-            borderRadius: '2px',
-            padding: '0.3rem 0.75rem',
-          }}
+          className={`font-mono text-[11px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider ${meta.badgeClass}`}
         >
           {meta.shortLabel}
         </span>
-      </div>
 
-      {/* Card body */}
-      <div style={{ padding: '1.25rem 1.375rem 1.5rem', display: 'flex', flexDirection: 'column', flex: 1, gap: '0.75rem' }}>
-
-        {/* Featured badge */}
         {project.featured && (
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.625rem',
-              fontWeight: 700,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--accent)',
-              alignSelf: 'flex-start',
-            }}
-          >
-            ★ Featured
+          <span className="flex items-center gap-1 font-mono text-[10px] uppercase font-bold tracking-wider text-[#D6AD63] bg-[#D6AD63]/10 border border-[#D6AD63]/30 px-2.5 py-0.5 rounded-full shadow-sm">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Featured
           </span>
         )}
+      </div>
 
-        <h3
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '1.125rem',
-            fontWeight: 700,
-            color: 'var(--ink)',
-            lineHeight: 1.25,
-          }}
-        >
+      {/* Project Title & Description */}
+      <div className="flex-1 mb-6">
+        <h3 className="font-display text-xl font-bold text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors leading-snug mb-2.5">
           {project.title}
         </h3>
 
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.875rem',
-            lineHeight: 1.65,
-            color: 'var(--muted)',
-            flex: 1,
-          }}
-        >
+        <p className="text-sm text-[#A1A1AA] leading-relaxed line-clamp-3">
           {project.description}
         </p>
+      </div>
 
-        {/* Stack tags */}
-        {project.stack.length > 0 && (
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem' }}>
-            {project.stack.map((tag) => (
-              <span key={tag} className="chip">{tag}</span>
-            ))}
-          </div>
-        )}
+      {/* Technology Stack Tags */}
+      <div className="mb-6 flex flex-wrap gap-1.5">
+        {project.stack.map((tag) => (
+          <span key={tag} className="tech-chip">
+            {tag}
+          </span>
+        ))}
+      </div>
 
-        {/* Live link */}
-        <div style={{ marginTop: 'auto', paddingTop: '0.5rem', borderTop: '1px solid var(--border)' }}>
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Open ${project.title} live deployment (opens in new tab)`}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.375rem',
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.8125rem',
-              fontWeight: 600,
-              color: 'var(--accent)',
-              textDecoration: 'none',
-              transition: 'gap 150ms ease',
-            }}
-            onMouseEnter={e => e.currentTarget.style.gap = '0.625rem'}
-            onMouseLeave={e => e.currentTarget.style.gap = '0.375rem'}
+      {/* Footer / Live Deployment Call to Action */}
+      <div className="pt-4 border-t border-[#292C32]/70 flex items-center justify-between">
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${project.title} live deployment (opens in new tab)`}
+          className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#D6AD63] hover:text-[#E5BE75] group/link transition-colors"
+        >
+          <span>Launch Live Site</span>
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5"
           >
-            View Live Site
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-              <path d="M1 11L11 1M11 1H5M11 1V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
-        </div>
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+
+        <span className="font-mono text-[10px] text-[#71717A] tracking-wider truncate max-w-[140px] opacity-70">
+          {new URL(project.liveUrl).hostname}
+        </span>
       </div>
     </article>
   );
