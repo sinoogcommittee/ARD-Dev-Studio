@@ -38,11 +38,11 @@ export default function Header() {
             aria-label="ARD Dev Studio — Back to top"
             className="group flex items-center gap-3 transition-transform duration-200 hover:scale-[1.02]"
           >
-            <div className="w-10 h-10 rounded-lg overflow-hidden bg-[#17191E] border border-[#D6AD63]/40 group-hover:border-[#D6AD63] group-hover:shadow-[0_0_16px_rgba(214,173,99,0.35)] transition-all flex items-center justify-center shrink-0">
+            <div className="h-10 w-16 rounded-lg overflow-hidden bg-[#101114] border border-[#D6AD63]/40 group-hover:border-[#D6AD63] group-hover:shadow-[0_0_16px_rgba(214,173,99,0.35)] transition-all flex items-center justify-center shrink-0 p-0.5">
               <img
                 src="/images/logo.jpg"
                 alt="ARD Dev Studio Emblem"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="flex flex-col">

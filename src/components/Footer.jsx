@@ -22,11 +22,11 @@ export default function Footer() {
           {/* Identity & Location */}
           <div className="md:col-span-5 space-y-3">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg overflow-hidden bg-[#17191E] border border-[#D6AD63]/40 flex items-center justify-center shadow-[0_0_12px_rgba(214,173,99,0.2)] shrink-0">
+              <div className="h-9 w-14 rounded-lg overflow-hidden bg-[#101114] border border-[#D6AD63]/40 flex items-center justify-center shadow-[0_0_12px_rgba(214,173,99,0.2)] shrink-0 p-0.5">
                 <img
                   src="/images/logo.jpg"
                   alt="ARD Dev Studio Logo"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <div className="flex flex-col">
