@@ -59,7 +59,7 @@ export default function HeroCenterpiece() {
           </>
         )}
       </svg>
-      <div className="centerpiece-wordmark" aria-hidden="true">ARD DEV STUDIO <span>·</span> FULL-STACK WEB DEVELOPMENT</div>
+      <div className="centerpiece-wordmark" aria-hidden="true">ARD DEV STUDIO <span>·</span> FULL-STACK WEB DEVELOPER</div>
     </motion.div>
   );
 }

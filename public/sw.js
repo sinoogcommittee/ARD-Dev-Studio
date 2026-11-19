@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ard-dev-studio-v2';
+const CACHE_NAME = 'ard-dev-studio-v3';
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
