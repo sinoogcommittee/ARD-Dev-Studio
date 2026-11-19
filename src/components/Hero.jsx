@@ -7,7 +7,6 @@ import HeroBlueprintCanvas from './motion/HeroBlueprintCanvas';
 import HeroCenterpiece from './motion/HeroCenterpiece';
 import { useMagnetic } from '../hooks/useMagnetic';
 import { useReducedMotion } from '../hooks/useReducedMotion';
-import { useScrambleText } from '../hooks/useScrambleText';
 
 const SYSTEM_DOMAINS = [
   'Civic Portals',
@@ -22,7 +21,6 @@ const SPECIALTIES = [
   'Live Scoring Engines',
   'School & Clinic Apps',
 ];
-const EYEBROW = 'ANTHONY RIEL C. DIANGO · FULL-STACK WEB DEVELOPER';
 const GsapHeroParallax = lazy(() => import('./motion/GsapHeroParallax'));
 
 export default function Hero() {
@@ -30,7 +28,6 @@ export default function Hero() {
   const centerpieceRef = useRef(null);
   const [specialtyIndex, setSpecialtyIndex] = useState(0);
   const reduced = useReducedMotion();
-  const eyebrow = useScrambleText(EYEBROW);
   const { ref: primaryRef, style: primaryStyle } = useMagnetic(0.12);
   const { ref: secondaryRef, style: secondaryStyle } = useMagnetic(0.12);
   const [enableDesktopParallax, setEnableDesktopParallax] = useState(false);
@@ -81,11 +78,6 @@ export default function Hero() {
           </div>
 
           <div className="hero-copy">
-            <div className="hero-eyebrow" aria-label={EYEBROW}>
-              <span className="hero-eyebrow-line" />
-              <span className="hero-eyebrow-text" aria-hidden="true">{eyebrow}</span>
-            </div>
-
             <h1 className="hero-title font-display font-bold tracking-tight text-[#F2F0EB]">
               <span className="hero-title-line"><span>Architecting &amp; Deploying</span></span>
               <span className="hero-title-line specialty-mask">
