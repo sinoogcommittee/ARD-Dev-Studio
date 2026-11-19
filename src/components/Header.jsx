@@ -31,100 +31,100 @@ export default function Header({ currentStatus }) {
           aria-hidden="true"
         />
 
-        <div className="container-custom flex items-center justify-between h-18 py-3.5">
-          {/* Brand Wordmark with authentic ARD logo */}
-          <Link
-            to="/"
-            aria-label="ARD Dev Studio — Home"
-            className="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-200 hover:scale-[1.02] shrink-0"
-          >
-            <div className="h-9 w-14 sm:h-10 sm:w-16 rounded-lg overflow-hidden bg-[#101114] border border-[#D6AD63]/40 group-hover:border-[#D6AD63] group-hover:shadow-[0_0_16px_rgba(214,173,99,0.35)] transition-all flex items-center justify-center shrink-0 p-0.5">
-              <img
-                src="/images/logo.jpg"
-                alt="ARD Dev Studio Emblem"
-                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div className="flex flex-col whitespace-nowrap">
-              <span className="font-display font-bold text-sm sm:text-base tracking-tight text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors leading-tight">
-                ARD Dev Studio
-              </span>
-              <span className="font-mono text-[9px] sm:text-[11px] text-[#A1A1AA] tracking-wider uppercase">
-                Anthony Riel Diango
-              </span>
-            </div>
-          </Link>
+        <div className="container-custom flex items-center justify-between h-16 sm:h-18">
+          {/* Left: Brand Wordmark with authentic ARD logo */}
+          <div className="flex items-center shrink-0 w-auto lg:w-1/4">
+            <Link
+              to="/"
+              aria-label="ARD Dev Studio — Home"
+              className="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-200 hover:scale-[1.02] shrink-0"
+            >
+              <div className="h-9 w-14 sm:h-10 sm:w-16 rounded-lg overflow-hidden bg-[#101114] border border-[#D6AD63]/40 group-hover:border-[#D6AD63] group-hover:shadow-[0_0_16px_rgba(214,173,99,0.35)] transition-all flex items-center justify-center shrink-0 p-0.5">
+                <img
+                  src="/images/logo.jpg"
+                  alt="ARD Dev Studio Emblem"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="flex flex-col whitespace-nowrap">
+                <span className="font-display font-bold text-sm sm:text-base tracking-tight text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors leading-tight">
+                  ARD Dev Studio
+                </span>
+                <span className="font-mono text-[9px] sm:text-[11px] text-[#A1A1AA] tracking-wider uppercase">
+                  Anthony Riel Diango
+                </span>
+              </div>
+            </Link>
+          </div>
 
-          {/* Desktop Navigation Links (Icon-based with hover labels) */}
-          <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-6">
-            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#121316]/90 border border-[#292C32] shadow-[0_4px_20px_rgba(0,0,0,0.35),inset_0_1px_rgba(255,255,255,0.03)]">
-              <ul role="list" className="flex items-center gap-1.5 m-0 p-0 list-none">
-                {NAV_LINKS.map(({ label, to, icon: Icon }) => {
-                  const active = isActive(to);
-                  return (
-                    <li key={to} className="relative group">
-                      <Link
-                        to={to}
-                        aria-label={label}
-                        aria-current={active ? 'page' : undefined}
-                        className={`relative flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6AD63] ${
-                          active
-                            ? 'bg-[#D6AD63]/15 text-[#D6AD63] border border-[#D6AD63]/50 shadow-[0_0_14px_rgba(214,173,99,0.22)]'
-                            : 'bg-transparent text-[#A1A1AA] hover:text-[#F3DEAB] hover:bg-[#1C1E24] border border-transparent hover:border-[#D6AD63]/30'
+          {/* Center: Facebook-style Desktop Navigation Tabs */}
+          <nav aria-label="Primary navigation" className="hidden lg:flex items-center justify-center flex-1 h-full">
+            <ul role="list" className="flex items-center h-full m-0 p-0 list-none gap-1 sm:gap-2">
+              {NAV_LINKS.map(({ label, to, icon: Icon }) => {
+                const active = isActive(to);
+                return (
+                  <li key={to} className="relative group h-full flex items-center">
+                    <Link
+                      to={to}
+                      aria-label={label}
+                      aria-current={active ? 'page' : undefined}
+                      className={`relative flex items-center justify-center h-full w-20 xl:w-24 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6AD63] ${
+                        active
+                          ? 'text-[#D6AD63]'
+                          : 'text-[#71717A] hover:text-[#F3DEAB]'
+                      }`}
+                    >
+                      {/* Subtle hover background highlight (like Facebook tabs) */}
+                      <span
+                        className={`absolute inset-y-2 inset-x-1 rounded-xl transition-colors duration-200 ${
+                          active ? 'bg-transparent' : 'group-hover:bg-[#1A1C22]'
                         }`}
-                      >
-                        <Icon size={19} strokeWidth={active ? 2.2 : 1.8} aria-hidden="true" />
-                        {active && (
-                          <span
-                            className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-[#D6AD63] shadow-[0_0_8px_#D6AD63]"
-                            aria-hidden="true"
-                          />
-                        )}
-                      </Link>
+                        aria-hidden="true"
+                      />
 
-                      {/* Tooltip on hover / focus */}
-                      <div
-                        role="tooltip"
-                        className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2.5 px-3 py-1 rounded-md bg-[#16181D] border border-[#D6AD63]/40 shadow-[0_8px_20px_rgba(0,0,0,0.7),0_0_12px_rgba(214,173,99,0.15)] backdrop-blur-md opacity-0 translate-y-1 scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 transition-all duration-200 ease-out z-50 whitespace-nowrap"
-                      >
-                        <span className="font-mono text-[11px] font-semibold text-[#F3DEAB] tracking-wide">
-                          {label}
-                        </span>
-                        <div
-                          className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 bg-[#16181D] border-t border-l border-[#D6AD63]/40"
+                      {/* Tab Icon */}
+                      <span className="relative z-10 transition-transform duration-200 group-hover:scale-110">
+                        <Icon size={21} strokeWidth={active ? 2.4 : 1.9} aria-hidden="true" />
+                      </span>
+
+                      {/* Facebook-style Bottom Active Indicator Bar */}
+                      {active && (
+                        <span
+                          className="absolute bottom-0 inset-x-1 h-[3.5px] rounded-t-sm bg-[#D6AD63] shadow-[0_0_12px_rgba(214,173,99,0.85)] z-30"
                           aria-hidden="true"
                         />
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+                      )}
+                    </Link>
 
-            {/* Availability Pill & Contact CTA */}
-            <div className="flex items-center gap-4 pl-4 border-l border-[#292C32]">
-              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#17191E] border border-[#292C32] text-xs font-mono text-[#A1A1AA]">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Available</span>
-              </div>
-
-              <Link
-                to="/contact"
-                className="btn-gold-primary border-beam text-xs py-2 px-4 h-9 font-semibold"
-              >
-                Start a Conversation
-              </Link>
-            </div>
+                    {/* Tooltip on hover / keyboard focus */}
+                    <div
+                      role="tooltip"
+                      className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 rounded-md bg-[#16181D]/95 border border-[#D6AD63]/40 shadow-[0_8px_20px_rgba(0,0,0,0.7),0_0_12px_rgba(214,173,99,0.15)] backdrop-blur-md opacity-0 translate-y-1 scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 transition-all duration-200 ease-out z-50 whitespace-nowrap"
+                    >
+                      <span className="font-mono text-[11px] font-semibold text-[#F3DEAB] tracking-wide">
+                        {label}
+                      </span>
+                      <div
+                        className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 bg-[#16181D] border-t border-l border-[#D6AD63]/40"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </nav>
 
-          {/* Mobile/Tablet Right Status Indicator (Compact, non-wrapping) */}
-          <div className="flex items-center gap-2 lg:hidden shrink-0">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#17191E] border border-[#292C32] text-[10px] font-mono text-emerald-400">
+          {/* Right: Compact Available Status Indicator */}
+          <div className="flex items-center justify-end shrink-0 w-auto lg:w-1/4">
+            <div
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#17191E] border border-[#292C32] text-[10px] sm:text-[11px] font-mono text-emerald-400 select-none shadow-[0_2px_8px_rgba(0,0,0,0.4)]"
+              title="Currently available for projects & roles"
+            >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span>Available</span>
             </div>
           </div>
-
         </div>
 
         {/* Sinoog 2027 Metallic Gold Line — Bottom */}
