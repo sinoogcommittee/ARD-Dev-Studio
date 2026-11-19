@@ -1,10 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
+import { Home, LayoutGrid, User, MessageSquare } from 'lucide-react';
 
 const NAV_LINKS = [
-  { label: 'Home', to: '/' },
-  { label: 'Projects', to: '/projects' },
-  { label: 'About & Skills', to: '/about' },
-  { label: 'Contact', to: '/contact' },
+  { label: 'Home', to: '/', icon: Home },
+  { label: 'Projects', to: '/projects', icon: LayoutGrid },
+  { label: 'About & Skills', to: '/about', icon: User },
+  { label: 'Contact', to: '/contact', icon: MessageSquare },
 ];
 
 export default function Header({ currentStatus }) {
@@ -54,25 +55,51 @@ export default function Header({ currentStatus }) {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-7">
-            <ul role="list" className="flex items-center gap-7 m-0 p-0 list-none">
-              {NAV_LINKS.map(({ label, to }) => (
-                <li key={to}>
-                  <Link
-                    to={to}
-                    className={`text-sm font-medium transition-colors tracking-wide py-1 border-b ${
-                      isActive(to)
-                        ? 'text-[#D6AD63] border-[#D6AD63]'
-                        : 'text-[#A1A1AA] hover:text-[#F2F0EB] border-transparent hover:border-[#D6AD63]'
-                    }`}
-                    aria-current={isActive(to) ? 'page' : undefined}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Desktop Navigation Links (Icon-based with hover labels) */}
+          <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-6">
+            <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#121316]/90 border border-[#292C32] shadow-[0_4px_20px_rgba(0,0,0,0.35),inset_0_1px_rgba(255,255,255,0.03)]">
+              <ul role="list" className="flex items-center gap-1.5 m-0 p-0 list-none">
+                {NAV_LINKS.map(({ label, to, icon: Icon }) => {
+                  const active = isActive(to);
+                  return (
+                    <li key={to} className="relative group">
+                      <Link
+                        to={to}
+                        aria-label={label}
+                        aria-current={active ? 'page' : undefined}
+                        className={`relative flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D6AD63] ${
+                          active
+                            ? 'bg-[#D6AD63]/15 text-[#D6AD63] border border-[#D6AD63]/50 shadow-[0_0_14px_rgba(214,173,99,0.22)]'
+                            : 'bg-transparent text-[#A1A1AA] hover:text-[#F3DEAB] hover:bg-[#1C1E24] border border-transparent hover:border-[#D6AD63]/30'
+                        }`}
+                      >
+                        <Icon size={19} strokeWidth={active ? 2.2 : 1.8} aria-hidden="true" />
+                        {active && (
+                          <span
+                            className="absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-[#D6AD63] shadow-[0_0_8px_#D6AD63]"
+                            aria-hidden="true"
+                          />
+                        )}
+                      </Link>
+
+                      {/* Tooltip on hover / focus */}
+                      <div
+                        role="tooltip"
+                        className="pointer-events-none absolute top-full left-1/2 -translate-x-1/2 mt-2.5 px-3 py-1 rounded-md bg-[#16181D] border border-[#D6AD63]/40 shadow-[0_8px_20px_rgba(0,0,0,0.7),0_0_12px_rgba(214,173,99,0.15)] backdrop-blur-md opacity-0 translate-y-1 scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 group-focus-within:opacity-100 group-focus-within:translate-y-0 group-focus-within:scale-100 transition-all duration-200 ease-out z-50 whitespace-nowrap"
+                      >
+                        <span className="font-mono text-[11px] font-semibold text-[#F3DEAB] tracking-wide">
+                          {label}
+                        </span>
+                        <div
+                          className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rotate-45 bg-[#16181D] border-t border-l border-[#D6AD63]/40"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
 
             {/* Availability Pill & Contact CTA */}
             <div className="flex items-center gap-4 pl-4 border-l border-[#292C32]">
