@@ -1,12 +1,14 @@
 import { profile } from '../data/profile';
 import { RevealDiv } from '../hooks/useScrollReveal';
+import { getSkillMeta } from './skillIcons';
 
 const SKILL_CATEGORIES = [
   {
     title: 'Frontend Development',
+    subtitle: 'Interfaces, responsiveness & motion',
     items: profile.skills.frontend,
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
         <line x1="8" y1="21" x2="16" y2="21"></line>
         <line x1="12" y1="17" x2="12" y2="21"></line>
@@ -15,9 +17,10 @@ const SKILL_CATEGORIES = [
   },
   {
     title: 'Backend & Languages',
+    subtitle: 'APIs, databases & multi-stack engineering',
     items: profile.skills.backendAndLanguages,
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <polyline points="16 18 22 12 16 6"></polyline>
         <polyline points="8 6 2 12 8 18"></polyline>
       </svg>
@@ -25,18 +28,20 @@ const SKILL_CATEGORIES = [
   },
   {
     title: 'Cloud, Hosting & Integrations',
+    subtitle: 'Production deployments, media CDN & gateways',
     items: profile.skills.hostingAndIntegrations,
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
       </svg>
     ),
   },
   {
     title: 'Systems & Infrastructure',
+    subtitle: 'MIS operations, hardware & networking',
     items: profile.skills.systems,
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
         <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
         <line x1="6" y1="6" x2="6.01" y2="6"></line>
@@ -77,7 +82,7 @@ export default function AboutSection() {
           </p>
         </RevealDiv>
 
-        {/* ─── Technical Skills Grid ─────────────────────────────────── */}
+        {/* ─── Technical Skills Grid (Balanced 2x2 Layout with Skill Icons) ── */}
         <div className="mb-20">
           <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#292C32]">
             <h3 className="font-display text-xl font-bold text-[#F2F0EB]">
@@ -88,48 +93,71 @@ export default function AboutSection() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {SKILL_CATEGORIES.map(({ title, items, icon }, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {SKILL_CATEGORIES.map(({ title, subtitle, items, icon }, index) => (
               <RevealDiv
                 key={title}
                 delay={index * 60}
-                className="p-6 rounded-lg bg-[#17191E] border border-[#292C32] hover:border-[#D6AD63]/40 transition-colors flex flex-col justify-between"
+                className="p-6 rounded-xl bg-[#17191E] border border-[#292C32] hover:border-[#D6AD63]/40 transition-colors flex flex-col h-full"
               >
-                <div>
-                  <div className="w-10 h-10 rounded-lg bg-[#1E2127] border border-[#292C32] flex items-center justify-center text-[#D6AD63] mb-4">
+                <div className="flex items-center gap-3.5 mb-5 pb-4 border-b border-[#292C32]/70">
+                  <div className="w-10 h-10 rounded-lg bg-[#1E2127] border border-[#292C32] flex items-center justify-center text-[#D6AD63] shrink-0">
                     {icon}
                   </div>
-                  <h4 className="font-display font-bold text-base text-[#F2F0EB] mb-4">
-                    {title}
-                  </h4>
-                  <ul className="flex flex-col gap-2 p-0 m-0 list-none">
-                    {items.map((skill) => (
+                  <div>
+                    <h4 className="font-display font-bold text-base text-[#F2F0EB] leading-snug">
+                      {title}
+                    </h4>
+                    <p className="text-[11px] font-mono text-[#71717A] mt-0.5">
+                      {subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                <ul className={`grid gap-2.5 p-0 m-0 list-none flex-1 content-start ${items.length <= 4 ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2'}`}>
+                  {items.map((skill, skillIdx) => {
+                    const meta = getSkillMeta(skill);
+                    const SkillLogo = meta.Icon;
+                    const isOddTail = items.length > 4 && items.length % 2 === 1 && skillIdx === items.length - 1;
+                    return (
                       <li
                         key={skill}
-                        className="text-xs text-[#A1A1AA] flex items-start gap-2 leading-relaxed"
+                        className={`group/skill-item flex items-center gap-3 p-2.5 rounded-lg bg-[#101114]/90 border border-[#292C32]/80 hover:border-[#D6AD63]/45 transition-colors ${isOddTail ? 'sm:col-span-2' : ''}`}
                       >
-                        <span className="text-[#D6AD63] mt-1 text-[10px]">▹</span>
-                        <span>{skill}</span>
+                        <div className="w-8 h-8 rounded-md bg-[#17191E] border border-[#292C32] flex items-center justify-center shrink-0 p-1.5 group-hover/skill-item:border-[#D6AD63]/40 transition-colors">
+                          <SkillLogo className="w-full h-full object-contain" aria-hidden="true" />
+                        </div>
+                        <span className="text-xs text-[#E4E4E7] leading-snug font-medium">
+                          {skill}
+                        </span>
                       </li>
-                    ))}
-                  </ul>
-                </div>
+                    );
+                  })}
+                </ul>
               </RevealDiv>
             ))}
           </div>
 
           {/* AI-Assisted Engineering Callout */}
-          <RevealDiv delay={100} className="mt-6 p-4 rounded-lg bg-[#17191E]/70 border border-[#292C32] flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+          <RevealDiv delay={100} className="mt-6 p-4 sm:p-5 rounded-xl bg-[#17191E]/80 border border-[#292C32] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-3">
               <span className="font-mono text-xs text-[#D6AD63] uppercase tracking-wider font-semibold">
                 AI-Assisted Engineering Workflows:
               </span>
-              <div className="flex flex-wrap gap-2">
-                {profile.skills.aiAssistedWorkflows.map((tool) => (
-                  <span key={tool} className="tech-chip text-[#D6AD63] border-[#D6AD63]/30">
-                    {tool}
-                  </span>
-                ))}
+              <div className="flex flex-wrap gap-2.5">
+                {profile.skills.aiAssistedWorkflows.map((tool) => {
+                  const meta = getSkillMeta(tool);
+                  const ToolIcon = meta.Icon;
+                  return (
+                    <span
+                      key={tool}
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#101114] border border-[#D6AD63]/30 text-xs font-mono text-[#F3DEAB]"
+                    >
+                      <ToolIcon className="w-4 h-4 shrink-0" aria-hidden="true" />
+                      <span>{tool}</span>
+                    </span>
+                  );
+                })}
               </div>
             </div>
             <span className="font-mono text-[11px] text-[#71717A]">

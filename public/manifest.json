@@ -1,7 +1,7 @@
 {
   "name": "ARD Dev Studio",
   "short_name": "ARD Dev Studio",
-  "description": "ARD Dev Studio — Production web systems engineering by Anthony Riel C. Diango. Featuring 16 live deployments, database systems, and institutional digital portals.",
+  "description": "ARD Dev Studio — Production web systems engineering by Anthony Riel C. Diango. Featuring 20 live deployments, database systems, and institutional digital portals.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

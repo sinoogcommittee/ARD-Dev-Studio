@@ -75,6 +75,18 @@ export default function ProjectCard({ project, onSelect }) {
         )}
       </div>
 
+      {/* Full Screenshot Preview for Highlight Projects (100% visible, no clipping) */}
+      {project.previewImage && (
+        <div className="relative w-full aspect-video bg-[#090A0D] border border-[#292C32] rounded-lg overflow-hidden mb-4 group-hover:border-[#D6AD63]/50 transition-colors flex items-center justify-center z-10">
+          <img
+            src={project.previewImage}
+            alt={`${project.title} live interface preview`}
+            loading="lazy"
+            className="w-full h-full object-contain rounded"
+          />
+        </div>
+      )}
+
       {/* Project Title & Description */}
       <div className="flex-1 mb-6 relative z-10">
         <h3 className="font-display text-xl font-bold text-[#F2F0EB] group-hover:text-[#D6AD63] transition-colors leading-snug mb-2.5">

@@ -94,6 +94,17 @@ export default function ProjectModal({ project, onClose }) {
 
         {/* Modal Body */}
         <div className="p-6 sm:p-8 overflow-y-auto space-y-6 flex-1 text-sm text-[#A1A1AA]">
+          {/* Full Screenshot Preview for Highlight Projects */}
+          {project.previewImage && (
+            <div className="relative w-full aspect-video bg-[#090A0D] border border-[#292C32] rounded-xl overflow-hidden flex items-center justify-center shadow-inner">
+              <img
+                src={project.previewImage}
+                alt={`${project.title} live interface preview`}
+                className="w-full h-full object-contain rounded"
+              />
+            </div>
+          )}
+
           {/* System Purpose & Description */}
           <div>
             <h3 className="font-mono text-xs uppercase tracking-wider text-[#F2F0EB] font-bold mb-2">

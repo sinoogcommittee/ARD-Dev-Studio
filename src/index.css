@@ -692,3 +692,24 @@ a {
   .orbital-ring-one, .orbital-ring-two { rotate: 0deg; }
   .hero-copy, .hero-centerpiece { transform: none !important; }
 }
+
+/* ─── Highlight Projects Mobile Scroll-Snap Carousel ──────────────── */
+.highlight-carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+.highlight-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .highlight-carousel-track {
+    scroll-behavior: smooth;
+  }
+}

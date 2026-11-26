@@ -2,8 +2,8 @@
  * Anthony Riel C. Diango - Portfolio Projects Data Source
  * 
  * Strict source of truth: CONTENT.md
- * Contains all 16 live deployments with stable IDs, exact categories,
- * titles, concise descriptions, exact HTTPS URLs, stack tags, and featured flags.
+ * Contains all 20 live deployments with stable IDs, exact categories,
+ * titles, concise descriptions, exact HTTPS URLs, stack tags, and featured/highlight flags.
  */
 
 export const PROJECT_CATEGORIES = [
@@ -34,6 +34,17 @@ export const projects = [
     stack: ['React', 'JavaScript', 'Tailwind CSS'],
     featured: false
   },
+  {
+    id: 'carls-fried',
+    title: 'Carl’s Fried',
+    category: 'Healthcare & business operations',
+    liveUrl: 'https://carlsfried.onrender.com',
+    description: 'Online storefront and ordering web application for a fried food business, featuring a digital menu and customer ordering.',
+    stack: ['React', 'Tailwind CSS', 'Supabase'],
+    previewImage: '/images/highlight_projects_preview/carlsfried.png',
+    highlight: true,
+    featured: true
+  },
 
   // Civic, government & tourism
   {
@@ -52,6 +63,17 @@ export const projects = [
     liveUrl: 'https://suroyguindulman.onrender.com',
     description: 'Municipal tourism portal showcasing destinations, itineraries, and local guides.',
     stack: ['React', 'Tailwind CSS', 'Cloudflare R2'],
+    previewImage: '/images/highlight_projects_preview/suroyguindulman.png',
+    highlight: true,
+    featured: true
+  },
+  {
+    id: 'guindulman-website',
+    title: 'Guindulman Website',
+    category: 'Civic, government & tourism',
+    liveUrl: 'https://guindulmandemo.onrender.com',
+    description: 'Official municipal government web portal featuring citizen services, transparency reports, barangay directory, and emergency hotlines.',
+    stack: ['React', 'Tailwind CSS', 'Supabase'],
     featured: false
   },
 
@@ -63,6 +85,8 @@ export const projects = [
     liveUrl: 'https://sinoog2027.onrender.com',
     description: 'Event registration, participant management, and operational dashboard; React and Supabase.',
     stack: ['React', 'Supabase', 'Tailwind CSS'],
+    previewImage: '/images/highlight_projects_preview/sinoog2027.png',
+    highlight: true,
     featured: true
   },
   {
@@ -81,6 +105,8 @@ export const projects = [
     liveUrl: 'https://boholmeet.onrender.com',
     description: 'Real-time provincial athletic scoring, medal tallying, and results portal.',
     stack: ['React', 'Tailwind CSS', 'Realtime Data'],
+    previewImage: '/images/highlight_projects_preview/boholmeet.png',
+    highlight: true,
     featured: true
   },
   {
@@ -163,6 +189,24 @@ export const projects = [
     category: 'Education & institutional systems',
     liveUrl: 'https://ftnhstinabangay.onrender.com',
     description: 'School-community support, outreach, and resource coordination platform.',
+    stack: ['React', 'Tailwind CSS', 'Supabase'],
+    featured: false
+  },
+  {
+    id: 'pangangan-es-library-hub',
+    title: 'Pangangan ES Library Hub',
+    category: 'Education & institutional systems',
+    liveUrl: 'https://pesbooks.onrender.com',
+    description: 'Elementary school digital library showcasing storybooks, Philippine folklore, and DepEd learning materials for young readers.',
+    stack: ['React', 'Tailwind CSS', 'Supabase'],
+    featured: false
+  },
+  {
+    id: 'e-ftnhs-faculty-portal',
+    title: 'e-FTNHS Faculty Portal',
+    category: 'Education & institutional systems',
+    liveUrl: 'https://eftnhs.onrender.com',
+    description: 'Integrated school management portal for faculty scheduling, lesson plan auditing, and performance tracking.',
     stack: ['React', 'Tailwind CSS', 'Supabase'],
     featured: false
   }

@@ -5,11 +5,11 @@ import { supabase, isSupabaseConfigured } from './src/lib/supabase.js';
 console.log('--- RUNNING PHASE 1 VERIFICATION CHECKS ---');
 
 // 1. Check Projects Count
-if (projects.length !== 16) {
-  console.error(`FAIL: Expected 16 projects, found ${projects.length}`);
+if (projects.length !== 20) {
+  console.error(`FAIL: Expected 20 projects, found ${projects.length}`);
   process.exit(1);
 }
-console.log('PASS: Exact 16 projects present.');
+console.log('PASS: Exact 20 projects present.');
 
 // 2. Exact Expected Deployments and Categories from CONTENT.md
 const expectedProjects = [
@@ -26,6 +26,12 @@ const expectedProjects = [
     description: 'Collaborative shared-household management and automated expense splitting.'
   },
   {
+    category: 'Healthcare & business operations',
+    title: 'Carl’s Fried',
+    liveUrl: 'https://carlsfried.onrender.com',
+    description: 'Online storefront and ordering web application for a fried food business, featuring a digital menu and customer ordering.'
+  },
+  {
     category: 'Civic, government & tourism',
     title: 'e-KUMBATI District Portal',
     liveUrl: 'https://ekumbatidemo.onrender.com',
@@ -36,6 +42,12 @@ const expectedProjects = [
     title: 'Suroy Guindulman',
     liveUrl: 'https://suroyguindulman.onrender.com',
     description: 'Municipal tourism portal showcasing destinations, itineraries, and local guides.'
+  },
+  {
+    category: 'Civic, government & tourism',
+    title: 'Guindulman Website',
+    liveUrl: 'https://guindulmandemo.onrender.com',
+    description: 'Official municipal government web portal featuring citizen services, transparency reports, barangay directory, and emergency hotlines.'
   },
   {
     category: 'Events, registration & scoring',
@@ -108,6 +120,18 @@ const expectedProjects = [
     title: 'FTNHS Tinabangay Portal',
     liveUrl: 'https://ftnhstinabangay.onrender.com',
     description: 'School-community support, outreach, and resource coordination platform.'
+  },
+  {
+    category: 'Education & institutional systems',
+    title: 'Pangangan ES Library Hub',
+    liveUrl: 'https://pesbooks.onrender.com',
+    description: 'Elementary school digital library showcasing storybooks, Philippine folklore, and DepEd learning materials for young readers.'
+  },
+  {
+    category: 'Education & institutional systems',
+    title: 'e-FTNHS Faculty Portal',
+    liveUrl: 'https://eftnhs.onrender.com',
+    description: 'Integrated school management portal for faculty scheduling, lesson plan auditing, and performance tracking.'
   }
 ];
 
@@ -142,7 +166,7 @@ expectedProjects.forEach((expected, i) => {
     process.exit(1);
   }
 });
-console.log('PASS: All 16 projects match CONTENT.md 1:1 on Title, Category, URL, and Description.');
+console.log('PASS: All 20 projects match CONTENT.md 1:1 on Title, Category, URL, and Description.');
 
 // 3. Featured Flag Check Across Categories
 const featuredCategories = new Set(projects.filter(p => p.featured).map(p => p.category));

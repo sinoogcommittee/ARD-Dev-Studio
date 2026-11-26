@@ -53,7 +53,7 @@ export default function ProjectGallery() {
             Production Systems &amp; Web Applications
           </h2>
           <p className="text-base sm:text-lg text-[#A1A1AA] leading-relaxed">
-            All 16 production applications deployed live on the web, spanning healthcare,
+            All 20 production applications deployed live on the web, spanning healthcare,
             civic governance, sports tabulation, and educational platforms. Click any card to inspect architecture.
           </p>
         </RevealDiv>

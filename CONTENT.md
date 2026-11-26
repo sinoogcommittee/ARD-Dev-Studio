@@ -11,7 +11,7 @@ Use this file as the factual source for the website. Resume facts are user-provi
 - Phone: +63 960 676 8549
 - Facebook: https://facebook.com/realnariel
 - Availability: Project-based, freelance, part-time, or full-time remote roles
-- Resume claim: 16+ live deployed web apps; 10+ years in IT systems and database operations
+- Resume claim: 20+ live deployed web apps; 10+ years in IT systems and database operations
 - Profile summary: Web applications and IT solutions designed to solve real-world needs for organizations and communities.
 - Developer profile: Computer Engineer and full-stack developer with experience in software engineering, web development, database systems administration, IT infrastructure, and technical instruction. Builds and deploys production web applications for individuals, agencies, and businesses.
 
@@ -23,8 +23,10 @@ Each entry includes the resume's project name, deployment, and scope. Link each 
 | --- | --- | --- | --- |
 | Healthcare & business operations | DentaPrime Clinic Portal | https://dentaprimedemo.onrender.com | Dental clinic management with patient scheduling, treatment tracking, and service catalog. |
 | Healthcare & business operations | The Boarders App | https://theboarders.onrender.com | Collaborative shared-household management and automated expense splitting. |
+| Healthcare & business operations | Carl’s Fried | https://carlsfried.onrender.com | Online storefront and ordering web application for a fried food business, featuring a digital menu and customer ordering. |
 | Civic, government & tourism | e-KUMBATI District Portal | https://ekumbatidemo.onrender.com | Constituent services with program tracking, action-center request workflows, and directory tools. |
 | Civic, government & tourism | Suroy Guindulman | https://suroyguindulman.onrender.com | Municipal tourism portal showcasing destinations, itineraries, and local guides. |
+| Civic, government & tourism | Guindulman Website | https://guindulmandemo.onrender.com | Official municipal government web portal featuring citizen services, transparency reports, barangay directory, and emergency hotlines. |
 | Events, registration & scoring | Sinoog 2027 Event Hub | https://sinoog2027.onrender.com | Event registration, participant management, and operational dashboard; React and Supabase. |
 | Events, registration & scoring | ExeCon 2026 Platform | https://execon.onrender.com | Conference and executive-event logistics, scheduling, and attendee management. |
 | Events, registration & scoring | Bohol Meet Scoring System | https://boholmeet.onrender.com | Real-time provincial athletic scoring, medal tallying, and results portal. |
@@ -37,6 +39,8 @@ Each entry includes the resume's project name, deployment, and scope. Link each 
 | Education & institutional systems | FerminExam Assessment | https://ferminexam.onrender.com | Digital examination, automated grading, and student assessment application. |
 | Education & institutional systems | FTNHS Weather Hub | https://ftnhsweatherhub.onrender.com | Decision-support dashboard determining learning modalities from weather thresholds. |
 | Education & institutional systems | FTNHS Tinabangay Portal | https://ftnhstinabangay.onrender.com | School-community support, outreach, and resource coordination platform. |
+| Education & institutional systems | Pangangan ES Library Hub | https://pesbooks.onrender.com | Elementary school digital library showcasing storybooks, Philippine folklore, and DepEd learning materials for young readers. |
+| Education & institutional systems | e-FTNHS Faculty Portal | https://eftnhs.onrender.com | Integrated school management portal for faculty scheduling, lesson plan auditing, and performance tracking. |
 
 ## Skills
 

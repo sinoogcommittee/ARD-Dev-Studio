@@ -103,8 +103,8 @@ export default function Hero() {
 
             <div className="hero-actions">
               <motion.div ref={primaryRef} style={primaryStyle} className="magnetic-wrap">
-                <Link to="/projects" aria-label="Explore 16 Deployments" className="btn-gold-primary hero-cta border-beam">
-                  <span className="hero-cta-label-full">Explore 16 Deployments</span>
+                <Link to="/projects" aria-label="Explore All Deployments" className="btn-gold-primary hero-cta border-beam">
+                  <span className="hero-cta-label-full">Explore All Deployments</span>
                   <span className="hero-cta-label-compact" aria-hidden="true">Explore Work</span>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M7 13l5 5 5-5M12 6v12" />
@@ -123,7 +123,7 @@ export default function Hero() {
             </div>
 
             <div className="hero-metrics" aria-label="Professional highlights">
-              <div className="metric-item"><strong><Counter end={16} suffix="+" /></strong><span>Live Deployed Apps</span></div>
+              <div className="metric-item"><strong><Counter end={20} suffix="+" /></strong><span>Live Deployed Apps</span></div>
               <div className="metric-item"><strong><Counter end={10} suffix="+" /></strong><span>Years in IT</span></div>
               <div className="metric-item"><strong><Counter end={4} /></strong><span>Core Domains</span></div>
               <div className="metric-item metric-location"><strong>Bohol, Philippines</strong><span>Guinacot, Guindulman</span></div>

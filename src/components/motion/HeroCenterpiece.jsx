@@ -21,7 +21,7 @@ export default function HeroCenterpiece() {
 
       <div className="telemetry-badge badge-live">
         <Activity size={13} strokeWidth={1.8} aria-hidden="true" />
-        <span><strong>16+</strong><small>LIVE SYSTEMS</small></span>
+        <span><strong>20+</strong><small>LIVE SYSTEMS</small></span>
       </div>
       <div className="telemetry-badge badge-stack">
         <Code2 size={14} strokeWidth={1.8} aria-hidden="true" />

@@ -63,12 +63,14 @@ assert('External links open new tab',   js.includes('_blank'));
 assert('mailto link',                   js.includes('mailto:'));
 assert('tel link',                      js.includes('tel:'));
 assert('Facebook link',                 js.includes('facebook.com/realnariel'));
-assert('All 16 live URLs present',
+assert('All live URLs present',
   [
     'dentaprimedemo.onrender.com',
     'theboarders.onrender.com',
+    'carlsfried.onrender.com',
     'ekumbatidemo.onrender.com',
     'suroyguindulman.onrender.com',
+    'guindulmandemo.onrender.com',
     'sinoog2027.onrender.com',
     'execon.onrender.com',
     'boholmeet.onrender.com',
@@ -81,6 +83,8 @@ assert('All 16 live URLs present',
     'ferminexam.onrender.com',
     'ftnhsweatherhub.onrender.com',
     'ftnhstinabangay.onrender.com',
+    'pesbooks.onrender.com',
+    'eftnhs.onrender.com',
   ].every(url => js.includes(url))
 );
 assert('Contact email in bundle',       js.includes('rieldiango24@gmail.com'));
