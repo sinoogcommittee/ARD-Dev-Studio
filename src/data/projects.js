@@ -3,7 +3,7 @@
  * 
  * Strict source of truth: CONTENT.md
  * Contains all 20 live deployments with stable IDs, exact categories,
- * titles, concise descriptions, exact HTTPS URLs, stack tags, and featured/highlight flags.
+ * titles, concise descriptions, exact HTTPS URLs, stack tags, preview images, and featured/highlight flags.
  */
 
 export const PROJECT_CATEGORIES = [
@@ -23,6 +23,7 @@ export const projects = [
     liveUrl: 'https://dentaprimedemo.onrender.com',
     description: 'Dental clinic management with patient scheduling, treatment tracking, and service catalog.',
     stack: ['React', 'Node.js', 'PostgreSQL', 'Tailwind CSS'],
+    previewImage: '/images/highlight_projects_preview/Dentaprime.png',
     featured: true
   },
   {
@@ -32,6 +33,7 @@ export const projects = [
     liveUrl: 'https://theboarders.onrender.com',
     description: 'Collaborative shared-household management and automated expense splitting.',
     stack: ['React', 'JavaScript', 'Tailwind CSS'],
+    previewImage: '/images/highlight_projects_preview/The Boarders.png',
     featured: false
   },
   {
@@ -54,6 +56,7 @@ export const projects = [
     liveUrl: 'https://ekumbatidemo.onrender.com',
     description: 'Constituent services with program tracking, action-center request workflows, and directory tools.',
     stack: ['React', 'Tailwind CSS', 'REST APIs'],
+    previewImage: '/images/highlight_projects_preview/e-KUMBATI.png',
     featured: true
   },
   {
@@ -74,6 +77,7 @@ export const projects = [
     liveUrl: 'https://guindulmandemo.onrender.com',
     description: 'Official municipal government web portal featuring citizen services, transparency reports, barangay directory, and emergency hotlines.',
     stack: ['React', 'Tailwind CSS', 'Supabase'],
+    previewImage: '/images/highlight_projects_preview/Guindulman Website.png',
     featured: false
   },
 
@@ -96,6 +100,7 @@ export const projects = [
     liveUrl: 'https://execon.onrender.com',
     description: 'Conference and executive-event logistics, scheduling, and attendee management.',
     stack: ['React', 'JavaScript', 'Tailwind CSS'],
+    previewImage: '/images/highlight_projects_preview/Execon.png',
     featured: false
   },
   {
@@ -116,6 +121,7 @@ export const projects = [
     liveUrl: 'https://congmeet.onrender.com',
     description: 'Multi-municipality sports competition management and live tabulation.',
     stack: ['React', 'JavaScript', 'Tailwind CSS'],
+    previewImage: '/images/highlight_projects_preview/Congressional Meet.png',
     featured: false
   },
   {
@@ -125,6 +131,7 @@ export const projects = [
     liveUrl: 'https://calapedistrictmeet.onrender.com',
     description: 'District athletic scoring engine for event encoding and standings.',
     stack: ['React', 'JavaScript', 'Tailwind CSS'],
+    previewImage: '/images/highlight_projects_preview/Calape District Meet.png',
     featured: false
   },
   {
@@ -134,6 +141,7 @@ export const projects = [
     liveUrl: 'https://locatumeet.onrender.com',
     description: 'Sports meet results and event coordination web application.',
     stack: ['React', 'JavaScript', 'Tailwind CSS'],
+    previewImage: '/images/highlight_projects_preview/Locatu Meet.png',
     featured: false
   },
   {
@@ -143,6 +151,7 @@ export const projects = [
     liveUrl: 'https://abigailandwilt.onrender.com',
     description: 'Event logistics, digital invitation, and personalized RSVP platform.',
     stack: ['React', 'Tailwind CSS', 'Cloudflare R2'],
+    previewImage: '/images/highlight_projects_preview/Abigail and Wilt Wedding Hub.png',
     featured: false
   },
 
@@ -154,6 +163,7 @@ export const projects = [
     liveUrl: 'https://smartftnhs.onrender.com',
     description: 'School operations hub built with React, Tailwind CSS, and Supabase.',
     stack: ['React', 'Tailwind CSS', 'Supabase'],
+    previewImage: '/images/highlight_projects_preview/Smart FTNHS.png',
     featured: true
   },
   {
@@ -163,6 +173,7 @@ export const projects = [
     liveUrl: 'https://ftnhs.somee.com',
     description: 'Institutional school web application built with .NET Technology.',
     stack: ['ASP.NET Core', 'C#', '.NET', 'Somee'],
+    previewImage: '/images/highlight_projects_preview/FTNHS Web Portal.png',
     featured: false
   },
   {
@@ -172,6 +183,7 @@ export const projects = [
     liveUrl: 'https://ferminexam.onrender.com',
     description: 'Digital examination, automated grading, and student assessment application.',
     stack: ['React', 'JavaScript', 'Tailwind CSS'],
+    previewImage: '/images/highlight_projects_preview/Fermin Exam Assessment.png',
     featured: false
   },
   {
@@ -181,6 +193,7 @@ export const projects = [
     liveUrl: 'https://ftnhsweatherhub.onrender.com',
     description: 'Decision-support dashboard determining learning modalities from weather thresholds.',
     stack: ['React', 'Tailwind CSS', 'REST APIs'],
+    previewImage: '/images/highlight_projects_preview/FTNHS Weather Hub.png',
     featured: false
   },
   {
@@ -190,6 +203,7 @@ export const projects = [
     liveUrl: 'https://ftnhstinabangay.onrender.com',
     description: 'School-community support, outreach, and resource coordination platform.',
     stack: ['React', 'Tailwind CSS', 'Supabase'],
+    previewImage: '/images/highlight_projects_preview/FTNHS Tinabangay.png',
     featured: false
   },
   {
@@ -199,6 +213,7 @@ export const projects = [
     liveUrl: 'https://pesbooks.onrender.com',
     description: 'Elementary school digital library showcasing storybooks, Philippine folklore, and DepEd learning materials for young readers.',
     stack: ['React', 'Tailwind CSS', 'Supabase'],
+    previewImage: '/images/highlight_projects_preview/Panganga ES Library Hub.png',
     featured: false
   },
   {
@@ -208,6 +223,7 @@ export const projects = [
     liveUrl: 'https://eftnhs.onrender.com',
     description: 'Integrated school management portal for faculty scheduling, lesson plan auditing, and performance tracking.',
     stack: ['React', 'Tailwind CSS', 'Supabase'],
+    previewImage: '/images/highlight_projects_preview/e-FTNHS.png',
     featured: false
   }
 ];

@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { projects, PROJECT_CATEGORIES } from './src/data/projects.js';
 import { profile } from './src/data/profile.js';
 import { supabase, isSupabaseConfigured } from './src/lib/supabase.js';
@@ -76,7 +77,7 @@ const expectedProjects = [
   {
     category: 'Events, registration & scoring',
     title: 'Calape District Meet',
-    liveUrl: 'https://calapedistrictmeet.onrender.com',
+    liveUrl: 'https://calapemeet.onrender.com',
     description: 'District athletic scoring engine for event encoding and standings.'
   },
   {
@@ -163,6 +164,10 @@ expectedProjects.forEach((expected, i) => {
   }
   if (!Array.isArray(match.stack) || match.stack.length === 0) {
     console.error(`FAIL: Missing stack tags for ${match.title}`);
+    process.exit(1);
+  }
+  if (!match.previewImage || !fs.existsSync('public' + match.previewImage)) {
+    console.error(`FAIL: Missing previewImage on disk for ${match.title}: ${match.previewImage}`);
     process.exit(1);
   }
 });

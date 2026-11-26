@@ -31,7 +31,7 @@ Each entry includes the resume's project name, deployment, and scope. Link each 
 | Events, registration & scoring | ExeCon 2026 Platform | https://execon.onrender.com | Conference and executive-event logistics, scheduling, and attendee management. |
 | Events, registration & scoring | Bohol Meet Scoring System | https://boholmeet.onrender.com | Real-time provincial athletic scoring, medal tallying, and results portal. |
 | Events, registration & scoring | Congressional Meet Portal | https://congmeet.onrender.com | Multi-municipality sports competition management and live tabulation. |
-| Events, registration & scoring | Calape District Meet | https://calapedistrictmeet.onrender.com | District athletic scoring engine for event encoding and standings. |
+| Events, registration & scoring | Calape District Meet | https://calapemeet.onrender.com | District athletic scoring engine for event encoding and standings. |
 | Events, registration & scoring | Locatu Meet System | https://locatumeet.onrender.com | Sports meet results and event coordination web application. |
 | Events, registration & scoring | Abigail & Wilt Wedding Hub | https://abigailandwilt.onrender.com | Event logistics, digital invitation, and personalized RSVP platform. |
 | Education & institutional systems | Smart FTNHS Management | https://smartftnhs.onrender.com | School operations hub built with React, Tailwind CSS, and Supabase. |

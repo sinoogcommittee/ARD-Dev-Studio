@@ -98,7 +98,7 @@ export default function ProjectModal({ project, onClose }) {
           {project.previewImage && (
             <div className="relative w-full aspect-video bg-[#090A0D] border border-[#292C32] rounded-xl overflow-hidden flex items-center justify-center shadow-inner">
               <img
-                src={project.previewImage}
+                src={encodeURI(project.previewImage)}
                 alt={`${project.title} live interface preview`}
                 className="w-full h-full object-contain rounded"
               />

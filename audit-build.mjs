@@ -44,6 +44,31 @@ assert('PWA icons exist in dist',       fs.existsSync('dist/images/icon-192.png'
 assert('Original ARDDevStudioLogo.png preserved', fs.existsSync('dist/images/ARDDevStudioLogo.png'));
 assert('Social preview image exists in dist', fs.existsSync('dist/images/ARDDevStudioLogo-preview.png'));
 
+assert('All 20 project preview images exist in dist',
+  [
+    'Abigail and Wilt Wedding Hub.png',
+    'boholmeet.png',
+    'Calape District Meet.png',
+    'carlsfried.png',
+    'Congressional Meet.png',
+    'Dentaprime.png',
+    'e-FTNHS.png',
+    'e-KUMBATI.png',
+    'Execon.png',
+    'Fermin Exam Assessment.png',
+    'FTNHS Tinabangay.png',
+    'FTNHS Weather Hub.png',
+    'FTNHS Web Portal.png',
+    'Guindulman Website.png',
+    'Locatu Meet.png',
+    'Panganga ES Library Hub.png',
+    'sinoog2027.png',
+    'Smart FTNHS.png',
+    'suroyguindulman.png',
+    'The Boarders.png',
+  ].every(file => fs.existsSync(path.join('dist/images/highlight_projects_preview', file)))
+);
+
 // ── JS bundle — accessibility & semantic landmarks ───────────────────
 assert('Skip link present',             js.includes('skip-link'));
 assert('Main landmark',                 js.includes('"main"') || js.includes('main-content'));
@@ -75,7 +100,7 @@ assert('All live URLs present',
     'execon.onrender.com',
     'boholmeet.onrender.com',
     'congmeet.onrender.com',
-    'calapedistrictmeet.onrender.com',
+    'calapemeet.onrender.com',
     'locatumeet.onrender.com',
     'abigailandwilt.onrender.com',
     'smartftnhs.onrender.com',

@@ -79,7 +79,7 @@ export default function ProjectCard({ project, onSelect }) {
       {project.previewImage && (
         <div className="relative w-full aspect-video bg-[#090A0D] border border-[#292C32] rounded-lg overflow-hidden mb-4 group-hover:border-[#D6AD63]/50 transition-colors flex items-center justify-center z-10">
           <img
-            src={project.previewImage}
+            src={encodeURI(project.previewImage)}
             alt={`${project.title} live interface preview`}
             loading="lazy"
             className="w-full h-full object-contain rounded"

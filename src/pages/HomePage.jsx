@@ -213,7 +213,7 @@ export default function HomePage({ currentStatus }) {
                     {project.previewImage && (
                       <div className="relative w-full aspect-video bg-[#090A0D] border border-[#292C32] rounded-lg overflow-hidden mb-4 group-hover:border-[#D6AD63]/50 transition-colors flex items-center justify-center shadow-inner">
                         <img
-                          src={project.previewImage}
+                          src={encodeURI(project.previewImage)}
                           alt={`${project.title} live interface preview`}
                           loading="lazy"
                           className="w-full h-full object-contain rounded"
@@ -303,7 +303,7 @@ export default function HomePage({ currentStatus }) {
                     {project.previewImage && (
                       <div className="relative w-full aspect-video bg-[#090A0D] border border-[#292C32] rounded-lg overflow-hidden mb-4 flex items-center justify-center">
                         <img
-                          src={project.previewImage}
+                          src={encodeURI(project.previewImage)}
                           alt={`${project.title} live interface preview`}
                           loading="lazy"
                           className="w-full h-full object-contain rounded"

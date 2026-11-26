@@ -571,7 +571,7 @@ The following project names, deployment hosts, and system descriptions are trans
 - **Case-study details still needed:** Municipality/team structure, tabulation workflows, event modules, screenshots, technology assignment, and outcomes.
 
 ### 9. Calape District Meet
-- **Deployment:** `https://calapedistrictmeet.onrender.com`
+- **Deployment:** `https://calapemeet.onrender.com`
 - **Résumé description:** District-level athletic scoring engine streamlining event encoding and standings.
 - **Category:** Event Management, Registration & Live Scoring
 - **Case-study details still needed:** Event encoding workflow, standings logic, roles, screenshots, technology assignment, and outcomes.
