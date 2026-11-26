@@ -128,7 +128,7 @@ export const projects = [
     id: 'calape-district-meet',
     title: 'Calape District Meet',
     category: 'Events, registration & scoring',
-    liveUrl: 'https://calapedistrictmeet.onrender.com',
+    liveUrl: 'https://calapemeet.onrender.com',
     description: 'District athletic scoring engine for event encoding and standings.',
     stack: ['React', 'JavaScript', 'Tailwind CSS'],
     previewImage: '/images/highlight_projects_preview/Calape District Meet.png',
